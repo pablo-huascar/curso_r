@@ -1,5 +1,7 @@
 ---
 title: "R para análise de dados em Psicologia"
+execute:
+  echo: true
 author: "Francisco Pablo Huascar Aragão Pinheiro"
 institute: <img src="images/ufc_horizontal.png" alt="My Logo" width="250">
 format: 
@@ -13,7 +15,10 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r echo=FALSE,include=FALSE}
+```{r}
+#| label: setup
+#| echo: false
+#| include: false
 library(tidyverse)
 library(palmerpenguins)
 ```
@@ -236,13 +241,13 @@ Estes slides tem como base o conteúdo da segunda edição
 
 Execução de códigos no Script
 
-ctrl + enter
+- Atalho de declado: ctrl + enter
 
 ![](images/rodar_codigo.png)
 
 ## Cálculos matemáticos básicos
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
 10+10
 10/2
 10*2+5
@@ -255,11 +260,12 @@ sqrt(100)
 
 ## Criação de objetos com o operador de atribuição \<-
 
-O valor de x não é impresso; é apenas armazenado.
+-   O valor de x não é impresso; é apenas armazenado.
 
-Para visualizar o valor, execute x no script.
+-   Para visualizar o valor, execute x no script.
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
+
 x <- 3
 x
 y <- 10*10
@@ -268,7 +274,7 @@ y
 
 ## Todas as instruções de atribuição têm o mesmo formato
 
-```{r echo=TRUE}
+```{r}
 
 nome_do_objeto <- "valor"
 
@@ -276,13 +282,13 @@ nome_do_objeto
 ```
 
 ::: incremental
--   Atalho de teclado do R Studio: Alt + "-" (sinal de menos)
 -   Ao ler esse código, diga: "o nome do objeto obtém valor"
+-   Atalho de teclado do R Studio: Alt + "-" (sinal de menos)
 :::
 
 ## Você pode combinar múltiplos elmentos em um vetor com c() - "concatenar"
 
-```{r echo=TRUE}
+```{r}
 z <- c(1,2,10,12)
 z
 ```
@@ -291,7 +297,7 @@ z
 
 ## Aritimética básica nos vetores é aplicada a cada elemento do vetor
 
-```{r echo=TRUE}
+```{r}
 z
 z*2
 x
@@ -306,7 +312,7 @@ y+2
 
 -   O R diferencia MAIÚSCULAS de minúsculas (case sensitive)
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, eval = F}
+```{r eval = F}
 #| code-line-numbers: "|3"
 a <- letters
 
@@ -315,7 +321,8 @@ A
 
     Error: object 'A' not found
 
-```{r echo=TRUE}
+```{r}
+#| code-line-numbers: "|3"
 a <- letters
 
 a
@@ -325,7 +332,7 @@ a
 
 -   Cuidado com erros de digitação
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, eval = F}
+```{r message=FALSE, warning=FALSE, eval = F}
 #| code-line-numbers: "|3"
 data("cars")
 
@@ -337,6 +344,7 @@ carz
 # Cars
 
 ```{r echo=TRUE}
+#| code-line-numbers: "|3"
 data("cars")
 
 cars 
@@ -346,7 +354,7 @@ cars
 
 R irá ignorar qualquer texto após \# para essa linha.
 
-```{r echo = TRUE}
+```{r}
 # Criação de um vetor com os 5 primeiros números pares
 
 pares <- c(2,4,6,8,10)
@@ -356,22 +364,31 @@ pares
 # Elevando os pares ao quadrado
 
 (pares)^2
-
 ```
 
-## Demarcar seções do no código
+## Uso dos comentários: Demarcar seções do no código
 
-```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=3}
-#| code-line-numbers: "|1|3|"
+```{r}
+#| code-line-numbers: "|1|5|"
+#| output-location: column
+#| fig-height: 7
+#| fig-dpi: 600  
+
 
 # Obtenção dos dados
+
 penguins <- penguins
+
 # Gráficos
+
 penguins |> 
   filter(!is.na(sex)) |> 
-  ggplot(aes(flipper_length_mm, bill_length_mm, color = sex, size = body_mass_g)) +
+  ggplot(aes(flipper_length_mm, 
+             bill_length_mm, 
+             color = sex,
+             size = body_mass_g)) +
   geom_point(alpha = 0.5) +
-  facet_wrap(~species)
+  facet_wrap(~species) 
 ```
 
 ## Como usar os comentários?
@@ -406,5 +423,25 @@ penguins |>
 ```
 
 ## 3.3 O que é um nome?
+
+- Os nomes dos objetos devem começar com uma letra
+- Podem conter apenas letras, números, _ e .
+- Os nomes de seus objetos devem ser descritivos
+- Sugerimos a seguinte convenção:
+  - letras minúsculas separadas com _
+  
+## Exemplos de nomes
+
+- i_use_snake_case
+- otherPeopleUseCamelCase
+- some.people.use.periods
+- And_aFew.People_RENOUNCEconvention
+
+## Dica - auto completar
+
+- Digite ao menos 3 caracteres e use a tecla tab
+- O R Studio vai dar opções para escolher
+- A função de auto completar é nossa amiga: use sempre!
+
 
 
