@@ -462,7 +462,7 @@ penguins |>
 
 ## 3.4
 
-## Compartilhar conhecimento sempre
+## Compartilhar conhecimento sempre!
 
 O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui], assim como os slides em formato PDF (https://github.com/pablo-huascar/curso_r)
 
