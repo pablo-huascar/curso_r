@@ -399,13 +399,20 @@ penguins |>
 -   Descobrir por que algo foi feito é muito mais difícil
 :::
 
-## Sem Explicações para a equipe
+## Sem explicações para a equipe
 
-```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
-#| code-line-numbers: "|1|2|3|4|5"
+```{r fig.height=4}
+#| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10"
+#| output-location: column
+#| fig-height: 7
+#| fig-dpi: 600  
 penguins |> 
-  filter(island == "Biscoe",!is.na(sex)) |>
-  ggplot(aes(flipper_length_mm, bill_length_mm, color = sex, size = body_mass_g)) +
+  filter(island == "Biscoe",
+         !is.na(sex)) |>
+  ggplot(aes(flipper_length_mm, 
+             bill_length_mm, 
+             color = sex, size = 
+               body_mass_g)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~species)
 ```
@@ -413,11 +420,19 @@ penguins |>
 ## Com explicações para a equipe
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
-#| code-line-numbers: "|1"
-# O relatório 3 só precisava dos dados da ilha Biscoe
+#| code-line-numbers: "|1|2"
+#| output-location: column
+#| fig-height: 7
+#| fig-dpi: 600  
+# O relatório 3 só precisava dos 
+#dados da ilha Biscoe
 penguins |> 
-  filter(island == "Biscoe",!is.na(sex)) |>
-  ggplot(aes(flipper_length_mm, bill_length_mm, color = sex, size = body_mass_g)) +
+  filter(island == "Biscoe",
+         !is.na(sex)) |>
+  ggplot(aes(flipper_length_mm, 
+             bill_length_mm, color = 
+               sex, 
+             size = body_mass_g)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~species)
 ```
@@ -437,11 +452,23 @@ penguins |>
 - some.people.use.periods
 - And_aFew.People_RENOUNCEconvention
 
+## Exercícios
+
 ## Dica - auto completar
 
 - Digite ao menos 3 caracteres e use a tecla tab
 - O R Studio vai dar opções para escolher
 - A função de auto completar é nossa amiga: use sempre!
+
+## 3.4
+
+## Compartilhar conhecimento sempre
+
+O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui], assim como os slides em formato PDF (https://github.com/pablo-huascar/curso_r)
+
+<https://github.com/pablo-huascar/curso_r>
+
+
 
 
 
