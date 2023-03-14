@@ -7,6 +7,8 @@ institute: <img src="images/ufc_horizontal.png" alt="My Logo" width="250">
 format: 
   revealjs:
       theme: simple
+      fig-width: 6
+      fig-asp: 0.618
 progress: true
 slide-number: true
 logo: images/lappsie.png
@@ -23,7 +25,7 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-## Quem sou eu?
+## Quem sou eu
 
 ::: columns
 ::: {.column width="40%"}
@@ -31,34 +33,17 @@ library(palmerpenguins)
 :::
 
 ::: {.column width="60%"}
-<ul>
-
-<li style="font-size:25pt;line-height: 100%; margin-bottom: 10px;">
-
-Psicólogo
-
-</li>
-
-<li style="font-size:25pt;line-height: 100%; margin-bottom: 10px;">
-
-Doutor em Educação
-
-</li>
-
-<li style="font-size:25pt;line-height: 100%; margin-bottom: 10px;">
-
-Professor no campus Sobral da UFC
-
-</li>
-
-<li style="font-size:25pt;line-height: 100%; margin-bottom: 10px;">
-
-Recentemente, um entusiasta do R
-
-</li>
-
-</ul>
+::: incremental
+-   [Psicólogo]{style="font-size:25pt;"}
+-   [Doutor em educação]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
 :::
+:::
+:::
+
+::: footer
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
 :::
 
 ## Por que usar o R?
@@ -241,7 +226,7 @@ Estes slides tem como base o conteúdo da segunda edição
 
 Execução de códigos no Script
 
-- Atalho de declado: ctrl + enter
+-   Atalho de declado: ctrl + enter
 
 ![](images/rodar_codigo.png)
 
@@ -371,8 +356,9 @@ pares
 ```{r}
 #| code-line-numbers: "|1|5|"
 #| output-location: column
-#| fig-height: 7
-#| fig-dpi: 600  
+#| out-width: "250%"
+#| fig-dpi: 600
+  
 
 
 # Obtenção dos dados
@@ -391,7 +377,7 @@ penguins |>
   facet_wrap(~species) 
 ```
 
-## Como usar os comentários?
+## Outro uso dos comentários: explicações
 
 ::: incremental
 -   Use comentários para explicar o porquê do seu código, não o como ou o quê
@@ -404,7 +390,7 @@ penguins |>
 ```{r fig.height=4}
 #| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10"
 #| output-location: column
-#| fig-height: 7
+#| out-width: "400%"
 #| fig-dpi: 600  
 penguins |> 
   filter(island == "Biscoe",
@@ -422,8 +408,8 @@ penguins |>
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
 #| code-line-numbers: "|1|2"
 #| output-location: column
-#| fig-height: 7
-#| fig-dpi: 600  
+#| out-width: "400%"
+#| fig-dpi: 600
 # O relatório 3 só precisava dos 
 #dados da ilha Biscoe
 penguins |> 
@@ -439,36 +425,114 @@ penguins |>
 
 ## 3.3 O que é um nome?
 
-- Os nomes dos objetos devem começar com uma letra
-- Podem conter apenas letras, números, _ e .
-- Os nomes de seus objetos devem ser descritivos
-- Sugerimos a seguinte convenção:
-  - letras minúsculas separadas com _
-  
+-   Os nomes dos objetos devem começar com uma letra
+-   Podem conter apenas letras, números, \_ e .
+-   Os nomes de seus objetos devem ser descritivos
+-   Sugerimos a seguinte convenção:
+    -   letras_minúsculas_separadas_com\_
+
 ## Exemplos de nomes
 
-- i_use_snake_case
-- otherPeopleUseCamelCase
-- some.people.use.periods
-- And_aFew.People_RENOUNCEconvention
+-   i_use_snake_case
+-   otherPeopleUseCamelCase
+-   some.people.use.periods
+-   And_aFew.People_RENOUNCEconvention
 
 ## Exercícios
 
-## Dica - auto completar
+## Dica: auto completar
 
-- Digite ao menos 3 caracteres e use a tecla tab
-- O R Studio vai dar opções para escolher
-- A função de auto completar é nossa amiga: use sempre!
+-   Digite ao menos 3 caracteres e use a tecla tab
+-   O R Studio vai dar opções para escolher
+-   A função de auto completar é nossa amiga: use sempre!
 
-## 3.4
+## 3.4 Usando Funções
+
+O R possui uma grande coleção de funções integradas chamadas desta maneira:
+
+```{r eval=FALSE}
+nome_da_funcao(argumento1 = valor1, argumento2 = valor2, ...)
+```
+
+Ao pressionar Tab dentro dos parênteses o R irá mostrar os argumentos disponíveis
+
+## Exemplo: Função seq()
+
+[Os dois primeiros argumentos da função seq são: from e to]{style="font-size:20pt;"}
+
+```{r}
+# Crie uma sequência de números de 1 a 10
+seq(from=1, to=10)
+```
+
+[Terceiro argumento: by]{style="font-size:20pt;"}
+
+```{r}
+# Agora, o incremento da sequência é por 2
+seq(from=1, to=10, by = 2)
+```
+
+[Se os valores dos argumentos estiverem na ordem da função, é possível omití-los]{style="font-size:20pt;"}
+
+```{r}
+seq(1,10,2)
+```
+
+## Exemplo: Função seq()
+
+[Ao explicitar os argumentos, eles podem aparecer em qualquer ordem:]{style="font-size:20pt;"}
+
+```{r}
+seq(by=2,to=10,from=1)
+```
+
+[Porém, não será obitdo o mesmo resultado mudando os valores de lugar sem a explicitação dos argumentos]{style="font-size:20pt;line-height: 50%"}
+
+```{r}
+seq(2,10,1)
+```
+
+## Como saber os argumentos das funções?
+
+```{r eval=FALSE}
+?nome_da_funcao
+
+help(nome_da_funcao)
+```
+
+## Help
+
+```{r eval=FALSE}
+?seq
+```
+
+![](images/help.png){width="610"}
+
+## Exercícios
+
+## Funções básicas importantes
+
+```{r}
+z <- c(2,2,6,11,9,20)
+sum(z)
+mean(z)
+median(z)
+```
+
+## Funções básicas importantes
+
+```{r}
+z <- c(2,2,6,11,9,20)
+range(z)
+min(z)
+max(z)
+quantile(z)
+```
+
+## Exercícios
 
 ## Compartilhar conhecimento sempre!
 
-O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui], assim como os slides em formato PDF (https://github.com/pablo-huascar/curso_r)
+O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui](https://github.com/pablo-huascar/curso_r), assim como os slides em formato PDF:
 
 <https://github.com/pablo-huascar/curso_r>
-
-
-
-
-
