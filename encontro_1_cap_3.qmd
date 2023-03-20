@@ -1,5 +1,6 @@
 ---
 title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
 execute:
   echo: true
 author: "Francisco Pablo Huascar Aragão Pinheiro"
@@ -241,13 +242,25 @@ Execução de códigos no Script
 sqrt(100)
 ```
 
-## Exercícios
+## Exercícios 1
+
+- Divida 250 por 10
+- Eleve 11 ao quadrado
+- Multiplique 10 por 2 e some 5
+- Subtraia 10 de 20 e divida por 10
+- Some 40 e 50 e multiplique por 10
+
+## Exercícios 1 - Respostas
+
+```{r}
+250/10
+11^2
+10*2+5
+(20-10)/10
+(40+50)/10
+```
 
 ## Criação de objetos com o operador de atribuição \<-
-
--   O valor de x não é impresso; é apenas armazenado.
-
--   Para visualizar o valor, execute x no script.
 
 ```{r}
 
@@ -256,6 +269,8 @@ x
 y <- 10*10
 y
 ```
+-   O valores de `x` ou `y` não são impressos; apenas armazenados.
+-   Para visualizar o valor de um `objeto`, execute o `objeto` no script.
 
 ## Todas as instruções de atribuição têm o mesmo formato
 
@@ -271,27 +286,41 @@ nome_do_objeto
 -   Atalho de teclado do R Studio: Alt + "-" (sinal de menos)
 :::
 
+## Exercícios 2
+
+Crie os seguintes objetos:
+
+- `a` com valor `2`
+- `b` com valor `10`
+- `c` com valor `5`
+
 ## Você pode combinar múltiplos elmentos em um vetor com c() - "concatenar"
 
 ```{r}
 z <- c(1,2,10,12)
 z
+w <- c(3,5,6,8)
+w
 ```
 
-## Exercícios
+## Exercícios 2
+- Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
+- Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
+
+## 
 
 ## Aritimética básica nos vetores é aplicada a cada elemento do vetor
 
 ```{r}
 z
 z*2
-x
-x*3
-y
-y+2
+w
+w*3
 ```
 
-## Exercícios
+## Exercícios 3
+
+Crie os objetos `z <- c(1,2,10,12)` e  `w <- c(3,5,6,8)`
 
 ## Dica 1
 
