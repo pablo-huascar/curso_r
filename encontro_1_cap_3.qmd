@@ -293,8 +293,47 @@ Crie os seguintes objetos:
 - `a` com valor `2`
 - `b` com valor `10`
 - `c` com valor `5`
+- `d` com valor `10*2`
 
-## Você pode combinar múltiplos elmentos em um vetor com c() - "concatenar"
+## Exercícios 2 - Respostas
+
+```{r}
+a <- 2
+a
+b <- 10
+b
+c <- 5
+c
+d <- 10*2
+d
+```
+
+## As operaões podem ser realizadas entre vetores
+
+```{r}
+a*b
+a+b
+a/b
+a-b
+```
+
+## Exercícios 3
+
+- Divida `c` por `d` e some `a`
+- Some `a` e `b` e divida por `c`
+- Multiplique `a` por `b` e some `d`
+- Some `c` com `d` e divida por `a`
+
+## Exercícios 3 - Respostas
+
+```{r}
+(c/d) + a
+(a+b)/c
+(a*b)+d
+(c+d)/a
+```
+
+## É possível combinar múltiplos elmentos em um vetor com c() - "concatenar"
 
 ```{r}
 z <- c(1,2,10,12)
@@ -302,12 +341,6 @@ z
 w <- c(3,5,6,8)
 w
 ```
-
-## Exercícios 2
-- Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
-- Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
-
-## 
 
 ## Aritimética básica nos vetores é aplicada a cada elemento do vetor
 
@@ -320,7 +353,44 @@ w*3
 
 ## Exercícios 3
 
-Crie os objetos `z <- c(1,2,10,12)` e  `w <- c(3,5,6,8)`
+- Crie os objetos `z <- c(1,2,10,12)` e  `w <- c(3,5,6,8)`
+- Eleve `z` ao quadrado
+- Some 10 a `w`
+- Divida `z` por 3
+- Some `z` e `w`
+- Divida `z` por `w`
+
+## Exercícios 3 - Respostas 
+
+```{r}
+z <- c(1,2,10,12)
+z
+w <- c(3,5,6,8)
+w
+z^2
+w+10
+z/3
+z+w
+z/w
+
+```
+
+## Exercícios 4
+- Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
+- Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
+- Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
+- Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura ao quadrado (em metros), crei um objeto imc com os valores do IMC de cada caso. 
+
+##  Exercícios 4 - respostas
+
+```{r}
+peso <- c(80.2, 56.3, 70.5,  60.3)
+peso
+altura <- c(1.75, 1.60, 1.65, 1.72)
+altura
+imc <- peso/altura^2
+imc
+```
 
 ## Dica 1
 
