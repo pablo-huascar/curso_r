@@ -226,7 +226,7 @@ Estes slides tem como base o conteúdo da segunda edição
 
 Execução de códigos no Script
 
--   Atalho de declado: ctrl + enter
+-   Atalho de de teclado: ctrl + enter
 
 ![](images/rodar_codigo.png)
 
