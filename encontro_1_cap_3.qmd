@@ -43,7 +43,7 @@ library(palmerpenguins)
 :::
 :::
 
-::: footer
+::: aside
 Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
 :::
 
@@ -218,7 +218,7 @@ Livro base para o mini curso
 
 <https://r4ds.hadley.nz/>
 
-::: footer
+::: aside
 Estes slides tem como base o conteúdo da segunda edição
 :::
 
