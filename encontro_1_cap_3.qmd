@@ -93,12 +93,13 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 :::
 
 ::: {.column width="50%"}
-Sim, mas é como aprender um novo idioma: há desconforto inicial, mas, com a prática, é possível se tornar fluente![^1]
+Sim, mas é como aprender um novo idioma: há desconforto inicial, mas, com a prática, é possível se tornar fluente!
 :::
 :::
 
-[^1]: E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse aprendizado
-
+::: aside
+E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse aprendizado
+:::
 ------------------------------------------------------------------------
 
 ::: {.fragment .fade-up}
@@ -117,7 +118,7 @@ Sim, mas é como aprender um novo idioma: há desconforto inicial, mas, com a pr
 
 [R Studio]{style="font-size: 100pt;color: white;"}
 
-# Vamos começar!
+## [Vamos começar!]{style="font-size: 130pt; line-height: 0.7; text-align: left; display: flex; align-items: center; justify-content: center;"} {transition="slide-in fade-out" transition-speed="slow"}
 
 ## Criação de um projeto - Passo 1
 
@@ -244,11 +245,11 @@ sqrt(100)
 
 ## Exercícios 1
 
-- Divida 250 por 10
-- Eleve 11 ao quadrado
-- Multiplique 10 por 2 e some 5
-- Subtraia 10 de 20 e divida por 10
-- Some 40 e 50 e multiplique por 10
+-   Divida 250 por 10
+-   Eleve 11 ao quadrado
+-   Multiplique 10 por 2 e some 5
+-   Subtraia 10 de 20 e divida por 10
+-   Some 40 e 50 e multiplique por 10
 
 ## Exercícios 1 - Respostas
 
@@ -269,8 +270,9 @@ x
 y <- 10*10
 y
 ```
+
 -   O valores de `x` ou `y` não são impressos; apenas armazenados.
--   Para visualizar o valor de um `objeto`, execute o `objeto` no script.
+-   Para visualizar o valor de um `objeto`, execute-o no script.
 
 ## Todas as instruções de atribuição têm o mesmo formato
 
@@ -290,10 +292,10 @@ nome_do_objeto
 
 Crie os seguintes objetos:
 
-- `a` com valor `2`
-- `b` com valor `10`
-- `c` com valor `5`
-- `d` com valor `10*2`
+-   `a` com valor `2`
+-   `b` com valor `10`
+-   `c` com valor `5`
+-   `d` com valor `10*2`
 
 ## Exercícios 2 - Respostas
 
@@ -308,7 +310,7 @@ d <- 10*2
 d
 ```
 
-## As operaões podem ser realizadas entre vetores
+## As operaões podem ser realizadas entre objetos
 
 ```{r}
 a*b
@@ -319,10 +321,10 @@ a-b
 
 ## Exercícios 3
 
-- Divida `c` por `d` e some `a`
-- Some `a` e `b` e divida por `c`
-- Multiplique `a` por `b` e some `d`
-- Some `c` com `d` e divida por `a`
+-   Divida `c` por `d` e some `a`
+-   Some `a` e `b` e divida por `c`
+-   Multiplique `a` por `b` e some `d`
+-   Some `c` com `d` e divida por `a`
 
 ## Exercícios 3 - Respostas
 
@@ -351,16 +353,24 @@ w
 w*3
 ```
 
-## Exercícios 3
+## Também é possível realizar operações com vetores
 
-- Crie os objetos `z <- c(1,2,10,12)` e  `w <- c(3,5,6,8)`
-- Eleve `z` ao quadrado
-- Some 10 a `w`
-- Divida `z` por 3
-- Some `z` e `w`
-- Divida `z` por `w`
+```{r}
+z+w
+z-w
+z-w^2
+```
 
-## Exercícios 3 - Respostas 
+## Exercícios 4
+
+-   Crie os vetores `z <- c(1,2,10,12)` e `w <- c(3,5,6,8)`
+-   Eleve `z` ao quadrado
+-   Some 10 a `w`
+-   Divida `z` por 3
+-   Multiplique `z` e `w`
+-   Divida `z` por `w`
+
+## Exercícios 4 - Respostas
 
 ```{r}
 z <- c(1,2,10,12)
@@ -375,13 +385,14 @@ z/w
 
 ```
 
-## Exercícios 4
-- Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
-- Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
-- Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
-- Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura ao quadrado (em metros), crei um objeto imc com os valores do IMC de cada caso. 
+## Exercícios 5
 
-##  Exercícios 4 - respostas
+-   Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
+-   Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
+-   Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
+-   Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura ao quadrado (em metros), crie um objeto imc com os valores do IMC de cada caso.
+
+## Exercícios 5 - respostas
 
 ```{r}
 peso <- c(80.2, 56.3, 70.5,  60.3)
@@ -450,14 +461,15 @@ pares
 (pares)^2
 ```
 
-## Uso dos comentários: Demarcar seções do no código
 
+
+## Uso dos comentários: Demarcar seções do no código {.smaller .scrollable} 
+::: panel-tabset
+### Código
 ```{r}
 #| code-line-numbers: "|1|5|"
-#| output-location: column
-#| out-width: "250%"
-#| fig-dpi: 600
-  
+#| echo: true
+#| eval: false
 
 
 # Obtenção dos dados
@@ -476,6 +488,25 @@ penguins |>
   facet_wrap(~species) 
 ```
 
+### Gráfico
+```{r}
+#| echo: false
+#| eval: true
+
+penguins |> 
+  filter(!is.na(sex)) |> 
+  ggplot(aes(flipper_length_mm, 
+             bill_length_mm, 
+             color = sex,
+             size = body_mass_g)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~species) 
+```
+
+:::
+
+
+
 ## Outro uso dos comentários: explicações
 
 ::: incremental
@@ -488,9 +519,10 @@ penguins |>
 
 ```{r fig.height=4}
 #| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10"
-#| output-location: column
-#| out-width: "400%"
+#| output-location: slide
+#| out-width: 400%
 #| fig-dpi: 600  
+
 penguins |> 
   filter(island == "Biscoe",
          !is.na(sex)) |>
@@ -506,8 +538,8 @@ penguins |>
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
 #| code-line-numbers: "|1|2"
-#| output-location: column
-#| out-width: "400%"
+#| output-location: slide
+#| out-width: 400%
 #| fig-dpi: 600
 # O relatório 3 só precisava dos 
 #dados da ilha Biscoe
@@ -621,7 +653,7 @@ median(z)
 ## Funções básicas importantes
 
 ```{r}
-z <- c(2,2,6,11,9,20)
+f <- c(2,2,6,11,9,20)
 range(z)
 min(z)
 max(z)
