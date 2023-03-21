@@ -142,3 +142,26 @@ Livro base para o mini curso
 Estes slides tem como base o conteúdo da segunda edição
 :::
 
+
+
+
+## ggplot2: Elegant Graphics for Data Analysis
+
+::: columns
+::: {.column width="50%"}
+Para apronfundar o conhecimento sobre gráficos
+:::
+
+::: {.column width="50%"}
+[![](images/ggplot.jpg){fig-align="right" width="380"}](https://r4ds.had.co.nz/)
+:::
+:::
+
+## ggplot2: Elegant Graphics for Data Analysis
+
+-   Neste [link](https://ggplot2-book.org/index.html "ggplot2: Elegant Graphics for Data Analysis") você pode acessar a terceira edição do livro que ainda está sendo finalizada::
+
+<https://ggplot2-book.org/index.html>
+
+
+
