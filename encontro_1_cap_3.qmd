@@ -4,7 +4,7 @@ subtitle: "Uma Introdução"
 execute:
   echo: true
 author: "Francisco Pablo Huascar Aragão Pinheiro"
-institute: <img src="images/ufc_horizontal.png" alt="My Logo" width="250">
+institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
       theme: simple
@@ -100,6 +100,7 @@ Sim, mas é como aprender um novo idioma: há desconforto inicial, mas, com a pr
 ::: aside
 E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse aprendizado
 :::
+
 ------------------------------------------------------------------------
 
 ::: {.fragment .fade-up}
@@ -414,7 +415,9 @@ a <- letters
 A
 ```
 
-    Error: object 'A' not found
+```         
+Error: object 'A' not found
+```
 
 ```{r}
 #| code-line-numbers: "|3"
@@ -434,7 +437,9 @@ data("cars")
 carz
 ```
 
-    Error: object 'carz' not found
+```         
+Error: object 'carz' not found
+```
 
 # Cars
 
@@ -461,11 +466,11 @@ pares
 (pares)^2
 ```
 
+## Uso dos comentários: Demarcar seções do no código {.smaller .scrollable}
 
-
-## Uso dos comentários: Demarcar seções do no código {.smaller .scrollable} 
 ::: panel-tabset
 ### Código
+
 ```{r}
 #| code-line-numbers: "|1|5|"
 #| echo: true
@@ -489,6 +494,7 @@ penguins |>
 ```
 
 ### Gráfico
+
 ```{r}
 #| echo: false
 #| eval: true
@@ -502,10 +508,7 @@ penguins |>
   geom_point(alpha = 0.5) +
   facet_wrap(~species) 
 ```
-
 :::
-
-
 
 ## Outro uso dos comentários: explicações
 
@@ -557,10 +560,10 @@ penguins |>
 ## 3.3 O que é um nome?
 
 -   Os nomes dos objetos devem começar com uma letra
--   Podem conter apenas letras, números, \_ e .
+-   Podem conter apenas `letras`, `números`, `_` e `.`
 -   Os nomes de seus objetos devem ser descritivos
 -   Sugerimos a seguinte convenção:
-    -   letras_minúsculas_separadas_com\_
+    -   letras_minúsculas_separadas_com `_`
 
 ## Exemplos de nomes
 
@@ -568,8 +571,6 @@ penguins |>
 -   otherPeopleUseCamelCase
 -   some.people.use.periods
 -   And_aFew.People_RENOUNCEconvention
-
-## Exercícios
 
 ## Dica: auto completar
 
@@ -579,7 +580,7 @@ penguins |>
 
 ## 3.4 Usando Funções
 
-O R possui uma grande coleção de funções integradas chamadas desta maneira:
+O R possui uma grande coleção de funções integradas que são chamadas desta maneira:
 
 ```{r eval=FALSE}
 nome_da_funcao(argumento1 = valor1, argumento2 = valor2, ...)
@@ -641,6 +642,13 @@ help(nome_da_funcao)
 
 ## Exercícios
 
+- A partir da ajuda, descubra para que servem as funções a seguir e tente utilizá-las:
+  - `ls`
+  - `LETTERS`
+  - `month.abb`
+  - `month.name`
+  - `rnorm`
+
 ## Funções básicas importantes
 
 ```{r}
@@ -654,13 +662,22 @@ median(z)
 
 ```{r}
 f <- c(2,2,6,11,9,20)
-range(z)
-min(z)
-max(z)
-quantile(z)
+range(f)
+min(f)
+max(f)
+quantile(f)
 ```
 
 ## Exercícios
+
+- Use a função `rnorm` e crie um objeto chamado `mil` com mil casos com média 30 e desvio padrão 4
+- Calcule as seguintes estatísticas do objeto `mil`:
+  - Soma
+  - Média
+  - Mediana
+  - Mínimo
+  - Máximo
+  - Quartis
 
 ## Compartilhar conhecimento sempre!
 

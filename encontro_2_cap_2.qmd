@@ -4,7 +4,7 @@ subtitle: "Uma Introdução"
 execute:
   echo: true
 author: "Francisco Pablo Huascar Aragão Pinheiro"
-institute: <img src="images/ufc_horizontal.png" alt="My Logo" width="250">
+institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
       theme: simple
