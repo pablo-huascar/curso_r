@@ -119,7 +119,7 @@ E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse apre
 
 [R Studio]{style="font-size: 100pt;color: white;"}
 
-## [Vamos começar!]{style="font-size: 130pt; line-height: 0.7; text-align: left; display: flex; align-items: center; justify-content: center;"} {transition="slide-in fade-out" transition-speed="slow"}
+## [Vamos começar!]{style="font-size: 130pt; line-height: 0.7; text-align: left; display: flex; align-items: center; justify-content: center;"} {transition="fade-in fade-out" transition-speed="slow"}
 
 ## Criação de um projeto - Passo 1
 
@@ -197,6 +197,18 @@ Neste painel são mostrados os arquivos do projeto, os gráficos produzidos, a a
 
 ![](images/plots.png)
 
+## Cheat Sheets {transition="slide"}
+
+::: columns
+::: {.column width="50%"}
+![](images/rstudio-cheat-sheets_1.jpg)
+:::
+
+::: {.column width="50%"}
+![](images/rstudio-cheat-sheets_2.jpg)
+:::
+:::
+
 ## R for Data Science
 
 ::: columns
@@ -244,7 +256,7 @@ Execução de códigos no Script
 sqrt(100)
 ```
 
-## Exercícios 1
+## Exercícios
 
 -   Divida 250 por 10
 -   Eleve 11 ao quadrado
@@ -252,7 +264,7 @@ sqrt(100)
 -   Subtraia 10 de 20 e divida por 10
 -   Some 40 e 50 e multiplique por 10
 
-## Exercícios 1 - Respostas
+## Respostas
 
 ```{r}
 250/10
@@ -289,7 +301,7 @@ nome_do_objeto
 -   Atalho de teclado do R Studio: Alt + "-" (sinal de menos)
 :::
 
-## Exercícios 2
+## Exercícios
 
 Crie os seguintes objetos:
 
@@ -298,7 +310,7 @@ Crie os seguintes objetos:
 -   `c` com valor `5`
 -   `d` com valor `10*2`
 
-## Exercícios 2 - Respostas
+## Respostas
 
 ```{r}
 a <- 2
@@ -320,14 +332,14 @@ a/b
 a-b
 ```
 
-## Exercícios 3
+## Exercícios
 
 -   Divida `c` por `d` e some `a`
 -   Some `a` e `b` e divida por `c`
 -   Multiplique `a` por `b` e some `d`
 -   Some `c` com `d` e divida por `a`
 
-## Exercícios 3 - Respostas
+## Respostas
 
 ```{r}
 (c/d) + a
@@ -362,16 +374,18 @@ z-w
 z-w^2
 ```
 
-## Exercícios 4
+## Exercícios
 
+::: incremental
 -   Crie os vetores `z <- c(1,2,10,12)` e `w <- c(3,5,6,8)`
 -   Eleve `z` ao quadrado
 -   Some 10 a `w`
 -   Divida `z` por 3
 -   Multiplique `z` e `w`
 -   Divida `z` por `w`
+:::
 
-## Exercícios 4 - Respostas
+## Respostas
 
 ```{r}
 z <- c(1,2,10,12)
@@ -386,14 +400,16 @@ z/w
 
 ```
 
-## Exercícios 5
+## Exercícios
 
+::: incremental
 -   Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
 -   Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
 -   Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
 -   Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura ao quadrado (em metros), crie um objeto imc com os valores do IMC de cada caso.
+:::
 
-## Exercícios 5 - respostas
+## Respostas
 
 ```{r}
 peso <- c(80.2, 56.3, 70.5,  60.3)
@@ -630,6 +646,8 @@ seq(2,10,1)
 ?nome_da_funcao
 
 help(nome_da_funcao)
+
+args(nome_da_funcao)
 ```
 
 ## Help
@@ -640,14 +658,18 @@ help(nome_da_funcao)
 
 ![](images/help.png){width="610"}
 
+## `args()`
+
+```{r}
+args(rnorm)
+```
+
 ## Exercícios
 
-- A partir da ajuda, descubra para que servem as funções a seguir e tente utilizá-las:
-  - `ls`
-  - `LETTERS`
-  - `month.abb`
-  - `month.name`
-  - `rnorm`
+-   A partir da ajuda, descubra para que servem as funções a seguir e tente utilizá-las:
+    - `ls`
+    - `round`
+    - `rnorm`
 
 ## Funções básicas importantes
 
@@ -670,17 +692,14 @@ quantile(f)
 
 ## Exercícios
 
-- Use a função `rnorm` e crie um objeto chamado `mil` com mil casos com média 30 e desvio padrão 4
-- Calcule as seguintes estatísticas do objeto `mil`:
-  - Soma
-  - Média
-  - Mediana
-  - Mínimo
-  - Máximo
-  - Quartis
-  
-  sdfsdf
-  
+-   Use a função `rnorm` e crie um objeto chamado `mil` com mil casos com média 30 e desvio padrão 4
+-   Calcule as seguintes estatísticas do objeto `mil`:
+    -   Soma
+    -   Média
+    -   Mediana
+    -   Mínimo
+    -   Máximo
+    -   Quartis
 
 ## Compartilhar conhecimento sempre!
 
