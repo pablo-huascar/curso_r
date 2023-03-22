@@ -51,7 +51,7 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 
 # Gráficos
 
-## {#slide2-id data-menu-title="Barras"}
+## {#slide2-id data-menu-title="Barras" transition="slide"}
 
 ```{r}
 #| echo: false
@@ -66,7 +66,7 @@ penguins |>
   theme(legend.position="none")
 ```
 
-## {#slide3-id data-menu-title="Caixa e bigodes"}
+## {#slide3-id data-menu-title="Caixa e bigodes" transition="fade"}
 
 ```{r}
 #| echo: false
@@ -84,7 +84,7 @@ penguins |>
 
 ```
 
-## {#slide4-id data-menu-title="Dispersão"}
+## {#slide4-id data-menu-title="Dispersão" transition="convex" transition-speed="slow"}
 
 ```{r}
 #| echo: false
