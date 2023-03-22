@@ -679,7 +679,7 @@ quantile(f)
   - Máximo
   - Quartis
   
-  
+  sdfsdf
   
 
 ## Compartilhar conhecimento sempre!
