@@ -678,6 +678,9 @@ quantile(f)
   - Mínimo
   - Máximo
   - Quartis
+  
+  
+  
 
 ## Compartilhar conhecimento sempre!
 
