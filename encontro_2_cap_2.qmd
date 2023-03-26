@@ -108,6 +108,41 @@ Para apronfundar o conhecimento sobre gráficos
 -   [ggplot2](https://ggplot2.tidyverse.org/): grammar of graphics (gramática dos gráficos)
     -   [Sistema coerente para descrever e construir gráficos]{style="font-size:20pt;"}
 
+::: panel-tabset
+### `data`
+
+```{r}
+#| echo: false
+#| out-width: 35%
+library(ggplot2)
+library(palmerpenguins)
+
+penguins |> 
+  ggplot()
+```
+
+### `mapping`
+
+```{r}
+#| echo: false
+#| out-width: 35%
+penguins |> 
+  ggplot(aes(flipper_length_mm, 
+             body_mass_g))
+```
+
+### `geom_`
+
+```{r}
+#| echo: false
+#| out-width: 35%
+penguins |> 
+  ggplot(aes(flipper_length_mm, 
+             body_mass_g))+
+  geom_point()
+```
+:::
+
 ## Pacotes
 
 ```{r}
@@ -192,13 +227,17 @@ penguins
 
 ```{r}
 glimpse(penguins)
+
 ```
+
+## Variáveis
 
 ```{r}
 #| eval: false
-
 View(penguins)
 ```
+
+![](images/view.png)
 
 ## Variáveis no banco de dados dos `penguins`
 
@@ -260,6 +299,7 @@ ggplot(data = penguins)
 ```{r}
 #| out-width: 55%
 #| fig-align: center
+#| code-line-numbers: "|2"
 
 ggplot(data = penguins,
        mapping = aes(x = flipper_length_mm, y = body_mass_g))
@@ -279,9 +319,149 @@ ggplot(data = penguins,
 ```{r}
 #| fig-align: center
 #| out-width: 60%
+#| code-line-numbers: "|3"
 ggplot(data = penguins,
   mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
 ```
 
+## Mensagem de aviso (Warning message):
 
+> Removed 2 rows containing missing values (`geom_point()`).
+
+## Adicionando uma estética (aesthetics)
+
+[`color`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html)
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|4"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g, 
+                color = species)) +
+  geom_point()
+```
+
+## Adicionando uma estética (aesthetics)
+
+`shape`
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|5"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g, 
+                color = species,
+                shape = species)) +
+  geom_point()
+```
+
+
+## Adicionando uma camada (layer)
+
+[`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|6"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g, 
+                color = species)) +
+  geom_point()+
+  geom_smooth(method = "lm")
+```
+
+## {#slide8-id data-menu-title="Objetivo Final"}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| out-width: 70%
+#| fig-align: center
+
+penguins |> 
+  ggplot(aes(flipper_length_mm, 
+             body_mass_g))+
+  geom_point(aes(color = species,
+                 shape = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")+
+  scale_color_colorblind()
+```
+
+## Adicionando uma camada (layer)
+
+[`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|4|5"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g)) +
+  geom_point(aes(color = species))+
+  geom_smooth(method = "lm")
+```
+
+
+## Adicionando rótulos (labels)
+
+[`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|6|7|8|9|10|11"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g)) +
+  geom_point(aes(color = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")
+```
+
+# Melhorando a paleta de cores para ser adequada para daltônicos
+
+[ggthemes](https://cran.r-project.org/package=ggthemes)
+
+```{r}
+#| output-location: slide
+#| fig-align: center
+#| code-line-numbers: "|12"
+#| out-width: 70% 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g)) +
+  geom_point(aes(color = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")+
+  scale_color_colorblind()
+```
