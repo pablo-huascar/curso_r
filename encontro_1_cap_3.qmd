@@ -350,7 +350,7 @@ a-b
 
 ## Exercício desafio
 
-Para encontrar as soluções para uma equação do formato $ax^{2} + bx + c$, use a equação quadrática: 
+Para encontrar as soluções para uma equação do formato $ax^{2} + bx + c$, use a equação quadrática:
 
 $x = \frac{-b \pm \sqrt{(b^2-4ac)}}{2a}$.
 

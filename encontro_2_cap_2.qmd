@@ -18,15 +18,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r}
-#| label: setup
-#| echo: false
-#| include: false
-library(tidyverse)
-library(patchwork)
-library(palmerpenguins)
-```
-
 ## Quem sou eu
 
 ::: columns
@@ -48,73 +39,23 @@ library(palmerpenguins)
 Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
 :::
 
-
 # Gráficos
 
-## {#slide2-id data-menu-title="Barras" transition="slide"}
+##  {#slide2-id data-menu-title="Barras" transition="slide"}
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-penguins |> 
-  ggplot(aes(species, 
-             fill = species))+
-  geom_bar(position = "dodge")+
-  labs(x = "Espécies",
-       y = "Contagem")+
-  theme(legend.position="none")
-```
+![](images/barplot.png)
 
-## {#slide3-id data-menu-title="Caixa e bigodes" transition="fade"}
+##  {#slide3-id data-menu-title="Caixa e bigodes" transition="fade"}
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-penguins |> 
-  ggplot(aes(species,
-             body_mass_g,
-             colour = species))+
-  geom_boxplot(outlier.colour = NA)+
-  geom_jitter(alpha = 0.3, width = 0.15)+
-  labs(x = "Espécies",
-       y = "Massa corporal (gramas)")+
-  theme(legend.position = "none")
+![](images/boxplot.png)
 
-```
+##  {#slide4-id data-menu-title="Dispersão" transition="convex" transition-speed="slow"}
 
-## {#slide4-id data-menu-title="Dispersão" transition="convex" transition-speed="slow"}
+![](images/scaterplot.png)
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-penguins |> 
-  ggplot(aes(flipper_length_mm, 
-             body_mass_g,
-             color = sex))+
-  geom_point()+
-  labs(x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Sexo")
-```
+##  {#slide6-id data-menu-title="Histograma"}
 
-## {#slide6-id data-menu-title="Histograma"}
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-dpi: 600
-penguins |> 
-  ggplot(aes(body_mass_g))+
-  geom_histogram(color = "black",
-                 fill = "white")+
-  labs(x = "Massa corporal (g)",
-                 y = NULL)
-```
-
+![](images/histogram.png)
 
 ## R for Data Science
 
@@ -160,5 +101,187 @@ Para apronfundar o conhecimento sobre gráficos
 
 <https://ggplot2-book.org/index.html>
 
+# 2 Visualização de Dados
+
+## 2.1 Introdução
+
+-   [ggplot2](https://ggplot2.tidyverse.org/): grammar of graphics (gramática dos gráficos)
+    -   [Sistema coerente para descrever e construir gráficos]{style="font-size:20pt;"}
+
+## Pacotes
+
+```{r}
+#| message: true
+#| warning: true
+
+library(tidyverse)
+```
+
+[`there is no package called 'tidyverse'`]{style="font-size:20pt;"}
+
+```{r}
+#| message: false
+#| eval: false
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+```{r}
+library(palmerpenguins)
+library(ggthemes)
+```
+
+##  {#slide7-id data-menu-title="Pinguins" background-image="images/pinguins.png"}
+
+## 2.2 Primeiros Passos
+
+::: incremental
+-   Os pinguins com nadadeiras mais longas pesam mais ou menos que os pinguins com nadadeiras mais curtas?
+-   Como é a relação entre o comprimento da nadadeira e a massa corporal? É positivo? Negativo? Linear? Não linear?
+-   A relação varia de acordo com a espécie do pinguim?
+-   O que nos diz a ilha onde mora o pinguim?
+-   Vamos criar visualizações que podemos usar para responder a essas perguntas.
+:::
+
+## O banco de Dados dos [`penguins`](https://allisonhorst.github.io/palmerpenguins/)
+
+-   Bando de dados: uma coleção retangular de variáveis (nas colunas) e observações (nas linhas)
+-   `penguins`: `r nrow(penguins)` casos/observações
+-   Os dados foram coletados e disponibilizados pela Dra. Kristen Gorman e a Estação Palmer, Antártica LTER
+
+## Algumas Definições
+
+::: incremental
+-   **Variável**: uma quantidade, qualidade ou propriedade que você pode medir
+-   **Valor**: o estado de uma variável quando você a mede
+    -   [O valor de uma variável pode mudar de medição para medição]{style="font-size:20pt;"}
+:::
+
+## Algumas Definições
+
+::: incremental
+-   **Observação/caso**: conjunto de medições feitas em condições semelhantes
+    -   [Todas as medições em uma observação são feitas ao mesmo tempo e no mesmo objeto]{style="font-size:20pt;"}
+-   Uma observação/caso conterá vários valores, cada um associado a uma variável diferente.
+-   `penguins`
+    -   [Variável: atributo de todos os pinguins]{style="font-size:20pt;"}
+    -   [Observação: todos os atributos de um único pinguim]{style="font-size:20pt;"}
+:::
+
+## Dados Tabulares
+
+::: incremental
+-   Conjunto de valores, cada um associado a uma variável e a uma observação.
+-   Os dados tabulares são organizados ("tidy") se cada valor for colocado em sua própria "célula", cada variável em sua própria coluna e cada observação em sua própria linha
+:::
+
+## Tidy data
+
+![](images/tidy.png)
+
+## [`tibble`](https://tibble.tidyverse.org/)
+
+```{r}
+#| echo: true
+penguins
+```
+
+-   Oito colunas (variáveis)
+
+## Variáveis
+
+```{r}
+glimpse(penguins)
+```
+
+```{r}
+#| eval: false
+
+View(penguins)
+```
+
+## Variáveis no banco de dados dos `penguins`
+
+::: nonincremental
+1.  `species`: uma espécie de pinguim (Adelie, Chinstrap ou Gentoo)
+2.  `flipper_length_mm`:comprimento da nadadeira de um pinguim, em milímetros
+3.  `body_mass_g`:massa corporal de um pinguim, em gramas
+:::
+
+Para saber mais sobre o banco de dados:
+
+```{r}
+#| eval: false
+
+?penguins
+```
+
+## Objetivo final {transition="convex" transition-speed="slow"}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| out-width: 70%
+#| fig-align: center
+
+penguins |> 
+  ggplot(aes(flipper_length_mm, 
+             body_mass_g))+
+  geom_point(aes(color = species,
+                 shape = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")+
+  scale_color_colorblind()
+```
+
+# Criando um [ggplot](https://ggplot2.tidyverse.org/reference/ggplot.html) camada por camada
+
+## Banco de dados
+
+`data`
+
+```{r}
+#| out-width: 60%
+#| fig-align: center
+
+ggplot(data = penguins)
+```
+
+## Representação visual das informações
+
+`mapping` e `aes`(aesthetics - estética)
+
+```{r}
+#| out-width: 55%
+#| fig-align: center
+
+ggplot(data = penguins,
+       mapping = aes(x = flipper_length_mm, y = body_mass_g))
+```
+
+## Como representar as informações?
+
+-   **geom**: o objeto geométrico que um gráfico usa para representar dados
+-   Funções que sempre começam com `geom_`
+-   Gráficos de barras: [`geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
+-   Gráficos de linhas: [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
+-   Gráficos de caixa de bigodes: [`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)
+-   Gráficos de dispersão: [`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+## [`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+```{r}
+#| fig-align: center
+#| out-width: 60%
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
 
 
