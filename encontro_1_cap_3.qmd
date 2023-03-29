@@ -59,7 +59,10 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 
 # O que eu preciso saber para participar desse minicurso?
 
-## ![](images/logo_windows_11.png) 
+## {#slide0-id data-menu-title="Windows 11"} 
+
+
+![](images/logo_windows_11.png)
 
 ::: incremental
 -   Criar e navegar entre pastas
@@ -102,6 +105,7 @@ E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse apre
 :::
 
 ------------------------------------------------------------------------
+
 ##  {#slide2-id data-menu-title="R e R Studio"}
 
 ::: {.fragment .fade-up}
