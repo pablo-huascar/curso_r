@@ -557,11 +557,10 @@ ggplot(data = penguins,
 
 ## 2.3 Chamadas do ggplot2
 
-- `data`
-- `mapping(aes(x = ... , y = ...)`
+-   `data`
+-   `mapping(aes(x = ... , y = ...)`
 
 ::: panel-tabset
-
 ### Código completo
 
 ```{r}
@@ -593,21 +592,4 @@ penguins |>
              body_mass_g))+
   geom_point()
 ```
-
-
 :::
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

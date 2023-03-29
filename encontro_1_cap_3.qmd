@@ -168,7 +168,7 @@ E o [tidyverse](https://www.tidyverse.org/ "Tidyverse") facilita muito esse apre
 
 ::: columns
 ::: {.column width="30%"}
-É onde o código é escrito. Vários tipos de arquivo podem ser utilizados: Scripts, Rmarkdown etc.
+É onde o código é escrito. Vários tipos de arquivos podem ser utilizados: Scripts, Rmarkdown etc.
 :::
 
 ::: {.column width="70%"}
