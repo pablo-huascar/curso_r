@@ -362,7 +362,6 @@ ggplot(data = penguins,
   geom_point()
 ```
 
-
 ## Adicionando uma camada (layer)
 
 [`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)
@@ -381,7 +380,7 @@ ggplot(data = penguins,
   geom_smooth(method = "lm")
 ```
 
-## {#slide8-id data-menu-title="Objetivo Final"}
+##  {#slide8-id data-menu-title="Objetivo Final"}
 
 ```{r}
 #| echo: false
@@ -421,7 +420,6 @@ ggplot(data = penguins,
                  shape = species))+
   geom_smooth(method = "lm")
 ```
-
 
 ## Adicionando rótulos (labels)
 
@@ -488,7 +486,7 @@ glimpse(penguins)
 
 ## Exercícios
 
-Faça um gráfico de dispersão de `bill_depth_mm` vs. `bill_length_mm`. Ou seja, faça um gráfico de dispersão com `bill_depth_mm` no eixo y e `bill_length_mm` no eixo x. Descreva a relação entre essas duas variáveis. 
+Faça um gráfico de dispersão de `bill_depth_mm` vs. `bill_length_mm`. Ou seja, faça um gráfico de dispersão com `bill_depth_mm` no eixo y e `bill_length_mm` no eixo x. Descreva a relação entre essas duas variáveis.
 
 bill = bico
 
@@ -558,5 +556,58 @@ ggplot(data = penguins,
 ```
 
 ## 2.3 Chamadas do ggplot2
+
+- `data`
+- `mapping(aes(x = ... , y = ...)`
+
+::: panel-tabset
+
+### Código completo
+
+```{r}
+#| eval: false
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g)) +
+  geom_point()
+
+```
+
+### Código com omissões
+
+```{r}
+#| eval: false
+ggplot(penguins,
+       aes(flipper_length_mm,
+           body_mass_g)) +
+  geom_point()
+```
+
+### Código usando pipe `|>`
+
+```{r}
+#| output-location: slide 
+
+penguins |> 
+  ggplot(aes(flipper_length_mm,
+             body_mass_g))+
+  geom_point()
+```
+
+
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
