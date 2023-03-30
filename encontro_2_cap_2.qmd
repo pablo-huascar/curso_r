@@ -30,8 +30,8 @@ library(scales)
 ```
 
 ## Quem sou eu
-::: {style="line-height: 1;"}
 
+::: {style="line-height: 1;"}
 ::: columns
 ::: {.column width="40%"}
 ![](images/logo_pos.png) ![](images/lappsie.png)
@@ -46,7 +46,6 @@ library(scales)
 :::
 :::
 :::
-
 :::
 
 ::: aside
@@ -614,9 +613,8 @@ penguins |>
     -   Categórica
     -   Numérica
 
-
-
 ## Variável categórica
+
 ::: {style="line-height: 1;"}
 -   Os números são usados para classificar objetos
 -   1 ≠ 2 ≠ 3
@@ -659,7 +657,6 @@ ggplot(penguins,
 
 ```{r}
 #| eval: false
-#| out-width: 100%
 #| message: false
 #| warning: false
 
@@ -687,8 +684,8 @@ ggplot(penguins,
   geom_bar()+
   geom_text(aes(label = percent(after_stat(count/sum(count)))),
             stat = "count",
-            nudge_y = 0.03)+
-  theme(legend.position = "none")
+            nudge_y = 0.01)+
+  theme(legend.position = "none")+
   scale_y_continuous(labels = percent)
 ```
 :::
@@ -705,15 +702,14 @@ ggplot(penguins,
         -   1/2 (0,5) pessoa?
 -   Contínua
     -   comprimento: 1,23 cm, 1,234 cm, 1,2347 cm ...
-    -   infintos valores entre 2 números
-
+    -   valores infintos entre 2 números
 :::
 
-
 ## Histograma (histogram)
+
 ::: {style="line-height: 1; font-size:18pt;"}
-- Divide o eixo x em caixas igualmente espaçadas 
-- Usa a altura de uma barra para exibir o número de observações em cada caixa
+-   Divide o eixo x em caixas igualmente espaçadas
+-   Usa a altura de uma barra para exibir o número de observações em cada caixa
 :::
 
 ```{r}
@@ -726,11 +722,102 @@ ggplot(penguins, aes(body_mass_g)) +
 ```
 
 ## Histograma (histogram)
+
 ```{r}
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
 
 ```
 
+## Histograma (histogram): `binwidth()`
 
+-   [Define a largura dos intervalos]{style="font-size:22pt;"}
 
+::: panel-tabset
+## `binwidth(2000)`
+
+```{r}
+#| echo: false
+#| out-width: 45%
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 2000)
+
+```
+
+## `binwidth(20)`
+
+```{r}
+#| echo: false
+#| out-width: 45%
+ggplot(penguins, aes(body_mass_g)) +
+  geom_histogram(binwidth = 20)
+
+```
+:::
+
+## Exercícios
+
+Faça um gráfico de barras das espécies (`species`) de pinguins, onde você atribui espécies (`species`) ao eixo y. Como esse gráfico é diferente?
+
+## Resposta
+
+```{r}
+#| output-location: fragment
+
+ggplot(penguins,
+       aes(y = species))+
+  geom_bar()
+```
+
+## Exercícios
+
+Em que os dois gráficos a seguir são diferentes? Qual estética, cor ou preenchimento, é mais útil para mudar a cor das barras?
+
+```{r}
+#| eval: false
+
+ggplot(penguins, aes(species)) +
+  geom_bar(color = "red")
+
+ggplot(penguins, aes(species)) +
+  geom_bar(fill = "red")
+```
+
+## Resposta
+
+```{r}
+#| output-location: fragment
+ggplot(penguins, aes(species)) +
+  geom_bar(fill = "red")
+```
+
+## Exercícios
+
+Faça um histograma da variável quilate (`carat`) no conjunto de dados de diamantes que está disponível quando você carrega o pacote [tidyverse](https://www.tidyverse.org/). Experimente diferentes larguras de caixa (`bin`). Qual largura de `bin` revela os padrões mais interessantes?
+
+## Resposta
+
+::: panel-tabset
+## `bin` padrão (30)
+
+```{r}
+#| out-width: 45%
+ggplot(diamonds,
+       aes(carat))+
+  geom_histogram()
+```
+
+## histograma base R
+
+```{r}
+hist(diamonds$carat)
+```
+:::
+
+## 2.5 Visualizando relacionamentos
+
+-   2 ou mais variáveis
+    -   categórica x numérica
+    -   categórica x categórica
+    -   numérica x numérica
+-   3 ou mais variáveis
