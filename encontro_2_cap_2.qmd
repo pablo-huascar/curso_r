@@ -18,7 +18,19 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| echo: false
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(palmerpenguins)
+library(scales)
+
+```
+
 ## Quem sou eu
+::: {style="line-height: 1;"}
 
 ::: columns
 ::: {.column width="40%"}
@@ -33,6 +45,8 @@ editor_options:
 -   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
 :::
 :::
+:::
+
 :::
 
 ::: aside
@@ -593,3 +607,130 @@ penguins |>
   geom_point()
 ```
 :::
+
+## 2.4 Visualizando distribuições
+
+-   A visualização vai depender do tipo de variável
+    -   Categórica
+    -   Numérica
+
+
+
+## Variável categórica
+::: {style="line-height: 1;"}
+-   Os números são usados para classificar objetos
+-   1 ≠ 2 ≠ 3
+-   Grupo: frutas
+    -   categorias
+        -   1 = laranja
+        -   2 = maçã
+        -   3 = uva
+    -   laranja ≠ maçã ≠ uva
+:::
+
+## Variável categórica: Gráfico de Barras (bar chart)
+
+[Altura das barras: número de observações em cada valor de x]{style="font-size:20pt;"}
+
+```{r}
+#| output-location: column-fragment
+#| out-width: 100%
+
+ggplot(penguins,
+       aes(species))+
+  geom_bar()
+```
+
+## Gráfico de Barras (bar chart): variáveis ordendas pela frequência
+
+```{r}
+#| output-location: column-fragment
+#| out-width: 100%
+
+ggplot(penguins,
+       aes(fct_infreq(species)))+
+  geom_bar()
+```
+
+## Gráfico de Barras (bar chart): proporções
+
+::: panel-tabset
+## Código para percentuais
+
+```{r}
+#| eval: false
+#| out-width: 100%
+#| message: false
+#| warning: false
+
+ggplot(penguins,
+       aes(fct_infreq(species),
+           y = after_stat(count/sum(count))))+
+  geom_bar()+
+  geom_text(aes(label = percent(after_stat(count/sum(count)))),
+            stat = "count",
+            nudge_y = 0.03)+
+  scale_y_continuous(labels = percent)
+  
+  
+```
+
+## Gráfico com percentuais
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(penguins,
+       aes(fct_infreq(species),
+           y = after_stat(count/sum(count)),
+           fill = species))+
+  geom_bar()+
+  geom_text(aes(label = percent(after_stat(count/sum(count)))),
+            stat = "count",
+            nudge_y = 0.03)+
+  theme(legend.position = "none")
+  scale_y_continuous(labels = percent)
+```
+:::
+
+## Variável numérica
+
+::: {style="line-height: 1; font-size:18pt;"}
+-   1 \> 2 \> 3
+    -   2 - 1= 1
+    -   3 - 2 = 1
+    -   3 - 1 = 2
+-   Discreta
+    -   pessoas: 1, 2, 3, ou 4
+        -   1/2 (0,5) pessoa?
+-   Contínua
+    -   comprimento: 1,23 cm, 1,234 cm, 1,2347 cm ...
+    -   infintos valores entre 2 números
+
+:::
+
+
+## Histograma (histogram)
+::: {style="line-height: 1; font-size:18pt;"}
+- Divide o eixo x em caixas igualmente espaçadas 
+- Usa a altura de uma barra para exibir o número de observações em cada caixa
+:::
+
+```{r}
+#| echo: false
+
+ggplot(penguins, aes(body_mass_g)) +
+  geom_histogram(binwidth = 200,
+                 color = "white")
+
+```
+
+## Histograma (histogram)
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 200)
+
+```
+
+
+

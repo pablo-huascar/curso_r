@@ -27,7 +27,7 @@ library(palmerpenguins)
 ```
 
 ## Quem sou eu
-
+::: {style="line-height: 1;"}
 ::: columns
 ::: {.column width="40%"}
 ![](images/logo_pos.png) ![](images/lappsie.png)
@@ -41,6 +41,8 @@ library(palmerpenguins)
 -   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
 :::
 :::
+:::
+
 :::
 
 ::: aside
