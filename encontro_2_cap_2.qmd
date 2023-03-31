@@ -816,8 +816,59 @@ hist(diamonds$carat)
 
 ## 2.5 Visualizando relacionamentos
 
--   2 ou mais variáveis
+-   2 variáveis
     -   categórica x numérica
     -   categórica x categórica
     -   numérica x numérica
 -   3 ou mais variáveis
+
+## Duas variáveis categóricas
+
+- Relacionamento entre ilha (`island`) e espécie (`species`)
+  - Distribuição das espécies dentro de cada ilha
+
+## Gráfico de barras emplilhados (stacked bar plots)
+
+```{r}
+#| output-location: slide
+ggplot(penguins,
+       aes(island,
+           fill = species))+
+  geom_bar()
+```
+
+## Gráfico de frequência relativa (relative frequency plot)
+- `position = "fill"`
+- útil para comparar a distribuição de espécies nas ilhas 
+    - não é afetado pelo número desigual de pinguins nas ilhas
+    
+```{r}
+#| output-location: slide
+ggplot(penguins,
+       aes(island,
+           fill = species))+
+  geom_bar(position = "fill")
+```
+
+## Grafico de barras
+- `position = "dodge"`
+```{r}
+#| output-location: slide
+ggplot(penguins,
+       aes(island,
+           fill = species))+
+  geom_bar(position = "dodge")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
