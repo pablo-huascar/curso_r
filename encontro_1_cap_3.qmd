@@ -27,6 +27,7 @@ library(palmerpenguins)
 ```
 
 ## Quem sou eu
+
 ::: {style="line-height: 1;"}
 ::: columns
 ::: {.column width="40%"}
@@ -42,7 +43,6 @@ library(palmerpenguins)
 :::
 :::
 :::
-
 :::
 
 ::: aside
@@ -61,8 +61,7 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 
 # O que eu preciso saber para participar desse minicurso?
 
-## {#slide0-id data-menu-title="Windows 11"} 
-
+##  {#slide0-id data-menu-title="Windows 11"}
 
 ![](images/logo_windows_11.png)
 
@@ -330,7 +329,7 @@ d <- 10*2
 d
 ```
 
-## As operaões podem ser realizadas entre objetos
+## As operações podem ser realizadas entre objetos
 
 ```{r}
 a*b
@@ -441,7 +440,7 @@ z/w
 -   Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
 -   Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
 -   Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
--   Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura ao quadrado (em metros), crie um objeto imc com os valores do IMC de cada caso.
+-   Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura (em metros) ao quadrado, crie um objeto imc com os valores do IMC de cada caso.
 :::
 
 ## Respostas
@@ -727,14 +726,37 @@ quantile(f)
 
 ## Exercícios
 
+::: {style="line-height: 1;font-size:22pt;"}
 -   Use a função `rnorm` e crie um objeto chamado `mil` com mil casos com média 30 e desvio padrão 4
 -   Calcule as seguintes estatísticas do objeto `mil`:
     -   Soma
     -   Média
+    -   Desvio padrão
     -   Mediana
     -   Mínimo
     -   Máximo
     -   Quartis
+:::
+
+## Resposta
+
+```{r}
+mil <- rnorm(n = 100, mean = 30, sd = 4)
+
+sum(mil)
+
+mean(mil)
+
+sd(mil)
+
+median(mil)
+
+min(mil)
+
+max(mil)
+
+quantile(mil)
+```
 
 ## Compartilhar conhecimento sempre!
 
