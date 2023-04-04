@@ -19,14 +19,14 @@ editor_options:
 ---
 
 ```{r}
-#| echo: false
 #| label: setup
+#| echo: false
 #| include: false
-
 library(tidyverse)
+library(ggthemes)
 library(palmerpenguins)
 library(scales)
-
+library(kableExtra)
 ```
 
 ## Quem sou eu
@@ -56,19 +56,82 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 
 ##  {#slide2-id data-menu-title="Barras" transition="slide"}
 
-![](images/barplot.png)
+
+```{r}
+#| label: barplot
+#| echo: false
+#| fig-align: center
+penguins |> 
+  ggplot(aes(fct_infreq(species),
+             y = after_stat(count/sum(count)),
+             fill = species))+
+  geom_bar()+
+  labs(x = "Espécies",
+       y = NULL)+
+  scale_y_continuous(labels = percent)+
+  theme(legend.position = "none")
+
+```
 
 ##  {#slide3-id data-menu-title="Caixa e bigodes" transition="fade"}
 
-![](images/boxplot.png)
+```{r}
+#| label: boxplot
+#| echo: false
+#| fig-align: center
+penguins |>
+  drop_na() |> 
+  ggplot(aes(species,
+             body_mass_g,
+             color = species))+
+  geom_boxplot()+
+  geom_jitter(aes(species),
+              alpha = 0.3,
+              size = 3)+
+  labs(x = "Espécies",
+       y = "Massa corporal (gramas)")+
+  theme(legend.position = "none")
+```
+
 
 ##  {#slide4-id data-menu-title="Dispersão" transition="convex" transition-speed="slow"}
 
-![](images/scaterplot.png)
+```{r}
+#| label: scatterplot
+#| echo: false
+#| fig-align: center 
+penguins |> 
+  ggplot(aes(flipper_length_mm, 
+             body_mass_g))+
+  geom_point(aes(color = species,
+                 shape = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")+
+  scale_color_colorblind()
+```
+
 
 ##  {#slide6-id data-menu-title="Histograma"}
 
-![](images/histogram.png)
+```{r}
+#| label: histogram
+#| echo: false
+#| fig-align: center
+
+penguins |> 
+  ggplot(aes(body_mass_g))+
+  geom_histogram(fill = "white",
+                 color = "gray")+
+  labs(x = "Massa corpora (gramas)", 
+       y = NULL)+
+  theme_classic()
+```
+
 
 ## R for Data Science
 
@@ -451,10 +514,10 @@ ggplot(data = penguins,
   geom_smooth(method = "lm")+
   labs(title = "Massa corporal e comprimento da nadadeira",
        subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
-    x = "Comprimento da nadadeira (mm)",
+       x = "Comprimento da nadadeira (mm)",
        y = "Massa corporal (g)",
        color = "Espécie",
-    shape = "Espécie")
+       shape = "Espécie")
 ```
 
 # Cores para daltônicos
@@ -734,7 +797,7 @@ ggplot(penguins, aes(x = body_mass_g)) +
 -   [Define a largura dos intervalos]{style="font-size:22pt;"}
 
 ::: panel-tabset
-## `binwidth(2000)`
+## `binwidth(20)`
 
 ```{r}
 #| echo: false
@@ -744,7 +807,7 @@ ggplot(penguins, aes(x = body_mass_g)) +
 
 ```
 
-## `binwidth(20)`
+## `binwidth(2000)`
 
 ```{r}
 #| echo: false
@@ -822,10 +885,28 @@ hist(diamonds$carat)
     -   numérica x numérica
 -   3 ou mais variáveis
 
+## 
+
+
 ## Duas variáveis categóricas
 
-- Relacionamento entre ilha (`island`) e espécie (`species`)
-  - Distribuição das espécies dentro de cada ilha
+-   Relacionamento entre ilha (`island`) e espécie (`species`)
+    -   Distribuição das espécies dentro de cada ilha
+
+## Tabela de Frequência
+
+```{r}
+penguins |> 
+  group_by(island, species) |> 
+  summarise(n = n()) |>
+  pivot_wider(names_from = species,
+              values_from = n) |>
+  rowwise() |> 
+  mutate(total_island = sum(c_across(Adelie:Chinstrap),na.rm = T)) |> 
+  ungroup() |> 
+  kable() |> 
+  kable_minimal()
+```
 
 ## Gráfico de barras emplilhados (stacked bar plots)
 
@@ -838,10 +919,11 @@ ggplot(penguins,
 ```
 
 ## Gráfico de frequência relativa (relative frequency plot)
-- `position = "fill"`
-- útil para comparar a distribuição de espécies nas ilhas 
-    - não é afetado pelo número desigual de pinguins nas ilhas
-    
+
+-   `position = "fill"`
+-   útil para comparar a distribuição de espécies nas ilhas
+    -   não é afetado pelo número desigual de pinguins nas ilhas
+
 ```{r}
 #| output-location: slide
 ggplot(penguins,
@@ -851,7 +933,9 @@ ggplot(penguins,
 ```
 
 ## Grafico de barras
-- `position = "dodge"`
+
+-   `position = "dodge"`
+
 ```{r}
 #| output-location: slide
 ggplot(penguins,
@@ -859,16 +943,3 @@ ggplot(penguins,
            fill = species))+
   geom_bar(position = "dodge")
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
