@@ -27,6 +27,7 @@ library(ggthemes)
 library(palmerpenguins)
 library(scales)
 library(kableExtra)
+library(patchwork)
 ```
 
 ## Quem sou eu
@@ -61,6 +62,8 @@ Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](h
 #| label: barplot
 #| echo: false
 #| fig-align: center
+#| out-width: 70%
+
 penguins |> 
   ggplot(aes(fct_infreq(species),
              y = after_stat(count/sum(count)),
@@ -122,12 +125,13 @@ penguins |>
 #| label: histogram
 #| echo: false
 #| fig-align: center
+#| out-width: 70%
 
 penguins |> 
   ggplot(aes(body_mass_g))+
   geom_histogram(fill = "white",
                  color = "gray")+
-  labs(x = "Massa corpora (gramas)", 
+  labs(x = "Massa corporal (gramas)", 
        y = NULL)+
   theme_classic()
 ```
@@ -202,6 +206,7 @@ penguins |>
 ```{r}
 #| echo: false
 #| out-width: 35%
+
 penguins |> 
   ggplot(aes(flipper_length_mm, 
              body_mass_g))
@@ -212,6 +217,7 @@ penguins |>
 ```{r}
 #| echo: false
 #| out-width: 35%
+
 penguins |> 
   ggplot(aes(flipper_length_mm, 
              body_mass_g))+
@@ -233,11 +239,13 @@ library(tidyverse)
 ```{r}
 #| message: false
 #| eval: false
+
 install.packages("tidyverse")
 library(tidyverse)
 ```
 
 ```{r}
+
 library(palmerpenguins)
 library(ggthemes)
 ```
@@ -294,6 +302,7 @@ library(ggthemes)
 
 ```{r}
 #| echo: true
+
 penguins
 ```
 
@@ -302,6 +311,7 @@ penguins
 ## Variáveis
 
 ```{r}
+
 glimpse(penguins)
 
 ```
@@ -310,6 +320,7 @@ glimpse(penguins)
 
 ```{r}
 #| eval: false
+
 View(penguins)
 ```
 
@@ -362,7 +373,7 @@ penguins |>
 `data`
 
 ```{r}
-#| out-width: 60%
+#| out-width: 70%
 #| fig-align: center
 
 ggplot(data = penguins)
@@ -373,8 +384,8 @@ ggplot(data = penguins)
 `mapping` e `aes`(aesthetics - estética)
 
 ```{r}
-#| out-width: 55%
 #| fig-align: center
+#| out-width: 70%
 #| code-line-numbers: "|2"
 
 ggplot(data = penguins,
@@ -394,8 +405,9 @@ ggplot(data = penguins,
 
 ```{r}
 #| fig-align: center
-#| out-width: 60%
+#| out-width: 70%
 #| code-line-numbers: "|3"
+
 ggplot(data = penguins,
   mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
@@ -412,8 +424,9 @@ ggplot(data = penguins,
 ```{r}
 #| output-location: slide
 #| fig-align: center
+#| #| out-width: 70%
 #| code-line-numbers: "|4"
-#| out-width: 70% 
+
 ggplot(data = penguins,
   mapping = aes(x = flipper_length_mm, 
                 y = body_mass_g, 
@@ -428,8 +441,9 @@ ggplot(data = penguins,
 ```{r}
 #| output-location: slide
 #| fig-align: center
-#| code-line-numbers: "|5"
 #| out-width: 70% 
+#| code-line-numbers: "|5"
+
 ggplot(data = penguins,
   mapping = aes(x = flipper_length_mm, 
                 y = body_mass_g, 
@@ -525,10 +539,10 @@ ggplot(data = penguins,
 [ggthemes](https://cran.r-project.org/package=ggthemes)
 
 ```{r}
-#| output-location: slide
-#| fig-align: center
+#| label: cores_daltônicos_1
+#| echo: true
+#| eval: false
 #| code-line-numbers: "|13"
-#| out-width: 70% 
 
 ggplot(data = penguins,
   mapping = aes(x = flipper_length_mm, 
@@ -544,6 +558,34 @@ ggplot(data = penguins,
     shape = "Espécie")+
   scale_color_colorblind()
 ```
+
+# Cores para daltônicos{style="font-size:20pt;"}
+
+[ggthemes](https://cran.r-project.org/package=ggthemes)
+
+```{r}
+#| label: cores_daltônicos_2
+#| echo: false
+#| fig-align: center
+#| code-line-numbers: "|13"
+#| out-width: 70%
+ 
+ggplot(data = penguins,
+  mapping = aes(x = flipper_length_mm, 
+                y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species))+
+  geom_smooth(method = "lm")+
+  labs(title = "Massa corporal e comprimento da nadadeira",
+       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+       y = "Massa corporal (g)",
+       color = "Espécie",
+    shape = "Espécie")+
+  scale_color_colorblind()
+```
+
+
 
 ## Exercícios
 
@@ -585,6 +627,7 @@ O que acontece se você fizer um gráfico de dispersão de `species` versus `bil
 
 ```{r}
 #| fig-align: center
+#| out-width: 70%
 ggplot(data = penguins,
        aes(x = species,
            y = bill_depth_mm))+
@@ -595,6 +638,7 @@ ggplot(data = penguins,
 
 ```{r}
 #| fig-align: center
+#| out-width: "70%"
 ggplot(data = penguins,
        aes(x = species,
            y = bill_depth_mm))+
@@ -608,7 +652,7 @@ Recrie a seguinte visualização. Para qual estética o bill_depth_mm deve ser m
 ```{r}
 #| echo: false
 #| fig-align: center
-#| out-width: 50%
+#| out-width: "70%"
 
 ggplot(data = penguins,
        aes(x = flipper_length_mm,
@@ -623,6 +667,7 @@ ggplot(data = penguins,
 #| fig-align: center
 #| out-width: 70%
 #| output-location: slide
+#| code-line-numbers: "|4"
 
 ggplot(data = penguins,
        aes(x = flipper_length_mm,
@@ -661,7 +706,9 @@ ggplot(penguins,
 ### Código usando pipe `|>`
 
 ```{r}
-#| output-location: slide 
+#| output-location: slide
+#| fig-align: center
+#| out-width: "70%" 
 
 penguins |> 
   ggplot(aes(flipper_length_mm,
@@ -695,7 +742,8 @@ penguins |>
 
 ```{r}
 #| output-location: column-fragment
-#| out-width: 100%
+#| fig-align: center
+#| out-width: "100%"
 
 ggplot(penguins,
        aes(species))+
@@ -706,7 +754,8 @@ ggplot(penguins,
 
 ```{r}
 #| output-location: column-fragment
-#| out-width: 100%
+#| fig-align: center
+#| out-width: "100%"
 
 ggplot(penguins,
        aes(fct_infreq(species)))+
@@ -740,6 +789,7 @@ ggplot(penguins,
 ```{r}
 #| echo: false
 #| fig-align: center
+#| out-width: "50%"
 ggplot(penguins,
        aes(fct_infreq(species),
            y = after_stat(count/sum(count)),
@@ -777,6 +827,8 @@ ggplot(penguins,
 
 ```{r}
 #| echo: false
+#| fig-align: center
+#| out-width: "70%"
 
 ggplot(penguins, aes(body_mass_g)) +
   geom_histogram(binwidth = 200,
@@ -787,6 +839,9 @@ ggplot(penguins, aes(body_mass_g)) +
 ## Histograma (histogram)
 
 ```{r}
+#| fig-align: center
+#| out-width: "70%"
+
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
 
@@ -802,6 +857,7 @@ ggplot(penguins, aes(x = body_mass_g)) +
 ```{r}
 #| echo: false
 #| out-width: 45%
+
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 2000)
 
@@ -812,6 +868,7 @@ ggplot(penguins, aes(x = body_mass_g)) +
 ```{r}
 #| echo: false
 #| out-width: 45%
+
 ggplot(penguins, aes(body_mass_g)) +
   geom_histogram(binwidth = 20)
 
@@ -826,6 +883,8 @@ Faça um gráfico de barras das espécies (`species`) de pinguins, onde você at
 
 ```{r}
 #| output-location: fragment
+#| fig-align: center
+#| out-width: "50%"
 
 ggplot(penguins,
        aes(y = species))+
@@ -850,6 +909,9 @@ ggplot(penguins, aes(species)) +
 
 ```{r}
 #| output-location: fragment
+#| fig-align: center
+#| out-width: "50%"
+
 ggplot(penguins, aes(species)) +
   geom_bar(fill = "red")
 ```
@@ -885,7 +947,178 @@ hist(diamonds$carat)
     -   numérica x numérica
 -   3 ou mais variáveis
 
-## 
+## Variáveis numéricas e categóricas
+
+- Diagrama de caixa (boxplot)
+    -  Atalho visual para medidas de posição (percentis) que descrevem uma distribuição
+    -  Útil para identificar possíveis outliers
+    
+## Entendendo um diagrama de caixa (boxplot)
+
+```{r}
+#| label: boxplot_explicado_2
+#| echo: false
+#| fig-align: center
+#| fig-width: 9.71
+#| out-width: "70%"                                                    
+
+box_plot <-
+  penguins |> 
+  filter(species == "Chinstrap") |>
+  mutate(species = as.numeric(species)) |> 
+  ggplot(aes(species,
+             body_mass_g)) +
+  geom_boxplot(color = "gray") +
+  scale_x_continuous(breaks = 2,
+                     labels = "Chinstrap") +
+  theme(axis.ticks = element_blank())
+  
+box_plot <-
+  box_plot +
+  geom_segment(x = 2.32,
+               y = 3450,
+               xend = 2.32,
+               yend = 4000,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+  geom_segment(x = 2.32,
+               y = 4000,
+               xend = 2.32,
+               yend = 3450,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+  annotate("text",
+           x = 2.32, 
+           y = 3420, 
+           label = "Interquartile range (IQR)",
+           color = "gray",
+           hjust = "center")
+
+box_plot <- 
+  box_plot +
+  geom_segment(x = 2.32,
+               y = 4050,
+               xend = 2.32,
+               yend = 4755,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+  geom_segment(x = 2.32,
+               y = 4755,
+               xend = 2.32,
+               yend = 4050,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2)+
+  annotate("text",
+           x = 2.36,
+           y = 4400,
+           label = "1,5 X IQR",
+           color = "gray")
+  
+box_plot <- 
+  box_plot +
+  geom_segment(x = 2.05,
+               xend = 2.01,
+               y = 4800,
+               yend = 4800,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray") +
+  annotate("text",
+           x = 2.076,
+           y = 4800,
+           label = "outlier",
+           color = "gray")
+
+box_plot <- 
+  box_plot +
+   geom_segment(x = 2.1,
+               y = 3197.5,
+               xend = 2.1,
+               yend = 3487.5,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+  annotate("text",
+           x = 2.1,
+           y = 3150,
+           label = "percentil 25",
+           color = "gray") +
+  geom_segment(x = 2.1,
+               y = 4240,
+               xend = 2.1,
+               yend = 3950,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+  annotate("text",
+           x = 2.1,
+           y = 4350,
+           label = "percentil 75",
+           color = "gray") +
+  geom_segment(x = 1.8,
+               y = 3410,
+               xend = 1.8,
+               yend = 3700,
+               arrow = arrow(length = unit(0.2, "cm"), 
+                             type = "closed"),
+               color = "gray",
+               alpha = 0.2) +
+   annotate("text",
+           x = 1.8,
+           y = 3300,
+           label = "percentil 50 (mediana)",
+           color = "gray")
+
+box_plot
+```
+
+## Entendendo um diagrama de caixa (boxplot)
+
+```{r}
+#| label: boxplot_explicado
+#| echo: false
+#| fig-align: center
+#| out-width: "70%"
+
+
+point <- 
+  penguins |> 
+  filter(species == "Chinstrap") |>  
+  mutate(species == as.numeric(species)) |> 
+  ggplot(aes(species,
+             body_mass_g))+
+  geom_point()
+
+histog <- 
+  penguins |> 
+  filter(species == "Chinstrap") |>
+  ggplot(aes(body_mass_g))+
+  geom_histogram(bins = 20)+
+  coord_flip()
+
+box_plot <-
+  penguins |> 
+  filter(species == "Chinstrap") |>
+  mutate(species = as.numeric(species)) |> 
+  ggplot(aes(species,
+             body_mass_g)) +
+  geom_boxplot(color = "gray") +
+  scale_x_continuous(breaks = 2,
+                     labels = "Chinstrap") +
+  theme(axis.ticks = element_blank())
+  
+point + histog + box_plot
+```
 
 
 ## Duas variáveis categóricas
@@ -912,6 +1145,9 @@ penguins |>
 
 ```{r}
 #| output-location: slide
+#| fig-align: center
+#| out-width: "70%"
+
 ggplot(penguins,
        aes(island,
            fill = species))+
@@ -926,6 +1162,9 @@ ggplot(penguins,
 
 ```{r}
 #| output-location: slide
+#| fig-align: center
+#| out-width: "70%"
+
 ggplot(penguins,
        aes(island,
            fill = species))+
@@ -938,6 +1177,9 @@ ggplot(penguins,
 
 ```{r}
 #| output-location: slide
+#| fig-align: center
+#| out-width: "70%"
+
 ggplot(penguins,
        aes(island,
            fill = species))+
