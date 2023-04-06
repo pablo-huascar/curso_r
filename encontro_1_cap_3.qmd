@@ -547,7 +547,10 @@ penguins |>
 
 ```{r}
 #| echo: false
+#| fig-align: center
+#| out-width: 70%
 #| eval: true
+#| fig-dpi: 600
 
 penguins |> 
   filter(!is.na(sex)) |> 
@@ -572,8 +575,9 @@ penguins |>
 
 ```{r fig.height=4}
 #| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10"
+#| fig-align: center
+#| out-width: 70%
 #| output-location: slide
-#| out-width: 400%
 #| fig-dpi: 600  
 
 penguins |> 
@@ -592,7 +596,8 @@ penguins |>
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
 #| code-line-numbers: "|1|2"
 #| output-location: slide
-#| out-width: 400%
+#| out-width: 70%
+#| fig-align: center
 #| fig-dpi: 600
 # O relatório 3 só precisava dos 
 #dados da ilha Biscoe
