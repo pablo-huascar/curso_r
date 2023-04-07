@@ -82,6 +82,7 @@ penguins |>
 #| label: boxplot
 #| echo: false
 #| fig-align: center
+#| out-width: 70%
 #| fig-dpi: 600
 penguins |>
   drop_na() |> 
@@ -270,7 +271,7 @@ library(ggthemes)
 
 ## O banco de Dados dos [`penguins`](https://allisonhorst.github.io/palmerpenguins/)
 
--   Bando de dados: uma coleção retangular de variáveis (nas colunas) e observações (nas linhas)
+-   Banco de dados: uma coleção retangular de variáveis (nas colunas) e observações (nas linhas)
 -   `penguins`: `r nrow(penguins)` casos/observações
 -   Os dados foram coletados e disponibilizados pela Dra. Kristen Gorman e a Estação Palmer, Antártica LTER
 
@@ -366,7 +367,7 @@ penguins |>
   geom_smooth(method = "lm") +
   labs(title = "Massa corporal e comprimento da nadadeira",
        subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
-    x = "Comprimento da nadadeira (mm)",
+       x = "Comprimento da nadadeira (mm)",
        y = "Massa corporal (g)",
        color = "Espécie",
     shape = "Espécie") +

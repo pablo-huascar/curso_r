@@ -1,0 +1,144 @@
+---
+title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
+execute:
+  echo: true
+author: "Francisco Pablo Huascar Aragão Pinheiro"
+institute: <img src="images/ufc_horizontal.png" width="250">
+format: 
+  revealjs:
+      theme: simple
+      fig-width: 6
+      fig-asp: 0.618
+progress: true
+slide-number: true
+logo: images/lappsie.png
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Quem sou eu
+
+::: {style="line-height: 1;"}
+::: columns
+::: {.column width="40%"}
+![](images/logo_pos.png) ![](images/lappsie.png)
+:::
+
+::: {.column width="60%"}
+::: incremental
+-   [Psicólogo]{style="font-size:25pt;"}
+-   [Doutor em educação]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
+:::
+:::
+:::
+:::
+
+::: aside
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
+:::
+
+## R for Data Science
+
+::: columns
+::: {.column width="50%"}
+Livro base para o mini curso
+:::
+
+::: {.column width="50%"}
+[![](images/r_for_d_s.jpg){fig-alt="Capa do livro R for Data Science. Uma coruja se destaca na ilustração" fig-align="right" width="412"}](https://r4ds.had.co.nz/)
+:::
+:::
+
+## R for Data Science
+
+-   Neste [link](https://r4ds.had.co.nz/ "R for Data Science") você pode acessar a primeira edição do livro:
+
+<https://r4ds.had.co.nz/>
+
+-   E [aqui](https://r4ds.hadley.nz/ "R for Data Science") você pode acessar a segunda edição que ainda está sendo finalizada:
+
+<https://r4ds.hadley.nz/>
+
+::: aside
+Estes slides tem como base o conteúdo da segunda edição
+:::
+
+# 4 Transformação de dados
+
+## 4.1 Introdução
+
+-   É raro que os dados estejam da forma certa para fazer análises ou gráficos
+-   Transformações:
+    -   Criar novas variáveis
+    -   Resumir dados
+    -   Renomear variáveis
+    -   Reordenar casos
+-   [`dplyr`](https://dplyr.tidyverse.org/index.html)
+-   [`nycflights13`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+## Pacotes
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(nycflights13)
+```
+
+## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+-   `r nrow(flights)` vôos que partiram de NYC em 2013
+-   US [Bureau of Transportation Statistics](http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0)
+-   `?flights`
+
+## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+```{r}
+#| label: flights
+
+flights
+
+```
+
+## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+-   tibble: tipo especial de banco de dados usado pelo [`tydiverse`](https://www.tidyverse.org/)
+-   projetados para grandes conjuntos de dados
+    - mostram apenas as primeiras linhas e apenas as colunas que cabem na tela
+    - para ver todas as colunas: `glimpse`
+
+## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+```{r}
+#| label: flights glimpse
+
+glimpse(flights)
+
+read.csv("./sobral.csv")
+```
+
+## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Compartilhar conhecimento sempre!
+
+O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui](https://github.com/pablo-huascar/curso_r), assim como os slides em formato PDF:
+
+<https://github.com/pablo-huascar/curso_r>
