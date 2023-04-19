@@ -951,7 +951,7 @@ ggplot(penguins, aes(species)) +
 
 ## Exercícios
 
-Faça um histograma da variável quilate (`carat`) no conjunto de dados de diamantes que está disponível quando você carrega o pacote [tidyverse](https://www.tidyverse.org/). Experimente diferentes larguras de caixa (`bin`). Qual largura de `bin` revela os padrões mais interessantes?
+Faça um histograma da variável quilate (`carat`) no conjunto de dados de `diamonds` (diamantes) que está disponível quando você carrega o pacote [tidyverse](https://www.tidyverse.org/). Experimente diferentes larguras de caixa (`bin`). Qual largura de `bin` revela os padrões mais interessantes?
 
 ## Resposta
 
@@ -1401,24 +1401,6 @@ ggplot(penguins,
            body_mass_g))+
   geom_point(aes(color = sex,
                  shape = sex))
-```
-
-## Resposta
-
-```{r}
-#| label: Mesma variável, varios aes() 2
-#| fig-align: center
-#| output-location: slide
-#| out-width: 65%
-#| fig-dpi: 600
-
-penguins |> 
-  drop_na() |> 
-  ggplot(aes(flipper_length_mm,
-             body_mass_g)) +
-  geom_point(aes(color = sex,
-                 shape = sex))
-
 ```
 
 ## Exercícios

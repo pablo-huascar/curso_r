@@ -280,7 +280,7 @@ sqrt(100)
 (40+50)/10
 ```
 
-## Criação de objetos com o operador de atribuição \<-
+## Criação de objetos com o operador de atribuição `<-`
 
 ```{r}
 
