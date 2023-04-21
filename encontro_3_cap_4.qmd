@@ -91,6 +91,12 @@ library(tidyverse)
 library(nycflights13)
 ```
 
+```{r}
+#| label: pacotes extras
+
+library(kableExtra)
+```
+
 ## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
 
 -   `r nrow(flights)` vôos que partiram de NYC em 2013
@@ -172,13 +178,29 @@ glimpse(mpg)
     -   primeiro argumento: banco de dados
     -   argumentos subsequentes: quais colunas operar: nomes das variáveis sem aspas
     -   saída: novo banco de dados
+
+## O Básico do `dplyr`
+
+```{r}
+filter(mpg, manufacturer == "ford")
+```
+
+## O Básico do `dplyr`
+
+```{r}
+select(mpg, model)
+```
+
+## O Básico do `dplyr`
+
 -   pipe: `|>`: "e então"
 
 ## `|>`
 
 ```{r}
 #| label: pipe
-glimpse(mpg)
+mpg |> 
+  glimpse()
 ```
 
 ## `|>`
@@ -221,7 +243,7 @@ flights |>
 
 ## Exercício
 
--   No banco de dados mpg, encontre os carros que tem um rendimento na cidade maior do que 17 galões por milha (`cty`)
+-   No banco de dados `mpg`, encontre os carros que tem um rendimento na cidade maior do que 17 galões por milha (`cty`)
 
 ## Resposta
 
@@ -237,7 +259,7 @@ mpg |>
 -   `>` maior que
 -   `>=` maior ou igual que
 -   `<` menor que
--   `<=` menor ou igualque
+-   `<=` menor ou igual que
 -   `==` igual a
 -   `!=` não é igual a
 
@@ -409,6 +431,7 @@ flights |>
 :::
 
 ## [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
+
 -   Mais de um nome de coluna: cada coluna adicional desempata os valores das colunas anteriores
 
 ## [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
@@ -422,7 +445,7 @@ flights |>
 
 ## [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
 
-- Para ver do maior pro menor: `desc()`
+-   Para ver do maior pro menor: `desc()`
 
 ## [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
 
@@ -455,7 +478,7 @@ mpg |>
   arrange(desc(hwy))
 ```
 
-## Exercício 
+## Exercício
 
 No banco `mpg`, ache o carro da marca ford (`manufacturer`) com melhor rendimento na cidade (`cty`)
 
@@ -468,18 +491,21 @@ mpg |>
 ```
 
 ## [`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html)
+
 -   Localiza todas as linhas únicas em um conjunto de dados
 
 ## [`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html)
 
 ::: panel-tabset
 ### Origem
+
 ```{r}
 flights |> 
   distinct(origin)
 ```
 
 ### Destino
+
 ```{r}
 flights |> 
   distinct(dest)
@@ -507,7 +533,7 @@ mpg |>
 
 ## Exercícios
 
-No banco `mpg`, crie uma lista com os fabricantes (`manufacturer`) e seus respectivos modelos
+No banco `mpg`, crie uma tabela com os fabricantes (`manufacturer`) e seus respectivos modelos
 
 ## Resposta
 
@@ -518,7 +544,8 @@ mpg |>
 ```
 
 ## [`count()`](https://dplyr.tidyverse.org/reference/count.html)
-- Número de ocorrências em cada categoria
+
+-   Número de ocorrências em cada categoria
 
 ## [`count()`](https://dplyr.tidyverse.org/reference/count.html)
 
@@ -538,7 +565,7 @@ flights |>
 
 ## [`count()`](https://dplyr.tidyverse.org/reference/count.html)
 
-- O argumento `sort = TRUE` mostra o número de ocorrências em ordem descendente
+-   O argumento `sort = TRUE` mostra o número de ocorrências em ordem descendente
 
 ## [`count()`](https://dplyr.tidyverse.org/reference/count.html)
 
@@ -581,8 +608,8 @@ mpg |>
   count(manufacturer, model)
 ```
 
-
 ## Exercícios {.smaller}
+
 -   Em um único pipeline, encontre todos os voos que atendem a todas as seguintes condições:
     -   Tiveram um atraso de chegada de duas ou mais horas;
     -   Voaram para Houston (IAH ou HOU);
@@ -592,6 +619,7 @@ mpg |>
     -   Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de voo.
 
 ## Exercícios
+
 Tiveram um atraso de chegada (`arr_delay`) de duas ou mais horas.
 
 ## Resposta
@@ -614,6 +642,7 @@ flights |>
 ```
 
 ## Exercícios
+
 Foram operados (`carrier`) pela United, American ou Delta. Podemos encontrar os códigos da transportadora para as companhias aéreas no banco de dados `airlines`
 
 ## Resposta
@@ -628,12 +657,14 @@ flights |>
 Partiram no verão (julho, agosto e setembro - `month`).
 
 ## Resposta
+
 ```{r}
 flights |> 
   filter(month %in% c(7,8,9))
 ```
 
 ## Exercícios
+
 Chegaram com mais de duas horas de atraso (`arr_delay`), mas não saíram atrasados (`dep_delay`).
 
 ## Resposta
@@ -644,11 +675,12 @@ flights |>
 ```
 
 ## Exercícios
+
 Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de voo.
 
 ## Resposta
 
-Se um voo atrasou pelo menos uma hora, então dep_delay >= 60. Se o voo não recuperou tempo no ar, então sua chegada seria atrasada pelo mesmo valor que sua partida, significando dep_delay == arr_delay , ou alternativamente, dep_delay - arr_delay == 0. Se compensou mais de 30 minutos no ar, o atraso de chegada deve ser pelo menos 30 minutos menor que o atraso de partida, que é declarado como dep_delay - arr_delay >= 30.
+Se um voo atrasou pelo menos uma hora, então dep_delay \>= 60. Se o voo não recuperou tempo no ar, então sua chegada seria atrasada pelo mesmo valor que sua partida, significando dep_delay == arr_delay , ou alternativamente, dep_delay - arr_delay == 0. Se compensou mais de 30 minutos no ar, o atraso de chegada deve ser pelo menos 30 minutos menor que o atraso de partida, que é declarado como dep_delay - arr_delay \>= 30.
 
 ## Resposta
 
@@ -659,7 +691,6 @@ atrasos <-
          dep_delay_arr_delay = dep_delay - arr_delay)
 atrasos
 ```
-
 
 ## Resposta
 
@@ -692,6 +723,581 @@ flights  |>
   distinct(month, day) |> 
   count(month)
   
+```
+
+## 4.2 Colunas
+
+-   [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): cria novas colunas derivadas das colunas existentes
+-   [`select()`](https://dplyr.tidyverse.org/reference/select.html): altera quais colunas estão presentes
+-   [`rename()`](https://dplyr.tidyverse.org/reference/rename.html): altera os nomes das colunas
+-   [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html): altera as posições das colunas
+
+## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
+
+-   Incluído no pacote [`ggplot2`](https://ggplot2.tidyverse.org/)
+
+-   Série temporal sobre a economia dos EUA
+
+-   `r nrow(economics)` linhas (casos)
+
+-   `r ncol(economics)` colunas (variáveis)
+
+## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
+
+```{r}
+glimpse(economics)
+```
+
+## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
+
+| Variável |                                                                                       |
+|------------------|------------------------------------------------------|
+| date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
+| pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
+| pop      | População total, em milhares                                                          |
+| psavert  | Taxa de poupança pessoal                                                              |
+| uempmed  | Duração mediana do desemprego, em semanas                                             |
+| unemploy | Número de desempregados em milhares                                                   |
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+`air_time`: quantidade de tempo gasta no ar, em minutos `air_time_horas`: `air_time`/60
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+-   Novas colunas são adicionadas no lado direito do conjunto de dados
+    -   difícil de vizualizar
+-   `.before` ("antes") e `.after` ("depois") para indicar onde a variável deve ficar
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60,
+         .before = 1)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60,
+         .before = year)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60,
+         .after = 3)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60,
+         .after = day)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+-   `.keep = c("all", "used", "unused", "none")`
+    -   `"all"` retém todas as colunas (padrão)
+    -   `"used"` retém apenas as colunas usadas para criar novas colunas
+    -   `"unused"` retém apenas as colunas não usadas
+    -   `"none"` não retém nenhuma coluna extra de .data. Apenas as variáveis de agrupamento e as colunas criadas são mantidas.
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights |> 
+  mutate(air_time_horas = air_time/60,
+         .keep = "used")
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+-   Não altera o banco de dados orignial
+-   É preciso salvar a coluna nova no próprio banco ou em outro objeto com o operador de atribuição `<-`
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+flights <- flights |> 
+  mutate(air_time_horas = air_time/60,
+         .after = day)
+
+glimpse(flights)
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+
+```{r}
+air_time_horas <- flights |> 
+  mutate(air_time_horas = air_time/60,
+         .keep = "none")
+
+air_time_horas
+```
+
+## Exercícios
+
+```{r}
+data("economics")
+
+print(economics)
+```
+
+## Exercícios
+
+Crie uma coluna (variável) chamada `consumo_percapita` que calcule a relação entre os gastos de consumo pessoal (`pce`) e a população (`pop`).
+
+## Resposta
+
+```{r}
+economics |> 
+  mutate(consumo_percapita = pce/pop)
+```
+
+## Exercícios
+
+Crie uma variável chamada `des_hab` a taxa de desempregados (`unemploy`) por habitante (`pop`)
+
+## Resposta
+
+```{r}
+economics |> 
+  mutate(des_hab = unemploy/pop)
+  
+```
+
+## Exercícios
+
+Salve em um objeto chamado `des_hab_2008` somente a variável `des_hab` criada anteriormente, mas queremos apenas os dados referentes ao ano de 2008.
+
+Dica 1: você pude usar a função ([`year`](https://lubridate.tidyverse.org/reference/year.html)) para transmformar variável `date` em ano!
+
+Dica 2: lembre que o operador de atribuição (`<-`) é utilizado para salvar objetos
+
+Dica 3: lembre do que aprendemos com a função `filter()`
+
+## Resposta - parte 1
+
+```{r}
+economics |> 
+  mutate(date = year(date))  
+```
+
+## Resposta - parte 2
+
+```{r}
+economics |> 
+  mutate(date = year(date),
+         des_hab = unemploy/pop)
+```
+
+## Resposta - parte 3
+
+```{r}
+economics |> 
+  mutate(date = year(date),
+         des_hab = unemploy/pop,
+         .keep = "none")
+```
+
+## Resposta - parte 4
+
+```{r}
+economics |> 
+  mutate(date = year(date),
+         des_hab = unemploy/pop,
+         .keep = "none") |>
+  filter(date == 2008)
+```
+
+## Resposta - parte 5
+
+```{r}
+des_hab_2008 <- economics |> 
+  mutate(date = year(date),
+         des_hab = unemploy/pop,
+         .keep = "none") |>
+  filter(date == 2008)
+
+des_hab_2008
+```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Criação de variáveis compostas
+
+-   Criadas a partir da combinação de duas ou mais variáveis originais
+-   Objetivo: capturar uma determinada dimensão ou constructo que não pode ser medido diretamente por nenhuma das variáveis isoladamente.
+-   Exemplo: fator ou componente de uma escala calculado pela média de um grupo de itens
+
+## DASS-21
+
+-   Três dimensões: depressão, ansiedade e estresse
+-   21 itens, sendo 7 para cada dimensão
+-   Escalade resposta: 0 a 3
+-   Valores mais altos indicam níveis mais elevados de depressão, ansiedade e estresse
+-   Cada dimensão é calculada com a soma dos respectivos itens
+
+## DASS-21: depressão
+
+```{r}
+#| echo: false
+dass_itens <- read_csv("./data/dass_21_itens.csv")
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |>
+  slice(c(3,5,10,13,16,17,21)) |>
+  mutate(Item = c(3,5,10,13,16,17,21),
+         .before = 1) |> 
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl") |> 
+  kable_classic()
+```
+
+## DASS-21: Ansiedade
+
+```{r}
+#| echo: false
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |> 
+  slice(c(2,4,7,9,15,19,20)) |> 
+  mutate(Item = c(2,4,7,9,15,19,20),
+         .before = 1) |>
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl") |>
+  kable_styling(font_size = 32) |> 
+  kable_classic()
+  
+```
+
+## DASS-21: Estresse
+
+```{r}
+#| echo: false
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |> 
+  slice(c(1,6,8,11,12,14,18)) |> 
+  mutate(Item = c(1,6,8,11,12,14,18),
+         .before = 1) |> 
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl",) |>
+  kable_classic()
+```
+
+## `dass_simulado`: Importação do banco
+
+```{r}
+#| echo: false
+#| include: false
+#| eval: false
+
+# Definir a quantidade de participantes
+n_participants <- 100
+
+# Gerar as variáveis aleatórias para as questões da DASS-21
+dass_values <- replicate(21, sample(0:3, size = n_participants, replace = TRUE))
+dass_df <- data.frame(dass_values)
+
+# Adicionar variáveis para sexo e idade
+sex <- sample(c("M", "F"), n_participants, replace = TRUE)
+age <- sample(18:65, n_participants, replace = TRUE)
+
+# Combinar todas as variáveis em um único dataframe
+simulated_data <- bind_cols(dass_df, data.frame(sex = sex, age = age))
+
+# Alterar os nomes das colunas
+colnames(simulated_data) <- c(paste0("dass_", 1:21), "sex", "age")
+
+# Visualizar as primeiras linhas do dataframe simulado
+head(simulated_data)
+
+simulated_data |> 
+  summarise(across(where(is.numeric),
+                   list(min = min,
+                        max = max)))
+write_csv(simulated_data, file = "./data/dass_simulado.csv")
+```
+
+```{r}
+#| eval: false
+dass_simulado <- read_csv("https://tinyurl.com/dassdata")
+```
+
+```{r}
+#| echo: false
+#| include: false
+
+dass_simulado <- read_csv("./data/dass_simulado.csv")
+
+```
+
+```{r}
+glimpse(dass_simulado)
+```
+
+## `dass_simulado`
+
+| Variável       |       |
+|----------------|-------|
+| dass_1:dass_21 | DASS  |
+| sex            | Sexo  |
+| age            | Idade |
+
+## Criação da variável `depressao`
+
+```{r}
+#| echo: false
+dass_itens <- read_csv("./data/dass_21_itens.csv")
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |>
+  slice(c(3,5,10,13,16,17,21)) |>
+  mutate(Item = c(3,5,10,13,16,17,21),
+         .before = 1) |> 
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl") |> 
+  kable_classic()
+```
+
+## Criação da variável `depressao`
+
+```{r}
+#| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10|11"
+#| output-location: slide
+dass_simulado |>
+  rowwise() |> 
+  mutate(depressao = sum(c(dass_3,
+                           dass_5,
+                           dass_10,
+                           dass_13,
+                           dass_16,
+                           dass_17,
+                           dass_21)),
+         .keep = "none") |> 
+  ungroup()
+```
+
+## [`rowwise()`](https://dplyr.tidyverse.org/articles/rowwise.html)
+
+-   `mutate()`: opera nas colunas
+-   `rowwise()`: faz o mutate operar nas linhas
+    - tipo especial de agrupamento
+
+## [`rowwise()`](https://dplyr.tidyverse.org/articles/rowwise.html)
+
+```{r}
+df <- tibble(x = 1:2, y = 3:4, z = 5:6)
+df
+```
+
+## [`rowwise()`](https://dplyr.tidyverse.org/articles/rowwise.html)
+
+Calculou a média de `x`, `y` e `z` através de todas as linhas
+
+```{r}
+
+df %>% 
+  mutate(m = mean(c(x, y, z)))
+
+(1+3+5+2+4+6)/6
+```
+
+## [`rowwise()`](https://dplyr.tidyverse.org/articles/rowwise.html)
+
+Calculou a média para cada linha
+
+```{r}
+df %>% 
+  rowwise() %>% 
+  mutate(m = mean(c(x, y, z)))
+
+(1+3+5)/3
+
+(2+4+6)/3
+```
+
+## DASS-21: depressão
+
+```{r}
+#| echo: false
+dass_itens <- read_csv("./data/dass_21_itens.csv")
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |>
+  slice(c(3,5,10,13,16,17,21)) |>
+  mutate(Item = c(3,5,10,13,16,17,21),
+         .before = 1) |> 
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl") |> 
+  kable_classic()
+```
+
+
+## Criação da variável `depressao`
+
+```{r}
+#| code-line-numbers: "|1|2|"
+#| output-location: slide
+dass_simulado |>
+  #rowwise() |> 
+  mutate(depressao = sum(c(dass_3,
+                            dass_5,
+                            dass_10,
+                            dass_13,
+                            dass_16,dass_17,
+                            dass_21)),
+         .keep = "none") |> 
+  ungroup()
+```
+
+## Criação da variável `depressao`
+
+```{r}
+#| code-line-numbers: "|1|2|"
+#| output-location: slide
+dass_simulado |>
+  rowwise() |> 
+  mutate(depressao = sum(c(dass_3,
+                            dass_5,
+                            dass_10,
+                            dass_13,
+                            dass_16,dass_17,
+                            dass_21)),
+         .keep = "none") |> 
+  ungroup()
+```
+
+## Salvar a variável `depressão` no banco de dados (`<-`)
+
+```{r}
+#| output-location: slide
+dass_simulado <- dass_simulado |> 
+  rowwise() |> 
+  mutate(depressao = sum(c(dass_3,
+                            dass_5,
+                            dass_10,
+                            dass_13,
+                            dass_16,dass_17,
+                            dass_21)),
+         .before = 1) |> 
+  ungroup()
+
+dass_simulado
+```
+
+## Exercícios
+
+Salve a variável `ansiedade` no banco dass_simulado e faça com que ela seja a segunda coluna de dados, depois de `depressao`.
+
+## Ansiedade
+
+```{r}
+#| echo: false
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |> 
+  slice(c(2,4,7,9,15,19,20)) |> 
+  mutate(Item = c(2,4,7,9,15,19,20),
+         .before = 1) |>
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl") |>
+  kable_styling(font_size = 32) |> 
+  kable_classic()
+  
+```
+
+## Resposta parte 1
+
+```{r}
+#| output-location: slide
+dass_simulado |> 
+  rowwise() |> 
+  mutate(ansiedade = sum(c(dass_2,
+                           dass_4,
+                           dass_7,
+                           dass_9,
+                           dass_15,
+                           dass_19,
+                           dass_20)),
+         .after = depressao) |> 
+  ungroup()
+```
+
+## Resposta parte 2
+
+```{r}
+#| output-location: slide 
+
+dass_simulado <- dass_simulado |> 
+  rowwise() |> 
+  mutate(ansiedade = sum(c(dass_2,
+                           dass_4,
+                           dass_7,
+                           dass_9,
+                           dass_15,
+                           dass_19,
+                           dass_20)),
+         .after = depressao) |> 
+  ungroup()
+
+dass_simulado
+```
+
+## Exercícios
+
+Salve a variável `estresse` no banco dass_simulado e faça com que ela seja a terceira coluna de dados, depois de `ansiedade`.
+
+## DASS-21: Estresse
+
+```{r}
+#| echo: false
+
+dass_itens |> 
+  pivot_longer(cols = everything()) |> 
+  select(value) |> 
+  slice(c(1,6,8,11,12,14,18)) |> 
+  mutate(Item = c(1,6,8,11,12,14,18),
+         .before = 1) |> 
+  rename("Assertiva" = value) |> 
+  kbl(align = "cl",) |>
+  kable_classic()
+```
+
+## Resposta
+
+```{r}
+#| output-location: slide
+dass_simulado <- dass_simulado |> 
+  rowwise() |> 
+  mutate(estresse = sum(dass_1,
+                        dass_6,
+                        dass_8,
+                        dass_11,
+                        dass_12,
+                        dass_14,
+                        dass_18),
+         .after = ansiedade) |> 
+  ungroup()
+
+dass_simulado
 ```
 
 
