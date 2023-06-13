@@ -100,7 +100,7 @@ library(kableExtra)
 ## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
 
 -   `r nrow(flights)` vôos que partiram de NYC em 2013
--   US [Bureau of Transportation Statistics](http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0)
+-   [US Bureau of Transportation Statistics](http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0)
 -   `?flights`
 
 ## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
@@ -715,7 +715,7 @@ flights |>
 
 Houve um voo em todos os dias de 2013?
 
-## Resposta
+## Resposta 1
 
 ```{r}
 flights  |> 
@@ -723,6 +723,18 @@ flights  |>
   distinct(month, day) |> 
   count(month)
   
+```
+
+## Resposta 2
+
+```{r}
+#| output-location: slide 
+
+flights |> 
+  filter(year == 2013) |> 
+  distinct(month,day) |> 
+  count(day) |> 
+  print(n = Inf)
 ```
 
 ## 4.2 Colunas
@@ -751,7 +763,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1097,7 +1109,7 @@ dass_simulado |>
 
 -   `mutate()`: opera nas colunas
 -   `rowwise()`: faz o mutate operar nas linhas
-    - tipo especial de agrupamento
+    -   tipo especial de agrupamento
 
 ## [`rowwise()`](https://dplyr.tidyverse.org/articles/rowwise.html)
 
@@ -1148,7 +1160,6 @@ dass_itens |>
   kbl(align = "cl") |> 
   kable_classic()
 ```
-
 
 ## Criação da variável `depressao`
 
@@ -1298,8 +1309,39 @@ dass_simulado <- dass_simulado |>
   ungroup()
 
 dass_simulado
+
+
 ```
 
+## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+
+permite que você selecione rapidamente um subconjunto de variáveis a partir de operações usando os seus nomes
+
+```{r}
+flights |> 
+  glimpse()
+```
+
+## [[`select()`](https://dplyr.tidyverse.org/reference/select.html): Seleciona as colunas pelo nome]{style="font-size: 40pt"}
+
+```{r}
+flights |> 
+  select(year,month,day)
+```
+
+## [[`select()`](https://dplyr.tidyverse.org/reference/select.html): Seleciona todas as colunas entre ano e dia (inclusive)]{style="font-size: 40pt"}
+
+```{r}
+flights |> 
+  select(year:day)
+```
+
+## [[`select()`](https://dplyr.tidyverse.org/reference/select.html): Seleciona todas as colunas, exceto as de ano a dia (inclusive)]{style="font-size: 40pt"}
+
+```{r}
+flights |> 
+  select(!year:day)
+```
 
 ## Compartilhar conhecimento sempre!
 

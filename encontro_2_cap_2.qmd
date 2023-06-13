@@ -252,8 +252,9 @@ library(tidyverse)
 ```
 
 ```{r}
-
+install.packages("palmerpenguins")
 library(palmerpenguins)
+install.packages("ggthemes")
 library(ggthemes)
 ```
 
@@ -328,7 +329,7 @@ glimpse(penguins)
 ```{r}
 #| eval: false
 
-View(penguins)
+view(penguins)
 ```
 
 ![](images/view.png)
@@ -1183,7 +1184,7 @@ penguins |>
 ```{r}
 #| output-location: slide
 #| fig-align: center
-#| out-width: "70%"
+#| out-width: "60%"
 #| fig-dpi: 600
 
 ggplot(penguins,
@@ -1201,7 +1202,7 @@ ggplot(penguins,
 ```{r}
 #| output-location: slide
 #| fig-align: center
-#| out-width: "70%"
+#| out-width: "60%"
 #| fig-dpi: 600
 
 ggplot(penguins,
