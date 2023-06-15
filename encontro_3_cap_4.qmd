@@ -1343,8 +1343,48 @@ flights |>
   select(!year:day)
 ```
 
+## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+
+::: {.panel-tabset}
+
+### Seleciona caracteres
+
+```{r}
+flights |> 
+  select(where(is.character))
+```
+
+### Seleciona números
+
+```{r}
+flights |> 
+  select(where(is.double))
+```
+
+:::
+
+## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+
+::: {.panel-tabset}
+
+### Começa com
+
+```{r}
+flights |> 
+  select(starts_with("dep"))
+```
+
+### Termina com
+
+```{r}
+flights |> 
+  select(ends_with("time"))
+```
+
+:::
+
 ## Compartilhar conhecimento sempre!
 
-O código e as imagens utilizados para a construção desse slide estão disponíveis [aqui](https://github.com/pablo-huascar/curso_r), assim como os slides em formato PDF:
+O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
 
 <https://github.com/pablo-huascar/curso_r>
