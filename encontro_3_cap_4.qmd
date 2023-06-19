@@ -1607,7 +1607,7 @@ flights |>
 
 ## Exercícios
 
-Descubra qual companhia (`carrier`) tem, em média, os maiores atrasos na decolagem (`dep_delay`)  
+Descubra qual companhia (`carrier`) tem, em média, os menores atrasos na decolagem (`dep_delay`). Dica: você vai precisar da função [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
 
 ## Resposta
 
@@ -1616,12 +1616,12 @@ flights |>
   group_by(carrier) |> 
   summarise(m = mean(dep_delay,
                      na.rm = T)) |> 
-  arrange(desc(m))
+  arrange(m)
 ```
 
 ## Exercícios
 
-Descubra de qual aeroporto partem (`origin`) os voos com maiores atrasos na decolagem (`dep_delay`)
+Descubra de qual aeroporto partem (`origin`) os voos com maiores atrasos na decolagem (`dep_delay`). Dica: use a função [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html) com o argumento `desc()`
 
 ## Resposta
 
