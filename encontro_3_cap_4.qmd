@@ -1450,6 +1450,17 @@ inconsistente |>
   clean_names()
 ```
 
+## [`janitor::clean_names()`](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+
+Não esqueça de salvar as alterações usando operador de atribuição `<-`
+
+```{r}
+inconsistente <- inconsistente |>
+  clean_names()
+
+inconsistente
+```
+
 ## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
 
 Use para mover as variáveis (colunas)
@@ -1467,19 +1478,70 @@ flights |>
 
 ## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
 
+É possível escolher a posição em que a variável vai ficar usando `.after` (depois) ou `.before` (antes) 
+
 ```{r}
 flights |> 
   relocate(dep_time,
-           .after = month)
+           .after  = month)
 ```
 
 ## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
+
+É possível deslocar grupos de variáveis simultaneamente
 
 ```{r}
 flights |> 
   relocate(dep_delay:arr_delay,
            .before = day)
 ```
+
+## Exercicios
+
+A partir do banco de dados `flights` crie um novo banco chamado `atrasos` contendo as variáveis `year` (ano), `month` (mês), `day` (dia), `dep_delay` (atraso na decolagem), `arr_delay` (atraso no pouso), `carrier` (companhia). Os nomes das variáveis devem estar em português e a primeira variável deve ser `carrier`.
+
+## Resposta
+
+::: panel-tabset
+
+## Código
+
+```{r}
+atrasos <- flights |> 
+  select(year:day,
+         dep_delay,
+         arr_delay,
+         carrier) |> 
+  rename(ano = year,
+         mes = month,
+         dia = day,
+         atraso_decolagem = dep_delay,
+         atraso_pouso = arr_delay,
+         companhia = carrier) |> 
+  relocate(companhia)
+
+```
+
+## Resultado
+
+```{r}
+atrasos
+```
+
+## Código alternativo
+
+```{r}
+flights |> 
+  select(companhia = carrier,
+         ano = year,
+         mes = month,
+         dia = day,
+         atraso_decolagem = dep_delay,
+         atraso_pouso = arr_delay)
+```
+
+::: 
+
 
 ## 4.5 Grupos
 
@@ -1512,10 +1574,24 @@ flights |>
 
 ```{r}
 flights |> 
-  summarise(atraso_medio = mean(dep_delay,
+  summarise(atraso_med_partida = mean(dep_delay,
                                 na.rm = T))
 ```
 :::
+
+## Sumário de várias estatísticas
+
+Você pode calcular várias estatísticas de uma só vez
+
+```{r}
+flights |> 
+  summarise(m_atraso_partida = mean(dep_delay,
+                            na.rm = T),
+            sd_atraso_partida = sd(dep_delay,
+                                  na.rm = T),
+            n = n())
+```
+
 
 ## [[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)]{style="font-size: 36pt"}
 
@@ -1525,8 +1601,52 @@ Se usado com `group_by()`, mostra uma linha para cada grupo
 flights |> 
   group_by(month) |> 
   summarise(atraso_medio = mean(dep_delay,
-                                na.rm = T))
+                                na.rm = T),
+            n = n())
 ```
+
+## Exercícios
+
+Descubra qual companhia (`carrier`) tem, em média, os maiores atrasos na decolagem (`dep_delay`)  
+
+## Resposta
+
+```{r}
+flights |> 
+  group_by(carrier) |> 
+  summarise(m = mean(dep_delay,
+                     na.rm = T)) |> 
+  arrange(desc(m))
+```
+
+## Exercícios
+
+Descubra de qual aeroporto partem (`origin`) os voos com maiores atrasos na decolagem (`dep_delay`)
+
+## Resposta
+
+```{r}
+flights |> 
+  group_by(origin) |> 
+  summarise(m = mean(dep_delay,
+                 na.rm = T)) |> 
+  arrange(desc(m))
+```
+
+## Exercícios
+
+Descubra em qual aeroporto chegam (`dest`) os voos com maiores atrasos (`arr_delay`)
+
+## Resposta
+
+```{r}
+flights |> 
+  group_by(dest) |> 
+  summarise(m = mean(arr_delay,
+                     na.rm = T)) |> 
+  arrange(desc(m))
+```
+
 
 ## Compartilhar conhecimento sempre!
 
