@@ -89,6 +89,7 @@ Estes slides tem como base o conteúdo da segunda edição
 
 library(tidyverse)
 library(nycflights13)
+library(janitor)
 ```
 
 ```{r}
@@ -763,7 +764,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|-------------------|-----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1345,8 +1346,7 @@ flights |>
 
 ## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Seleciona caracteres
 
 ```{r}
@@ -1360,13 +1360,11 @@ flights |>
 flights |> 
   select(where(is.double))
 ```
-
 :::
 
 ## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Começa com
 
 ```{r}
@@ -1380,7 +1378,6 @@ flights |>
 flights |> 
   select(ends_with("time"))
 ```
-
 :::
 
 ## [`rename()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
@@ -1408,7 +1405,6 @@ Renomeia as colunas usando uma função
 glimpse(flights)
 ```
 
-
 ## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
 
 ```{r}
@@ -1423,6 +1419,36 @@ flights |>
   rename_with(~ str_remove_all(., "_"))
 ```
 
+## [`janitor::clean_names()`](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+
+Para bancos de dados com muitas inconsistências
+
+```{r}
+#| include: false
+
+inconsistente <- tibble(
+  Nome.do.Cliente = c("João", "Maria", "Pedro"),
+  ID_Cliente = c(1, 2, 3),
+  Endereço_de.Email = c("joao@email.com", "maria@email.com", "pedro@email.com"),
+  "Número de Telefone" = c("123456789", "987654321", "555555555")
+)
+```
+
+```{r}
+glimpse(inconsistente)
+```
+
+```{r}
+#| eval: false
+library(janitor)
+```
+
+## [`janitor::clean_names()`](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+
+```{r}
+inconsistente |> 
+  clean_names()
+```
 
 ## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
 
@@ -1455,13 +1481,52 @@ flights |>
            .before = day)
 ```
 
-## 4.5 Groupos
+## 4.5 Grupos
 
-`group_by()`
+-   [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
-`summarise()`
+-   [`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
 
-`slice()`
+## [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+
+Divide o banco de dados em grupos significativos para a análise, mas não altera o banco.
+
+```{r}
+flights |> 
+  group_by(month)
+```
+
+## [`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
+
+resume as estatísticas. 
+
+::: panel-tabset
+## Variáveis ausentes (`NA`)
+
+```{r}
+flights |> 
+  summarise(atraso_medio = mean(dep_delay))
+```
+
+## Correção das variáveis ausentes (`NA`)
+
+```{r}
+flights |> 
+  summarise(atraso_medio = mean(dep_delay,
+                                na.rm = T))
+```
+:::
+
+## [[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)]{style="font-size: 36pt"}
+
+Se usado com `group_by()`, mostra uma linha para cada grupo
+
+```{r}
+flights |> 
+  group_by(month) |> 
+  summarise(atraso_medio = mean(dep_delay,
+                                na.rm = T))
+```
 
 ## Compartilhar conhecimento sempre!
 

@@ -3,5 +3,3 @@ O repositório contém o código dos slides criados para um minicurso introdutó
 Os slides foram feitos no R Studio usando Quarto no formato revealjs.
 
 As imagens usadas estão na pasta images.
-
-Os slides em formato pdf estão na pasta slides_pdf
