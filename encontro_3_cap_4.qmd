@@ -1383,6 +1383,86 @@ flights |>
 
 :::
 
+## [`rename()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
+
+Altera os nomes de variáveis individuais usando a sintaxe novo_nome = velho_nome
+
+```{r}
+glimpse(flights)
+```
+
+## [`rename()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
+
+```{r}
+flights |> 
+  rename(ano = year,
+         mes = month,
+         dia = day)
+```
+
+## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
+
+Renomeia as colunas usando uma função
+
+```{r}
+glimpse(flights)
+```
+
+
+## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
+
+```{r}
+flights |> 
+  rename_with(~ toupper(.),.cols = 1:3)
+```
+
+## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
+
+```{r}
+flights |> 
+  rename_with(~ str_remove_all(., "_"))
+```
+
+
+## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
+
+Use para mover as variáveis (colunas)
+
+```{r}
+glimpse(flights)
+```
+
+## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
+
+```{r}
+flights |> 
+  relocate(dep_time)
+```
+
+## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
+
+```{r}
+flights |> 
+  relocate(dep_time,
+           .after = month)
+```
+
+## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
+
+```{r}
+flights |> 
+  relocate(dep_delay:arr_delay,
+           .before = day)
+```
+
+## 4.5 Groupos
+
+`group_by()`
+
+`summarise()`
+
+`slice()`
+
 ## Compartilhar conhecimento sempre!
 
 O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
