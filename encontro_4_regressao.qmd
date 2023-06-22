@@ -30,6 +30,8 @@ library(kableExtra)
 
 ```{r}
 #| label: dados
+#| message: false
+#| warning: false
 #| include: false
 
 df <- 
@@ -86,6 +88,7 @@ df <- df |>
 ## A Linha de Regressão
 
 ```{r}
+#| label: tibble para regline
 #| include: false
 
 x <- c(0,1,2,3,4)
@@ -96,10 +99,10 @@ reg_line <- tibble(x,y)
 ```
 
 ```{r}
-#| echo: false
-#| out-width: 70%
+#| label: linha de regressão
 #| fig-align: center
 #| fig-dpi: 600
+#| output-location: slide
 
 reg_line |> 
   ggplot(aes(x,y)) +
@@ -114,6 +117,7 @@ reg_line |>
 
 ```{r}
 #| echo: false
+
 reg_line |> 
   kable() |> 
   kable_classic()
@@ -129,6 +133,16 @@ $$
 -   x = VD
 -   a = constante (local onde a linha intercepta o eixo y)
 -   b = inclinação da linha (cada vez que "x" aumenta 1 unidade, "y" aumenta "b" unidades)
+
+## A Linha de Regressão
+
+```{r}
+#| echo: false
+reg_line |> 
+  kable() |> 
+  kable_classic()
+```
+
 
 ## Regressão Linear Simples
 
@@ -182,15 +196,16 @@ df |>
 ## Análise de Dados Exploratória
 
 ```{r}
-#| echo: false
 #| fig-align: center
 #| out-width: 70%
 #| fig-dpi: 600
+#| output-location: slide
 df |> 
   ggplot(aes(org))+
   geom_histogram(fill = "white",
                  color = "gray") +
-  labs(y = NULL) +
+  labs(y = NULL,
+       x = "Organização do Trabalho") +
   theme_classic()
 ```
 
