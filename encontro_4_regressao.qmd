@@ -1,0 +1,197 @@
+---
+title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
+execute:
+  echo: true
+author: "Francisco Pablo Huascar Aragão Pinheiro"
+institute: <img src="images/ufc_horizontal.png" width="250">
+format: 
+  revealjs:
+      theme: simple
+      fig-width: 6
+      fig-asp: 0.618
+      scrollable: true
+progress: true
+slide-number: true
+logo: images/lappsie.png
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(kableExtra)
+
+```
+
+```{r}
+#| label: dados
+#| include: false
+
+df <- 
+  read_csv("./data/analises.csv")
+
+```
+
+```{r}
+#| label: manipulação dos dados - VDs
+#| include: false
+
+df <- 
+  df |>
+  rowwise() |> 
+  mutate(
+    tmcs = sum(c_across(srq1:srq20)),
+    ans = sum(c_across(a1:a7)),
+    dep = sum(c_across(d1:d7)),
+    est = sum(c_across(e1:e7))
+  ) |> 
+  ungroup()
+```
+
+```{r}
+#| label: manipulação dos dados - VIs
+#| include: false
+
+df <- df |> 
+  rowwise() |> 
+  mutate(
+    org = mean(c(ct1,ct4,ct7,ct8,
+                      ct12,ct13,ct14,ct17,
+                      ct19,ct21,ct22,ct23,
+                      ct24,ct30,ct37)),
+    cond = mean(c(ct9,ct16,ct18,ct20,
+                       ct26,ct33,ct36,ct38)),
+    rel = mean(c(ct5,ct6,ct10,ct11,
+                       ct15,ct27,ct29,ct32,
+                       ct35,ct39))
+  ) |> 
+  ungroup()
+
+```
+
+
+# Regressão
+
+## Usos da Regressão
+
+-   Examinar o efeito de diferentes variáveis (preditoras / independentes) em uma única variável de resultado (dependente)
+
+-   O uso o termo predição é essencial, pois a análise examina se uma variável prediz (explica ou repercute) outra variável
+
+## A Linha de Regressão
+
+```{r}
+#| include: false
+
+x <- c(0,1,2,3,4)
+
+y <- 2 + 2*x
+
+reg_line <- tibble(x,y)
+```
+
+```{r}
+#| echo: false
+#| out-width: 70%
+#| fig-align: center
+#| fig-dpi: 600
+
+reg_line |> 
+  ggplot(aes(x,y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = F) +
+  theme_classic()
+
+```
+
+## A Linha de Regressão
+
+```{r}
+#| echo: false
+reg_line |> 
+  kable() |> 
+  kable_classic()
+```
+
+## A linha de regressão
+
+$$
+y = a + bx
+$$
+
+-   y = VI
+-   x = VD
+-   a = constante (local onde a linha intercepta o eixo y)
+-   b = inclinação da linha (cada vez que "x" aumenta 1 unidade, "y" aumenta "b" unidades)
+
+## Regressão Linear Simples
+
+-   Correlação: magnitude e direção
+-   Descobrir o tamanho do efeito de uma variável x (independente, previsora ou explicativa) em uma variável y (dependente, critério ou desfecho)
+-   Quanto a pontuação em TMCs pode variar em função da organização do trabalho?
+-   Quanto a pontuação em TMCs pode variar em função do pertencimento ao grupo de risco para covid-19?
+
+## Regressão Linear Simples: Uma Variável Independente Contínua
+
+-   Quanto a pontuação em TMCs pode variar em função da organização do trabalho?
+
+## Análise de Dados Exploratória
+
+-   ::: {style="font-size:26pt;line-height:1;"}
+    -   Estatística descritiva
+
+        -   Valores ausentes
+        -   Mínimo
+        -   Máximo
+        -   Média
+        -   Desvio padrão
+        -   Histogramas
+
+    -   Correlações
+
+        -   Bivariadas
+        -   Gráficos de dispersão
+    :::
+    
+## Análise de Dados Exploratória
+
+```{r}
+#| echo: true
+#| output-location: slide
+
+df |>
+  summarise(across(c(tmcs,org),
+                   list("M" = mean,
+                        "DP" = sd,
+                        "MIN" = min,
+                        "MAX" = max))) |>
+  pivot_longer(cols = everything(),
+               names_to = c("var", ".value"),
+               names_sep = "_") |>
+  rename("Variável" = var) |> 
+  kable(digits = 2) |>
+  kable_classic()
+```
+
+## Análise de Dados Exploratória
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 70%
+#| fig-dpi: 600
+df |> 
+  ggplot(aes(org))+
+  geom_histogram(fill = "white",
+                 color = "gray") +
+  labs(y = NULL) +
+  theme_classic()
+```
+
+

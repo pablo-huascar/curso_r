@@ -72,7 +72,8 @@ penguins |>
   labs(x = "Espécies",
        y = NULL) +
   scale_y_continuous(labels = percent) +
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  theme_classic()
 
 ```
 
@@ -1480,4 +1481,3 @@ ggsave(filename = "histograma.png",dpi = 600)
 O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
 
 <https://github.com/pablo-huascar/curso_r>
-
