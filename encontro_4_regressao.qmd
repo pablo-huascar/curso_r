@@ -25,7 +25,7 @@ editor_options:
 
 library(tidyverse)
 library(kableExtra)
-
+library(GGally)
 ```
 
 ```{r}
@@ -173,7 +173,18 @@ reg_line |>
         -   Gráficos de dispersão
     :::
     
-## Análise de Dados Exploratória
+## Análise de Dados Exploratória: Uma Olhada nos Dados {.smaller}
+
+```{r}
+#| output-location: slide
+df |>
+  select(org, tmcs) |> 
+  slice_head(n = 10) |> 
+  kable(digits = 2) |> 
+  kable_classic()
+```
+
+## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
 
 ```{r}
 #| echo: true
@@ -193,20 +204,74 @@ df |>
   kable_classic()
 ```
 
-## Análise de Dados Exploratória
+## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
 
 ```{r}
+#| label: histograma - organização do trabalho
 #| fig-align: center
-#| out-width: 70%
+#| out-width: 65%
 #| fig-dpi: 600
 #| output-location: slide
 df |> 
-  ggplot(aes(org))+
+  ggplot(aes(org)) +
   geom_histogram(fill = "white",
                  color = "gray") +
   labs(y = NULL,
        x = "Organização do Trabalho") +
   theme_classic()
+```
+
+## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
+
+```{r}
+#| label: histograma - tmcs
+#| fig-align: center
+#| out-width: 65%
+#| fig-dpi: 600
+#| output-location: slide
+
+df |> 
+  ggplot(aes(tmcs)) +
+  geom_histogram(fill = "white",
+                 color = "gray") +
+  labs(y = NULL,
+       x = "TMCs") +
+  theme_classic()
+
+
+```
+
+## Análise de Dados Exploratória: Estatísticas Bivariadas {.smaller}
+
+-   2 variáveis numéricas
+    -   Coeficiente de Correlação
+
+## Análise de Dados Exploratória: Estatísticas Bivariadas {.smaller}
+
+
+```{r}
+#| output-location: slide
+cor <- df |> 
+  select(org,tmcs) |> 
+  psych::corr.test()
+
+cor$stars |> 
+  kable() |> 
+  kable_classic() |> 
+  add_footnote("*** p < .001",notation = "none")
+```
+
+## Análise de Dados Exploratória: Estatísticas Bivariadas {.smaller}
+
+```{r}
+#| out-width: 70%
+#| output-location: slide
+df |> 
+  select(org,tmcs) |> 
+  ggpairs(lower = list(continuous = "smooth", 
+                       wrap = c(method = "loess", fill = "blue"))) +
+  theme_void()
+  
 ```
 
 
