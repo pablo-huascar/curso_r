@@ -26,6 +26,7 @@ editor_options:
 library(tidyverse)
 library(kableExtra)
 library(GGally)
+library(tidymodels)
 ```
 
 ```{r}
@@ -76,7 +77,6 @@ df <- df |>
 
 ```
 
-
 # Regressão
 
 ## Usos da Regressão
@@ -120,7 +120,7 @@ reg_line |>
 
 reg_line |> 
   kable() |> 
-  kable_classic()
+  kable_classic_2()
 ```
 
 ## A linha de regressão
@@ -142,7 +142,6 @@ reg_line |>
   kable() |> 
   kable_classic()
 ```
-
 
 ## Regressão Linear Simples
 
@@ -172,7 +171,7 @@ reg_line |>
         -   Bivariadas
         -   Gráficos de dispersão
     :::
-    
+
 ## Análise de Dados Exploratória: Uma Olhada nos Dados {.smaller}
 
 ```{r}
@@ -181,7 +180,7 @@ df |>
   select(org, tmcs) |> 
   slice_head(n = 10) |> 
   kable(digits = 2) |> 
-  kable_classic()
+  kable_classic_2()
 ```
 
 ## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
@@ -201,7 +200,8 @@ df |>
                names_sep = "_") |>
   rename("Variável" = var) |> 
   kable(digits = 2) |>
-  kable_classic()
+  kable_classic_2() |> 
+  kable_styling(html_font = "Open Sans")
 ```
 
 ## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
@@ -248,7 +248,6 @@ df |>
 
 ## Análise de Dados Exploratória: Estatísticas Bivariadas {.smaller}
 
-
 ```{r}
 #| output-location: slide
 cor <- df |> 
@@ -257,7 +256,7 @@ cor <- df |>
 
 cor$stars |> 
   kable() |> 
-  kable_classic() |> 
+  kable_classic(html_font = "Open Sans") |> 
   add_footnote("*** p < .001",notation = "none")
 ```
 
@@ -269,9 +268,379 @@ cor$stars |>
 df |> 
   select(org,tmcs) |> 
   ggpairs(lower = list(continuous = "smooth", 
-                       wrap = c(method = "loess", fill = "blue"))) +
-  theme_void()
+                       wrap = c(method = "loess", fill = "blue", se = T))) +
+  theme_classic()+
+  theme(strip.background = element_blank())
   
 ```
+
+## Análise de Dados Exploratória: Estatísticas Bivariadas {.smaller}
+
+```{r}
+#| out-width: 60%
+#| output-location: slide
+df |> 
+  ggplot(aes(org,tmcs)) +
+  geom_jitter() +
+  geom_smooth(method = "lm",
+              se = F,
+              color = "red") +
+  labs(x = "Organização do Trabalho",
+       y = "Transtornos Mentais Comuns") +
+  theme_classic()
+  
+```
+
+## Regressão Linear Simples
+
+[$$
+y = a + bx
+$$]{style="text-align: left"}
+
+-   A partir do gráfico, o que sabemos até agora sobre entre TMCs e a organização do trabalho?
+-   O que podemos dizer sobre a nossa equação?
+    -   b tem uma inclinação positiva!
+    -   Pessoas com piores avaliações da organização do trabalho (escores mais altos) tendem a ter piores índices nos TMCs (pontuações maiores)
+
+## Regressão Linear Simples
+
+$$
+y = a + bx
+$$
+
+-   Qual o valor numérico para a incliação (slope) *b*?
+-   E o valor do intercepto *a*?
+-   Vamos utilizar a regressão linear simples para obter essas respostas
+
+## Regressão Linear Simples
+
+Notação da regressão:
+
+-   "\~"
+
+-   Vd \~ Vi1 + Vi2 + Vin
+
+```{r}
+
+fit_cont <- lm(tmcs ~ org, data = df) 
+
+```
+
+## Tabela de Regressão
+
+```{r}
+#| output-location: slide
+fit_cont |> 
+  tidy() |> 
+  mutate(
+    across(where(is.double),
+                ~ round(.,2))
+    ) |>
+  mutate(
+    p.value = case_when(p.value == 0 ~ "< .001")
+  ) |> 
+  rename("Preditor" = term,
+         "Estimativas" = estimate,
+         "Erro-padrão" = std.error,
+         "t" = statistic,
+         "p" = p.value) |> 
+  kable(align = ("lcccc")) |>
+  kable_styling(font_size = 36) |> 
+  kable_classic_2(html_font = "Open Sans") 
+
+```
+
+## Interpretando a Tabela de Regressão {.smaller}
+
+```{r}
+#| echo: false
+fit_cont |> 
+  tidy() |> 
+  mutate(
+    across(where(is.double),
+                ~ round(.,2))
+    ) |>
+  mutate(
+    p.value = case_when(p.value == 0 ~ "< .001")
+  ) |> 
+  rename("Preditor" = term,
+         "Estimativas" = estimate,
+         "Erro-padrão" = std.error,
+         "t" = statistic,
+         "p" = p.value) |> 
+  kable(align = ("lcccc")) |>
+  kable_styling(font_size = 36) |> 
+  kable_classic_2(html_font = "Open Sans") 
+
+```
+
+
+$$
+y = a + bx
+$$
+
+-   Estimativas
+    -   a = Estimativa do Intercepto = -2.57
+    -   b = Estimativa da `org` = 2.50
+
+$$
+tmcs = -2.57 + 2.50org
+$$
+
+::: aside
+Enquanto a interceptação da linha de regressão tem uma interpretação matemática, ela não tem nenhuma interpretação prática, pois observar um valor de `org` 0 é impossível
+:::
+
+## Interpretando a Tabela de Regressão {.smaller}
+
+```{r}
+#| echo: false
+fit_cont |> 
+  tidy() |> 
+  mutate(
+    across(where(is.double),
+                ~ round(.,2))
+    ) |>
+  mutate(
+    p.value = case_when(p.value == 0 ~ "< .001")
+  ) |> 
+  rename("Preditor" = term,
+         "Estimativas" = estimate,
+         "Erro-padrão" = std.error,
+         "t" = statistic,
+         "p" = p.value) |> 
+  kable(align = ("lcccc")) |>
+  kable_styling(font_size = 36) |> 
+  kable_classic_2(html_font = "Open Sans") 
+
+```
+
+
+$$
+tmcs = -2.57 + 2.50org
+$$
+
+-   Quais conclusões podemos tirar dessa equação?
+    -   O sinal é positivo, portanto há uma relação positiva entre as variáveis
+        -   Quanto maior a pontuação em `org` maior a pontuação em `tmcs`
+        - Ou seja: piores avaliações da organização do trabalho estão associados a maiores prejuízos a saúde mental
+    -   Interpretação do valor de b (estimativa de `org`):
+        -   Para cada aumento de 1 unidade em `org`, há um aumento associado de, em média, 2.50 unidades de `tmcs`
+
+## Valores Observados/Ajustados e os Resíduos
+
+$$
+tmcs = -2.57 + 2.50org
+$$
+```{r}
+#| echo: false
+df |> 
+  select(tmcs,org) |> 
+  slice(15) |>
+  mutate(id = 15,
+         .before = tmcs) |> 
+  kable(digits = 3) |> 
+  kable_styling(font_size = 36) |> 
+  kable_classic_2(html_font = "Open Sans")
+```
+
+
+
+-   Valor observado dos tmcs = 4
+-   Valor ajustado/previsto = 4.598
+
+$$
+tmcs = -2.57 + 2.50*2.867 = 4.598
+$$
+
+- Resíduos: a diferença entre o que foi ajustado/previsto e o valor observado
+
+$$
+resíduo = 4 - 4.598 = -0.598
+$$
+
+## Valores Observados/Ajustados e os Resíduos
+
+```{r}
+#| include: false
+fit_cont |> 
+  augment() |>
+  filter(tmcs == 20)
+```
+
+
+```{r}
+#| out-width: 55%
+#| output-location: slide
+
+df |> 
+  ggplot(aes(org,tmcs)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = F,
+              color = "red") +
+  labs(x = "Organização do Trabalho",
+       y = "Transtornos Mentais Comuns") +
+  theme_classic()+
+  geom_segment(aes(x = 2.867, y = 4, 
+                   xend = 2.867, yend = 4.598), 
+               color = "blue")+
+  geom_segment(aes(x = 4.07, y = 20,
+                   xend = 4.07, yend = 7.59),
+               color = "blue")
+  
+```
+
+## Valores Observados/Ajustados e os Resíduos
+
+```{r}
+#| output-location: slide
+fit_cont |> 
+  augment() |> 
+  select(tmcs:.resid) |>
+  mutate(ID = 1:nrow(df),
+         .before = tmcs) |> 
+  slice_head(n = 10) |> 
+  mutate(across(.fitted:.resid,
+                ~ round(.,3))) |>
+  kable(align = ("ccccc")) |> 
+  kable_styling(font_size = 22) |> 
+  kable_classic_2(html_font = "Open Sans")
+```
+
+## Regressão Linear Simples: Uma Variável Independente Categórica
+
+Quanto a pontuação em TMCs pode variar em função do pertencimento ao grupo de risco para covid-19?
+
+## Análise de Dados Exploratória
+
+-   ::: {style="font-size:26pt;line-height:1;"}
+    -   Estatística descritiva
+
+        -   Valores ausentes
+        -   Mínimo
+        -   Máximo
+        -   Média
+        -   Desvio padrão
+        -   Box Plot
+        -   Tabelas de frequência
+        -   Comparação entre médias/medianas
+
+    :::
+
+## Análise de Dados Exploratória: Uma Olhada nos Dados
+
+```{r}
+#| output-location: slide
+
+df |> 
+  select(tmcs, grupo_de_risco) |> 
+  slice_head(n = 10) |> 
+  kable(digits = 2) |>
+  kable_styling(font_size = 22,full_width = F) |> 
+  kable_classic_2(html_font = "Open Sans")
+```
+
+## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
+
+```{r}
+#| echo: true
+#| output-location: slide
+
+df |>
+  summarise(across(c(tmcs),
+                   list("M" = mean,
+                        "DP" = sd,
+                        "MIN" = min,
+                        "MAX" = max))) |>
+  pivot_longer(cols = everything(),
+               names_to = c("var", ".value"),
+               names_sep = "_") |>
+  rename("Variável" = var) |> 
+  kable(digits = 2) |>
+  kable_classic_2() |> 
+  kable_styling(html_font = "Open Sans")
+```
+
+## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
+
+```{r}
+#| fig-align: center
+#| out-width: 65%
+#| fig-dpi: 600
+#| output-location: slide
+df |> 
+  ggplot(aes(tmcs)) +
+  geom_histogram(fill = "white",
+                 color = "gray") +
+  labs(y = NULL,
+       x = "TMCs") +
+  theme_classic()
+```
+
+## Análise de Dados Exploratória: Tabelas de Frequência
+
+```{r}
+#| output-location: slide
+df |> 
+  count(grupo_de_risco) |> 
+  mutate("% do Total"  = (n/sum(n))*100,
+         "% acumulada"  = cumsum((n/sum(n))*100)) |> 
+  rename("Contagens" = n) |>
+  kable() |> 
+  kable_classic_2() |> 
+  kable_styling(html_font = "Open Sans")
+```
+
+## Comparação entre Grupos
+
+```{r}
+df |> 
+  ggplot(aes(grupo_de_risco,tmcs))+
+  geom_boxplot() +
+  labs(x = "Grupo de Risco para covid-19",
+       y = "TMCs") +
+  theme_classic()
+```
+
+## Resultados entre Grupos
+
+```{r}
+#| output-location: slide
+
+jmv::descriptives(
+    formula = tmcs ~ grupo_de_risco,
+    data = df,
+    desc = "rows",
+    min = FALSE,
+    max = FALSE)
+  
+```
+
+
+```{r}
+teste <- 
+  df |>
+  group_by(grupo_de_risco) |> 
+  summarise(M = mean(tmcs))
+            
+teste |> 
+  mutate("Diferença entre as médias" = M - teste$M[teste$grupo_de_risco == "Não"]) |> 
+  kable(digits = 1) |> 
+  kable_classic_2() |> 
+  kable_styling(html_font = "Open Sans")
+
+```
+
+
+##
+
+
+```{r}
+lm(tmcs ~ grupo_de_risco,
+   data = df) |> 
+  summary()
+```
+
 
 
