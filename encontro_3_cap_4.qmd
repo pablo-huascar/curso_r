@@ -10,6 +10,7 @@ format:
       theme: simple
       fig-width: 6
       fig-asp: 0.618
+      scrollable: true
 progress: true
 slide-number: true
 logo: images/lappsie.png
@@ -90,11 +91,6 @@ Estes slides tem como base o conteúdo da segunda edição
 library(tidyverse)
 library(nycflights13)
 library(janitor)
-```
-
-```{r}
-#| label: pacotes extras
-
 library(kableExtra)
 ```
 
@@ -764,7 +760,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|---------------------|---------------------------------------------------|
+|---------------------|--------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1052,7 +1048,6 @@ dass_simulado <- read_csv("https://tinyurl.com/dassdata")
 ```
 
 ```{r}
-#| echo: false
 #| include: false
 
 dass_simulado <- read_csv("./data/dass_simulado.csv")
@@ -1478,7 +1473,7 @@ flights |>
 
 ## [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)
 
-É possível escolher a posição em que a variável vai ficar usando `.after` (depois) ou `.before` (antes) 
+É possível escolher a posição em que a variável vai ficar usando `.after` (depois) ou `.before` (antes)
 
 ```{r}
 flights |> 
@@ -1503,7 +1498,6 @@ A partir do banco de dados `flights` crie um novo banco chamado `atrasos` conten
 ## Resposta
 
 ::: panel-tabset
-
 ## Código
 
 ```{r}
@@ -1539,9 +1533,7 @@ flights |>
          atraso_decolagem = dep_delay,
          atraso_pouso = arr_delay)
 ```
-
-::: 
-
+:::
 
 ## 4.5 Grupos
 
@@ -1560,7 +1552,7 @@ flights |>
 
 ## [`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)
 
-resume as estatísticas. 
+resume as estatísticas.
 
 ::: panel-tabset
 ## Variáveis ausentes (`NA`)
@@ -1591,7 +1583,6 @@ flights |>
                                   na.rm = T),
             n = n())
 ```
-
 
 ## [[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)]{style="font-size: 36pt"}
 
@@ -1646,7 +1637,6 @@ flights |>
                      na.rm = T)) |> 
   arrange(desc(m))
 ```
-
 
 ## Compartilhar conhecimento sempre!
 

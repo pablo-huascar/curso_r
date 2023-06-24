@@ -19,9 +19,37 @@ editor_options:
   chunk_output_type: console
 ---
 
+## Quem sou eu
+
+::: {style="line-height: 1;"}
+::: columns
+::: {.column width="40%"}
+![](images/logo_pos.png) ![](images/lappsie.png)
+:::
+
+::: {.column width="60%"}
+::: incremental
+-   [Psicólogo]{style="font-size:25pt;"}
+-   [Doutor em educação]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
+:::
+:::
+:::
+:::
+
+::: aside
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
+:::
+
+# Regressão
+
+## Pacotes utilizados
+
 ```{r}
 #| label: setup
-#| include: false
+#| warning: false
+#| message: false
 
 library(tidyverse)
 library(kableExtra)
@@ -29,20 +57,34 @@ library(GGally)
 library(tidymodels)
 ```
 
+## Obtenção do banco de dados
+
 ```{r}
 #| label: dados
-#| message: false
-#| warning: false
 #| include: false
-
 df <- 
-  read_csv("./data/analises.csv")
+  read_csv("./data/contexto_sm.csv")
 
 ```
 
 ```{r}
+#| eval: false
+
+df <- 
+  read_csv("https://tinyurl.com/contextosm")
+
+```
+
+## Uma olhada no banco de dados
+
+```{r}
+glimpse(df)
+```
+
+## Variáveis Compostas: Saúde Mental
+
+```{r}
 #| label: manipulação dos dados - VDs
-#| include: false
 
 df <- 
   df |>
@@ -56,9 +98,10 @@ df <-
   ungroup()
 ```
 
+## Variáveis Compostas: Contexto de Trabalho
+
 ```{r}
 #| label: manipulação dos dados - VIs
-#| include: false
 
 df <- df |> 
   rowwise() |> 
@@ -77,19 +120,16 @@ df <- df |>
 
 ```
 
-# Regressão
-
 ## Usos da Regressão
 
 -   Examinar o efeito de diferentes variáveis (preditoras / independentes) em uma única variável de resultado (dependente)
 
 -   O uso o termo predição é essencial, pois a análise examina se uma variável prediz (explica ou repercute) outra variável
 
-## A Linha de Regressão
+## Simulação da Linha de Regressão 
 
 ```{r}
 #| label: tibble para regline
-#| include: false
 
 x <- c(0,1,2,3,4)
 
@@ -97,6 +137,8 @@ y <- 2 + 2*x
 
 reg_line <- tibble(x,y)
 ```
+
+## A Linha de Regressão
 
 ```{r}
 #| label: linha de regressão
@@ -140,7 +182,7 @@ $$
 #| echo: false
 reg_line |> 
   kable() |> 
-  kable_classic()
+  kable_classic_2()
 ```
 
 ## Regressão Linear Simples
@@ -256,7 +298,7 @@ cor <- df |>
 
 cor$stars |> 
   kable() |> 
-  kable_classic(html_font = "Open Sans") |> 
+  kable_classic_2(html_font = "Open Sans") |> 
   add_footnote("*** p < .001",notation = "none")
 ```
 
@@ -322,7 +364,8 @@ Notação da regressão:
 
 ```{r}
 
-fit_cont <- lm(tmcs ~ org, data = df) 
+fit_cont <- lm(tmcs ~ org, 
+               data = df) 
 
 ```
 
@@ -388,7 +431,7 @@ tmcs = -2.57 + 2.50org
 $$
 
 ::: aside
-Enquanto a interceptação da linha de regressão tem uma interpretação matemática, ela não tem nenhuma interpretação prática, pois observar um valor de `org` 0 é impossível
+Enquanto o intercepto da linha de regressão tem uma interpretação matemática, ela não tem nenhuma interpretação prática, pois observar um valor de `org` igual a 0 é impossível
 :::
 
 ## Interpretando a Tabela de Regressão {.smaller}
@@ -589,15 +632,24 @@ df |>
   rename("Contagens" = n) |>
   kable() |> 
   kable_classic_2() |> 
-  kable_styling(html_font = "Open Sans")
+  kable_styling(html_font = "Open Sans",
+                font_size = 30)
 ```
 
 ## Comparação entre Grupos
 
 ```{r}
+#| output-location: slide
+#| out-width: 70%
+#| fig-align: center
+#| fig-dpi: 600
 df |> 
   ggplot(aes(grupo_de_risco,tmcs))+
   geom_boxplot() +
+  geom_jitter(aes(grupo_de_risco),
+              alpha = 0.1,
+              size = 1.5,
+              color = "blue") +
   labs(x = "Grupo de Risco para covid-19",
        y = "TMCs") +
   theme_classic()
@@ -617,6 +669,7 @@ jmv::descriptives(
   
 ```
 
+## Diferenças Entre as Médias
 
 ```{r}
 teste <- 
@@ -632,15 +685,35 @@ teste |>
 
 ```
 
-
-##
-
+## Regressão Linear Simples
 
 ```{r}
-lm(tmcs ~ grupo_de_risco,
-   data = df) |> 
-  summary()
+fit_cat <- lm(tmcs ~ grupo_de_risco,
+   data = df) 
 ```
 
+## Tabela de Regressão
+
+```{r}
+#| output-location: slide
+
+fit_cat |>
+  tidy() |> 
+  mutate(
+    across(where(is.double),
+                ~ round(.,2))
+    ) |>
+  mutate(
+    p.value = case_when(p.value == 0 ~ "< .001")
+  ) |> 
+  rename("Preditor" = term,
+         "Estimativas" = estimate,
+         "Erro-padrão" = std.error,
+         "t" = statistic,
+         "p" = p.value) |> 
+  kable(align = ("lcccc")) |>
+  kable_styling(font_size = 36) |> 
+  kable_classic_2(html_font = "Open Sans") 
+```
 
 
