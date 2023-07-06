@@ -36,8 +36,9 @@ library(palmerpenguins)
 
 ::: {.column width="60%"}
 ::: incremental
--   [Psicólogo]{style="font-size:25pt;"}
--   [Doutor em educação]{style="font-size:25pt;"}
+-   [Psicólogo (UFC)]{style="font-size:25pt;"}
+-   [Mestre em Psicologia (UFC)]{style="font-size:25pt;"}
+-   [Doutor em educação (UFC)]{style="font-size:25pt;"}
 -   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
 -   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
 :::

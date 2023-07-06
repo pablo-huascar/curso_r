@@ -29,8 +29,9 @@ editor_options:
 
 ::: {.column width="60%"}
 ::: incremental
--   [Psicólogo]{style="font-size:25pt;"}
--   [Doutor em educação]{style="font-size:25pt;"}
+-   [Psicólogo (UFC)]{style="font-size:25pt;"}
+-   [Mestre em Psicologia (UFC)]{style="font-size:25pt;"}
+-   [Doutor em educação (UFC)]{style="font-size:25pt;"}
 -   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
 -   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
 :::
@@ -760,7 +761,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|---------------------|--------------------------------------------------|
+|-----------------------|------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
