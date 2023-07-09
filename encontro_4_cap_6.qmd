@@ -376,7 +376,6 @@ dados
 
 ```
 
-
 ```{r}
 #| eval: false
 #| include: false
@@ -393,8 +392,6 @@ vendas_semanais <-
 
 ```
 
-
-
 Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, transforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e os seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df` 
 
 ```{r}
@@ -409,7 +406,6 @@ vendas_semanais <-
 ```{r}
 vendas_semanais
 ```
-
 
 ## Resposta
 

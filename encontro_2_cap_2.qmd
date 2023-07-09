@@ -32,7 +32,6 @@ library(tidyverse)
 library(ggthemes)
 library(palmerpenguins)
 library(scales)
-library(kableExtra)
 library(patchwork)
 ```
 
@@ -632,7 +631,9 @@ glimpse(penguins)
 
 Faça um gráfico de dispersão de `bill_depth_mm` vs. `bill_length_mm`. Ou seja, faça um gráfico de dispersão com `bill_depth_mm` no eixo y e `bill_length_mm` no eixo x. Descreva a relação entre essas duas variáveis.
 
+::: aside
 bill = bico
+:::
 
 ## Resposta
 
