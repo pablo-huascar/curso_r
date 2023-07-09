@@ -8,12 +8,12 @@ institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
       code-link: true
+      code-tools: true
+      code-line-numbers: false
       theme: simple
       fig-width: 6
       fig-asp: 0.618
       scrollable: true
-      code-tools: true
-      code-line-numbers: false
 progress: true
 slide-number: true
 logo: images/lappsie.png

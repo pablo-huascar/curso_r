@@ -7,6 +7,9 @@ author: "Francisco Pablo Huascar Aragão Pinheiro"
 institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
+      code-link: true
+      code-tools: true
+      code-line-numbers: false
       theme: simple
       fig-width: 6
       fig-asp: 0.618

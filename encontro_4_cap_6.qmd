@@ -1,0 +1,281 @@
+---
+title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
+execute:
+  echo: true
+author: "Francisco Pablo Huascar Aragão Pinheiro"
+institute: <img src="images/ufc_horizontal.png" width="250">
+format: 
+  revealjs:
+      code-link: true
+      code-tools: true
+      code-line-numbers: false
+      theme: simple
+      fig-width: 6
+      fig-asp: 0.618
+      scrollable: true
+progress: true
+slide-number: true
+logo: images/lappsie.png
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+```
+
+## Quem sou eu
+
+::: {style="line-height: 1;"}
+::: columns
+::: {.column width="40%"}
+![](images/logo_pos.png) ![](images/lappsie.png)
+:::
+
+::: {.column width="60%"}
+::: incremental
+-   [Psicólogo (UFC)]{style="font-size:25pt;"}
+-   [Mestre em Psicologia (UFC)]{style="font-size:25pt;"}
+-   [Doutor em educação (UFC)]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
+:::
+:::
+:::
+:::
+
+::: aside
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
+:::
+
+## R for Data Science
+
+::: columns
+::: {.column width="50%"}
+Livro base para o mini curso
+:::
+
+::: {.column width="50%"}
+[![](images/r_for_d_s.jpg){fig-alt="Capa do livro R for Data Science. Uma coruja se destaca na ilustração" fig-align="right" width="412"}](https://r4ds.had.co.nz/)
+:::
+:::
+
+## R for Data Science
+
+-   Neste [link](https://r4ds.had.co.nz/ "R for Data Science") você pode acessar a primeira edição do livro:
+
+<https://r4ds.had.co.nz/>
+
+-   E [aqui](https://r4ds.hadley.nz/ "R for Data Science") você pode acessar a segunda edição que ainda está sendo finalizada:
+
+<https://r4ds.hadley.nz/>
+
+::: aside
+Estes slides tem como base o conteúdo da segunda edição
+:::
+
+# 6 Organização de dados
+
+## 
+
+> "Todas as famílias felizes são iguais; cada família infeliz é infeliz à sua maneira."\
+> --- Leo Tolstói
+
+> "Conjuntos de dados arrumados são todos iguais, mas todo conjunto de dados bagunçado é bagunçado à sua maneira."\
+> ---Hadley Wickham
+
+## 6.2 Dados arrumados
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+
+# Tabela 1
+table1 <- 
+  tibble(
+  country = c("Afghanistan", "Afghanistan", "Brazil", 
+              "Brazil", "China", "China"),
+  year = c(1999, 2000, 1999, 
+           2000, 1999, 2000),
+  cases = c(745, 2666, 37737, 
+            80488, 212258, 213766),
+  population = c(19987071, 20595360, 172006362, 
+                 174504898, 1272915272, 1280428583)
+)
+
+# Tabela 2
+table2 <- 
+  table1 %>% 
+  pivot_longer(cols = c(cases, population), 
+               names_to = "type", 
+               values_to = "count")
+
+# Tabela 3
+table3 <- table1 %>% 
+  mutate(rate = paste(cases, "/", population)) |> 
+  select(c(country,year,rate))
+
+table1
+
+table2
+
+table3
+
+```
+
+## Regras para um banco de dados arrumado
+
+1.  Cada variável é uma coluna; cada coluna é uma variável.
+2.  Cada observação é uma linha; cada linha é uma observação.
+3.  Cada valor é uma célula; cada célula é um único valor.
+
+## Regras para um banco de dados arrumado
+
+![As três regras a seguir tornam um conjunto de dados organizado: variáveis são colunas, observações são linhas e valores são células.](images/tidy.png){fig-align="center"}
+
+## Pacotes
+
+```{r}
+#| message: true
+#| warning: true
+
+library(tidyverse)
+```
+
+## "Pivotar" os dados
+
+-   pacote `tidyr`
+-   Funçãoes:
+    -   `pivot_longer()`
+    -   `pivot_wider()`
+
+## 6.3 Alongando os dados {.smaller}
+
+-   `billboard`
+
+    -   registra a classificação das músicas da billboard no ano 2000:
+
+```{r}
+billboard
+```
+
+## `billboard`
+
+-   `artist`, `track` and `date.entered`
+    -   Descrevem a música
+-   `wk1`-`wk76`
+    -   Descrevem a posicição da música em cada semana
+    -   O nome da columa é uma variável (semana - week)
+    -   Os valores das céluas são outra variável (posição - rank)
+-   Para arrumar ("tidy") estes dados, vamos utilizar `pivot_longer()`
+
+## "Pivotando" o banco de dados `billboard`
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank"
+  )
+```
+
+## "Pivotando" o banco de dados `billboard`
+
+```{r}
+#| eval: false
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank"
+  ) |>
+  slice(1:10)
+```
+
+-   `cols`: especifica quais colunas precisam ser "pivotadas"
+    -   usa mesma sintaxe que `select()`
+-   `names_to`: nomeia a variável armazenada nos nomes da coluna, chamamos essa variável de `week`
+-   `values_to`: nomeia a variável armazenada nos valores da célula, nomeamos essa variável como `rank`
+
+## "Pivotando" o banco de dados `billboard` {.smaller}
+
+O que acontece se uma música estiver no top 100 por menos de 76 semanas?
+
+-   `NA`s que não representam valores ausentes
+-   Existem pela nova estrutura do banco de dados
+-   Número de linhas = `r billboard |> pivot_longer(cols = starts_with("wk"),names_to = "week", values_to = "rank") |> nrow()`
+
+```{r}
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank"
+  )
+
+billboard |> pivot_longer(cols = starts_with("wk"),names_to = "week", values_to = "rank") |> nrow()
+
+
+```
+
+## "Pivotando" o banco de dados `billboard`
+
+-   Número de linhas = `r billboard |> pivot_longer(cols = starts_with("wk"),names_to = "week", values_to = "rank", values_drop_na = T) |> nrow()`
+
+```{r}
+#| code-line-numbers: "|6|"
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank",
+    values_drop_na = T
+  )
+```
+
+## "Pivotando" o banco de dados `billboard`
+
+-   Podemos transformar a coluna `week` de caractere para número
+    -   `mutate()` e `readr::parse_number()`
+        -   `readr::parse_number()`: irá extrair o primeiro número de um texto, ignorando todos os outros textos
+
+## "Pivotando" o banco de dados `billboard`
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank",
+    values_drop_na = T
+  ) |> 
+  mutate(
+    week = parse_number(week)
+  )
+```
+
+## Como funciona o pivotamento?
+
+
+
+```{r}
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+   "A",  100,  120,
+   "B",  140,  115,
+   "C",  120,  125
+)
+```
+
+
+
