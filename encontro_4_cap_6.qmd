@@ -186,7 +186,7 @@ billboard |>
   )
 ```
 
-## "Pivotando" o banco de dados `billboard`
+## "Pivotando" o banco de dados `billboard` {.smaller}
 
 ```{r}
 #| eval: false
@@ -395,7 +395,7 @@ vendas_semanais <-
 
 
 
-Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, fransforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e o seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df` 
+Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, transforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e os seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df` 
 
 ```{r}
 #| eval: false
@@ -417,7 +417,7 @@ vendas_semanais
 df <- 
   vendas_semanais |> 
   pivot_longer(
-    cols = starts_with("semana"),
+    cols = starts_with("Semana"),
     names_to = "semana",
     values_to = "vendas"
   ) |> 

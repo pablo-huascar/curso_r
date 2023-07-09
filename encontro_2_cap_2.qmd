@@ -1182,9 +1182,7 @@ penguins |>
               values_from = n) |>
   rowwise() |> 
   mutate(total_island = sum(c_across(Adelie:Chinstrap),na.rm = T)) |> 
-  ungroup() |> 
-  kable() |> 
-  kable_minimal()
+  ungroup()
 ```
 
 ## Gráfico de barras emplilhados (stacked bar plots)
