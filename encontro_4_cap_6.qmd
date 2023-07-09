@@ -3,7 +3,9 @@ title: "R para análise de dados em Psicologia"
 subtitle: "Uma Introdução"
 execute:
   echo: true
-author: "Francisco Pablo Huascar Aragão Pinheiro"
+author: 
+  - name:  "Francisco Pablo Huascar Aragão Pinheiro"
+    orcid: 0000-0001-9289-845X
 institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
@@ -151,9 +153,7 @@ library(tidyverse)
 ## "Pivotar" os dados
 
 -   pacote `tidyr`
--   Funçãoes:
-    -   `pivot_longer()`
-    -   `pivot_wider()`
+-   `pivot_longer()`
 
 ## 6.3 Alongando os dados {.smaller}
 
@@ -221,10 +221,6 @@ billboard |>
     names_to = "week",
     values_to = "rank"
   )
-
-billboard |> pivot_longer(cols = starts_with("wk"),names_to = "week", values_to = "rank") |> nrow()
-
-
 ```
 
 ## "Pivotando" o banco de dados `billboard`
@@ -252,7 +248,8 @@ billboard |>
 ## "Pivotando" o banco de dados `billboard`
 
 ```{r}
-billboard |> 
+billboard_longer <- 
+  billboard |> 
   pivot_longer(
     cols = starts_with("wk"),
     names_to = "week",
@@ -262,11 +259,25 @@ billboard |>
   mutate(
     week = parse_number(week)
   )
+
+billboard_longer
+```
+
+## "Pivotando" o banco de dados `billboard`
+
+```{r}
+#| fig-align: center
+#| out-width: 70%
+billboard_longer |> 
+  ggplot(aes(x = week, y = rank, group = track)) + 
+  geom_line(alpha = 0.25) + 
+  scale_y_reverse()
 ```
 
 ## Como funciona o pivotamento?
 
-
+-   Suponha que temos três pacientes com ids A, B e C, e fazemos duas medições de pressão arterial (blood pressure) em cada paciente (`bp1` e `bp2`)
+-   Queremos que nosso banco de dados tenha três variáveis: id (já existe), `measurement` (medição) (os nomes das colunas) e `value` (valor) (os valores das células)
 
 ```{r}
 df <- tribble(
@@ -275,7 +286,227 @@ df <- tribble(
    "B",  140,  115,
    "C",  120,  125
 )
+
+df
+```
+
+## Como funciona o pivotamento?
+
+```{r}
+df |> 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+    )
+```
+
+## Como funciona o pivotamento?
+
+![Colunas que já são variáveis precisam ser repetidas, uma vez para cada coluna pivotada](images/variables.png)
+
+## Como funciona o pivotamento?
+
+![Os nomes das colunas pivotadas tornam-se valores em uma nova coluna. Os valores precisam ser repetidos uma vez para cada linha do conjunto de dados original.](images/column-names.png)
+
+## Como funciona o pivotamento?
+
+![O número de valores é preservado (não repetido), mas desenrolado linha por linha.](images/cell-values.png)
+
+## Exercícios
+
+```{r}
+#| include: false
+
+# Criando o banco de dados simulado
+dados <- tibble(
+  produto = rep(c("Arroz", "Feijão", "Açúcar"), each = 24),
+  cidade = rep(c("Fortaleza", "Pacajus", "Sobral"), each = 24),
+)
+
+# Definindo as características de cada cidade
+fortaleza_base <- 200
+fortaleza_decremento <- 10
+pacajus_base <- 400
+pacajus_decremento <- 0
+sobral_base <- 300
+sobral_decremento <- 5
+
+# Gerando os valores de vendas para cada cidade e semana
+set.seed(42)  # Definindo uma semente para reprodução dos resultados
+for (i in 1:24) {
+  semana <- paste0("Semana", i)
+  
+  # Fortaleza
+  if (i <= 10) {
+    vendas_fortaleza <- fortaleza_base - fortaleza_decremento * i
+  } else {
+    vendas_fortaleza <- (fortaleza_base - fortaleza_decremento * 10) + (i - 10) * (fortaleza_decremento/2)
+  }
+  
+  # Pacajus
+  if (i <= 10) {
+    vendas_pacajus <- pacajus_base
+  } else {
+    vendas_pacajus <- pacajus_base - pacajus_decremento * (i - 10)
+  }
+  
+  # Sobral
+  if (i <= 10) {
+    vendas_sobral <- sobral_base + sobral_decremento * i
+  } else {
+    vendas_sobral <- (sobral_base + sobral_decremento * 10) - (i - 10) * (sobral_decremento/2)
+  }
+  
+  # Adicionando variabilidade aos valores de vendas
+  vendas_fortaleza <- vendas_fortaleza + rnorm(1, mean = 0, sd = 10)
+  vendas_pacajus <- vendas_pacajus + rnorm(1, mean = 0, sd = 10)
+  vendas_sobral <- vendas_sobral + rnorm(1, mean = 0, sd = 10)
+  
+  # Atribuindo os valores ao banco de dados
+  dados <- dados %>%
+    mutate(!!semana := case_when(
+      cidade == "Fortaleza" ~ vendas_fortaleza,
+      cidade == "Pacajus" ~ vendas_pacajus,
+      cidade == "Sobral" ~ vendas_sobral
+    ))
+}
+
+dados
+
+```
+
+
+```{r}
+#| eval: false
+#| include: false
+
+dados |> 
+  write_csv("./data/vendas_semanais.csv")
+```
+
+```{r}
+#| include: false
+
+vendas_semanais <- 
+  read_csv("./data/vendas_semanais.csv")
+
 ```
 
 
 
+Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, fransforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e o seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df` 
+
+```{r}
+#| eval: false
+
+vendas_semanais <- 
+  read_csv("https://tinyurl.com/vendasem")
+```
+
+## Exercícios
+
+```{r}
+vendas_semanais
+```
+
+
+## Resposta
+
+```{r}
+df <- 
+  vendas_semanais |> 
+  pivot_longer(
+    cols = starts_with("semana"),
+    names_to = "semana",
+    values_to = "vendas"
+  ) |> 
+  mutate(
+    semana = parse_number(semana)
+  )
+
+df
+```
+
+## Exercícios
+
+A partir do banco de dados `df`, reproduza o seguinte gráfico:
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-cap: Você vai precisar das funções `group_by()`, `summarise()`, `geom_line()`
+#| out-width: 60%
+
+df |>
+  group_by(semana) |> 
+  summarise(m = mean(vendas)) |>
+  ggplot(aes(x = semana, 
+             y = m)) +
+  geom_line(color = "blue") +
+  labs(x = "Semana",
+       y = "Média de vendas semanais") +
+  theme_classic()
+```
+
+## Resposta
+
+```{r}
+#| eval: false
+
+df |>
+  group_by(semana) |> 
+  summarise(m = mean(vendas)) |>
+  ggplot(aes(x = semana, 
+             y = m)) +
+  geom_line(color = "blue") +
+  labs(x = "Semana",
+       y = "Média de vendas semanais") +
+  theme_classic()
+```
+
+## Exercícios
+
+Ainda com o banco de dados `df`, reproduza o seguinte gráfico
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 55%
+
+df |> 
+  group_by(cidade,semana) |> 
+  summarise(m = mean(vendas)) |> 
+  ggplot(aes(x = semana,
+             y = m,
+             color = cidade)) +
+  geom_line() +
+  labs(x = "Semana",
+       y = "Média de vendas semanais",
+       color = "Cidade") +
+  theme_classic()
+```
+
+## Resposta
+
+```{r}
+#| eval: false
+
+df |> 
+  group_by(cidade,semana) |> 
+  summarise(m = mean(vendas)) |> 
+  ggplot(aes(x = semana,
+             y = m,
+             color = cidade)) +
+  geom_line() +
+  labs(x = "Semana",
+       y = "Média de vendas semanais",
+       color = "Cidade") +
+  theme_classic()
+```
+
+## Compartilhar conhecimento sempre!
+
+O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
+
+<https://github.com/pablo-huascar/curso_r>

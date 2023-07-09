@@ -3,7 +3,9 @@ title: "R para análise de dados em Psicologia"
 subtitle: "Uma Introdução"
 execute:
   echo: true
-author: "Francisco Pablo Huascar Aragão Pinheiro"
+author: 
+  - name:  "Francisco Pablo Huascar Aragão Pinheiro"
+    orcid: 0000-0001-9289-845X
 institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:

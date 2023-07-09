@@ -3,7 +3,9 @@ title: "R para análise de dados em Psicologia"
 subtitle: "Uma Introdução"
 execute:
   echo: true
-author: "Francisco Pablo Huascar Aragão Pinheiro"
+author: 
+  - name:  "Francisco Pablo Huascar Aragão Pinheiro"
+    orcid: 0000-0001-9289-845X
 institute: <img src="images/ufc_horizontal.png" width="250">
 format: 
   revealjs:
@@ -764,7 +766,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|--------------|----------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
