@@ -1,0 +1,85 @@
+---
+title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
+execute:
+  echo: true
+author: 
+  - name:  "Francisco Pablo Huascar Aragão Pinheiro"
+    orcid: 0000-0001-9289-845X
+institute: <img src="images/ufc_horizontal.png" width="250">
+format: 
+  revealjs:
+      code-link: true
+      code-tools: true
+      code-line-numbers: false
+      theme: simple
+      fig-width: 6
+      fig-asp: 0.618
+      scrollable: true
+progress: true
+slide-number: true
+logo: images/lappsie.png
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+```
+
+## Quem sou eu
+
+::: {style="line-height: 1;"}
+::: columns
+::: {.column width="40%"}
+![](images/logo_pos.png) ![](images/lappsie.png)
+:::
+
+::: {.column width="60%"}
+::: incremental
+-   [Psicólogo (UFC)]{style="font-size:25pt;"}
+-   [Mestre em Psicologia (UFC)]{style="font-size:25pt;"}
+-   [Doutor em educação (UFC)]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
+:::
+:::
+:::
+:::
+
+::: aside
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
+:::
+
+## R for Data Science
+
+::: columns
+::: {.column width="50%"}
+Livro base para o mini curso
+:::
+
+::: {.column width="50%"}
+[![](images/r_for_d_s.jpg){fig-alt="Capa do livro R for Data Science. Uma coruja se destaca na ilustração" fig-align="right" width="412"}](https://r4ds.had.co.nz/)
+:::
+:::
+
+## R for Data Science
+
+-   Neste [link](https://r4ds.had.co.nz/ "R for Data Science") você pode acessar a primeira edição do livro:
+
+<https://r4ds.had.co.nz/>
+
+-   E [aqui](https://r4ds.hadley.nz/ "R for Data Science") você pode acessar a segunda edição que ainda está sendo finalizada:
+
+<https://r4ds.hadley.nz/>
+
+::: aside
+Estes slides tem como base o conteúdo da segunda edição
+:::
+
+# 8 Importação de dados
