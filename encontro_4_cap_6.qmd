@@ -121,7 +121,7 @@ table2 <-
 # Tabela 3
 table3 <- table1 %>% 
   mutate(rate = paste(cases, "/", population)) |> 
-  select(c(country,year,rate))
+  select(country,year,rate)
 
 table1
 
@@ -392,7 +392,7 @@ vendas_semanais <-
 
 ```
 
-Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, transforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e os seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df` 
+Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em seguida, transforme o banco de dados `vendas_semanais`, de modo que as colunas que começam com semana se transformem em uma nova variável chamada `semana` e os seus valores vão para uma variável chamada `vendas`. Além disso, transforme os valores da variável `semana` em números. Salve o resultado em um banco de dados chamado `df`
 
 ```{r}
 #| eval: false
