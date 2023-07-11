@@ -317,6 +317,19 @@ read_csv2("./data/academia.csv") |>
   
 ```
 
+## `read_csv2()`
+
+```{r}
+#| include: false
+
+academia <- read_csv2("./data/academia.csv")
+
+```
+
+```{r}
+academia <- read_csv2("https://tinyurl.com/acdmdata")
+```
+
 
 ## Outros argumentos
 
