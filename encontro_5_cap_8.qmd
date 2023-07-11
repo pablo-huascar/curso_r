@@ -30,6 +30,8 @@ editor_options:
 #| include: false
 
 library(tidyverse)
+library(janitor)
+library(gt)
 ```
 
 ## Quem sou eu
@@ -83,3 +85,257 @@ Estes slides tem como base o conteúdo da segunda edição
 :::
 
 # 8 Importação de dados
+
+## Pacotes necessários
+
+```{r}
+library(tidyverse)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+#| eval: false
+
+read_csv("ID do Aluno,Nome Completo,Comida Favorita,Plano de Refeição,Idade
+1,Sunil Huffmann,Iogurte de Morango,Apenas Almoço,4
+2,Barclay Lynn,Batata Frita,Apenas Almoço,5
+3,Jayendra Lyne,N/A,Café da Manhã e Almoço,7
+4,Leon Rossini,Anchovas,Apenas Almoço,
+5,Chidiegwu Dunkel,Pizza,Café da Manhã e Almoço,cinco
+6,Güvenç Attila,Sorvete,Apenas Almoço,6") |>
+  write_csv("./data/estudantes.csv")
+```
+
+## 8.2 Lendo dados de um arquivo
+
+-   csv = comma-separated values (valores separados por vírgulas)
+
+```{r}
+#| echo: false
+read_lines("./data/estudantes.csv") |> 
+  cat(sep = "\n")
+```
+
+## Lendo arquivos csv
+
+```{r}
+#| echo: false
+#| tbl-cap: Dados do arquivo students.csv como uma tabela.
+read_csv("./data/estudantes.csv") |> 
+           gt()
+
+```
+
+## Lendo arquivos csv
+
+```{r}
+#| message: true
+#| output-location: slide
+
+estudantes <- read_csv("./data/estudantes.csv")
+
+estudantes
+
+```
+
+-   `read_csv`
+-   primeiro argumento: caminho do arquivo 
+-   caminho = endereço: arquivo `estudantes.csv` mora na pasta `data`
+-   o código funciona se o arquivo `estudantes.csv` estiver na pasta `data` 
+
+## Lendo arquivos cvs
+
+-   é possível ler o arquivo direto de uma URL (link) onde ele esteja armazenado
+
+```{r}
+#| eval: false
+estudantes <- read_csv("https://tinyurl.com/estudcsv")
+```
+
+## Conselho prático
+
+Depois de ler os dados, a primeira etapa geralmente envolve transformá-los de alguma forma para facilitar o trabalho no restante de sua análise
+
+## Lidando com códigos para valores ausentes {.smaller}
+
+-   N/A parece ser um valor ausente válido na coluna `Comida Favorita`
+    -   argumento `na`
+        -   padrão: reconhece espaços vazios (`""`) como `NA`s
+
+```{r}
+estudantes
+```
+
+## Lidando com códigos para valores ausentes
+
+```{r}
+estudantes <- read_csv("./data/estudantes.csv", 
+                       na = c("N/A","")) 
+
+estudantes
+```
+
+## Melhorando os nomes das variáveis
+
+-   Espaços: variáveis entre ``  
+-   Maiúsculas e minúsculas
+-   acentos e ç
+-   `janitor::clean_names()`
+
+```{r}
+estudantes
+```
+
+## Melhorando os nomes das variáveis
+
+```{r}
+estudantes <- estudantes |> 
+  clean_names()
+
+estudantes
+```
+
+## Organizando os tipos de variáveis
+
+-   plano_de_refeicao: variável categórica (conjunto conhecido de valores possíveis)
+-   deveria ser representada como factor
+-   `forcats::as_factor()`
+
+```{r}
+estudantes
+```
+
+## Organizando os tipos de variáveis
+
+```{r}
+estudantes <- read_csv("./data/estudantes.csv",
+         na = c("N/A", "")) |> 
+  clean_names() |> 
+  mutate(
+    plano_de_refeicao = as_factor(plano_de_refeicao)
+  )
+
+estudantes
+```
+
+## Organizando os tipos de variáveis
+
+-   idade: variável numérica, mas está como caractere
+-   `cinco` ao invés de 5
+
+```{r}
+estudantes
+```
+
+## Organizando os tipos de variáveis
+
+```{r}
+estudantes <- read_csv("./data/estudantes.csv",
+         na = c("N/A", "")) |> 
+  clean_names() |> 
+  mutate(
+    plano_de_refeicao = as_factor(plano_de_refeicao),
+    idade = parse_number(if_else(idade == "cinco", "5",idade)) 
+  )
+
+estudantes
+```
+
+## `if_else()`
+
+-   argumentos: `condition`, `true`, `false`
+-   if_else(idade == "cinco", "5", idade)
+    -   `condition`: idade == "cinco"
+    -   `true`: "5"
+    -   `false`: idade
+    
+## `read_csv2()`
+-   csv: valores separados por vírgulas
+-   Brasil: casas decimais são separadas por vírgula
+    -   2,4 e 5,7 e 6,7
+-   `read_csv()` não vai ler o arquivo corretamente
+
+::: panel-tabset
+### Resultado obtido
+```{r}
+#| echo: false
+#| message: false
+
+read_csv(
+  "a,b,c,
+  2,4,5,7,6,7"
+)
+
+
+```
+
+### Resultado esperado
+
+```{r}
+#| echo: false
+read_csv2(
+  "a;b;c
+  2,4;5,7;6,7"
+)
+```
+:::
+
+## `read_csv2()`
+
+-   é necessário que os valores sejam separados por ";"   
+    -  2,4;5,7;6,7
+-   `read_csv2()`: lê arquivo separados por ";"
+    
+```{r}
+#| include: false
+#| eval: false
+
+read_csv2("ID;Nome;Idade;Sexo;Altura;Peso;Cidade
+1;João;25;Masculino;1,75;70,25;Sobral
+2;Maria;32;Feminino;1,63;58,50;Fortaleza
+3;Pedro;45;Masculino;1,80;85,75;Pacajus
+4;Ana;28;Feminino;1,68;60,00;Fortaleza
+5;Carlos;33;Masculino;1,82;77,50;Sobral") |> 
+  write_csv2("./data/academia.csv")
+```
+
+```{r}
+#| echo: false
+read_lines("./data/academia.csv") |> 
+  cat(sep = "\n")
+  
+```
+
+## `read_csv2()`
+
+```{r}
+#| echo: false
+
+read_csv2("./data/academia.csv") |> 
+  gt()
+  
+```
+
+
+## Outros argumentos
+
+```{r}
+read_csv(
+  "a,b,c
+  1,2,3
+  4,5,6"
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
