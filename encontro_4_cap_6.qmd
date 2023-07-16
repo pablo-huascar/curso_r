@@ -114,13 +114,17 @@ table1 <-
 # Tabela 2
 table2 <- 
   table1 %>% 
-  pivot_longer(cols = c(cases, population), 
-               names_to = "type", 
-               values_to = "count")
+  pivot_longer(
+    cols = c(cases, population), 
+    names_to = "type", 
+    values_to = "count"
+    )
 
 # Tabela 3
 table3 <- table1 %>% 
-  mutate(rate = paste(cases, "/", population)) |> 
+  mutate(
+    rate = paste(cases, "/", population)
+    ) |> 
   select(country,year,rate)
 
 table1
@@ -436,12 +440,16 @@ A partir do banco de dados `df`, reproduza o seguinte gráfico:
 
 df |>
   group_by(semana) |> 
-  summarise(m = mean(vendas)) |>
+  summarise(
+    m = mean(vendas)
+    ) |>
   ggplot(aes(x = semana, 
              y = m)) +
   geom_line(color = "blue") +
-  labs(x = "Semana",
-       y = "Média de vendas semanais") +
+  labs(
+    x = "Semana",
+    y = "Média de vendas semanais"
+    ) +
   theme_classic()
 ```
 
@@ -452,12 +460,16 @@ df |>
 
 df |>
   group_by(semana) |> 
-  summarise(m = mean(vendas)) |>
+  summarise(
+    m = mean(vendas)
+    ) |>
   ggplot(aes(x = semana, 
              y = m)) +
   geom_line(color = "blue") +
-  labs(x = "Semana",
-       y = "Média de vendas semanais") +
+  labs(
+    x = "Semana",
+    y = "Média de vendas semanais"
+    ) +
   theme_classic()
 ```
 
@@ -472,14 +484,18 @@ Ainda com o banco de dados `df`, reproduza o seguinte gráfico
 
 df |> 
   group_by(cidade,semana) |> 
-  summarise(m = mean(vendas)) |> 
+  summarise(
+    m = mean(vendas)
+    ) |> 
   ggplot(aes(x = semana,
              y = m,
              color = cidade)) +
   geom_line() +
-  labs(x = "Semana",
-       y = "Média de vendas semanais",
-       color = "Cidade") +
+  labs(
+    x = "Semana",
+    y = "Média de vendas semanais",
+    color = "Cidade"
+    ) +
   theme_classic()
 ```
 
@@ -490,14 +506,18 @@ df |>
 
 df |> 
   group_by(cidade,semana) |> 
-  summarise(m = mean(vendas)) |> 
+  summarise(
+    m = mean(vendas)
+    ) |> 
   ggplot(aes(x = semana,
              y = m,
              color = cidade)) +
   geom_line() +
-  labs(x = "Semana",
-       y = "Média de vendas semanais",
-       color = "Cidade") +
+  labs(
+    x = "Semana",
+    y = "Média de vendas semanais",
+    color = "Cidade"
+    ) +
   theme_classic()
 ```
 

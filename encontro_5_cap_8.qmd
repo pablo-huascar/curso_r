@@ -273,12 +273,14 @@ estudantes
 #| eval: false
 #| include: false
 
-read_csv("ID,Nome Completo,Idade,Sexo,Estado Civil
+read_csv(
+"ID,Nome Completo,Idade,Sexo,Estado Civil
 1,João da Silva,trinta e dois,Masculino,Casado
 2,Maria de Souza,27,Feminino,Solteira
 3,José Pereira,45,Masculino,999
 4,Ana Santos,36,Feminino,Casada
-5,Pedro Almeida,41,Masculino,Solteiro") |> 
+5,Pedro Almeida,41,Masculino,Solteiro"
+) |> 
   write_csv("./data/demograficos.csv")
 
 
@@ -400,6 +402,8 @@ demograficos
 
 ## Reposta - parte 5: corrigindo a variável numérica
 
+- `idade`: `trinta e dois`
+
 ```{r}
 #| include: false
 
@@ -471,9 +475,10 @@ read_csv2(
 
 ## `read_csv2()`
 
--   Decimais separados por vírgula: valores separados por `;`
+-   Decimais separados por `,`: valores separados por `;`
     -   2,4;5,7;6,7
 -   `read_csv2()`: lê arquivo separados por `;`
+-   academia.csv
 
 ```{r}
 #| include: false
@@ -538,7 +543,7 @@ read_csv(
 -   `read_csv()`: primeira linha para os nomes das colunas
 -   Não é incomum que algumas linhas de metadados sejam incluídas na parte superior do arquivo
 -   `skip = n`: pular as primeiras n linhas
--   `comment = "#"`: eliminar todas as linhas que começam, por exemplo, col_names "\#"
+-   `comment = "#"`: eliminar todas as linhas que começam, por exemplo, com "\#"
 
 ## `skip = n`
 
@@ -656,7 +661,6 @@ estudantes |>
 read_csv("./data/estudantes_edit.csv")
 ```
 
-
 ## Lendo arquivos do SPSS
 
 ```{r}
@@ -679,6 +683,37 @@ estudantes_sav <- read_sav("https://tinyurl.com/estudansav")
 
 ```{r}
 estudantes_sav
+```
+
+## Lendo arquivos do excel
+
+```{r}
+library(readxl)
+```
+
+## `read_excel()`
+
+-   Por padrão, vai ler a primeira planilha
+
+```{r}
+read_excel("./data/exemplo_excel.xlsx")
+```
+
+## Obtendo os nomes das planilhas
+
+-   Liste os nomes das planilhas com `excel_sheets()`
+
+```{r}
+excel_sheets("./data/exemplo_excel.xlsx")
+```
+
+## Lendo uma planilha selecionada
+
+-   `sheet =`: seleciona a planilha desejada
+
+```{r}
+read_excel("./data/exemplo_excel.xlsx",
+           sheet = "estudantes")
 ```
 
 ## Compartilhar conhecimento sempre!

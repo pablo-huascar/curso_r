@@ -98,6 +98,7 @@ library(tidyverse)
 library(nycflights13)
 library(janitor)
 library(kableExtra)
+library(gt)
 ```
 
 ## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
@@ -214,8 +215,10 @@ mpg |>
 mpg |> 
   filter(manufacturer == "audi") |> 
   group_by(trans) |> 
-  summarise("média na cidade" = mean(cty),
-            "média na rodovia" = mean(hwy))
+  summarise(
+    "média na cidade" = mean(cty),
+    "média na rodovia" = mean(hwy)
+    )
 ```
 
 ## `|>`
@@ -574,7 +577,8 @@ flights |>
 
 ```{r}
 flights |> 
-  count(dest,sort = T)
+  count(dest,
+        sort = T)
 ```
 
 ## Exercício
@@ -731,8 +735,6 @@ flights  |>
 ## Resposta 2
 
 ```{r}
-#| output-location: slide 
-
 flights |> 
   filter(year == 2013) |> 
   distinct(month,day) |> 
@@ -766,7 +768,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -780,7 +782,9 @@ glimpse(economics)
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60)
+  mutate(
+    air_time_horas = air_time/60
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
@@ -793,32 +797,40 @@ flights |>
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60,
-         .before = 1)
+  mutate(
+    air_time_horas = air_time/60,
+    .before = 1
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60,
-         .before = year)
+  mutate(
+    air_time_horas = air_time/60,
+    .before = year
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60,
-         .after = 3)
+  mutate(
+    air_time_horas = air_time/60,
+    .after = 3
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60,
-         .after = day)
+  mutate(
+    air_time_horas = air_time/60,
+    .after = day
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
@@ -833,8 +845,10 @@ flights |>
 
 ```{r}
 flights |> 
-  mutate(air_time_horas = air_time/60,
-         .keep = "used")
+  mutate(
+    air_time_horas = air_time/60,
+    .keep = "used"
+    )
 ```
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
@@ -846,8 +860,10 @@ flights |>
 
 ```{r}
 flights <- flights |> 
-  mutate(air_time_horas = air_time/60,
-         .after = day)
+  mutate(
+    air_time_horas = air_time/60,
+    .after = day
+    )
 
 glimpse(flights)
 ```
@@ -856,8 +872,10 @@ glimpse(flights)
 
 ```{r}
 air_time_horas <- flights |> 
-  mutate(air_time_horas = air_time/60,
-         .keep = "none")
+  mutate(
+    air_time_horas = air_time/60,
+    .keep = "none"
+    )
 
 air_time_horas
 ```
@@ -878,7 +896,9 @@ Crie uma coluna (variável) chamada `consumo_percapita` que calcule a relação 
 
 ```{r}
 economics |> 
-  mutate(consumo_percapita = pce/pop)
+  mutate(
+    consumo_percapita = pce/pop
+    )
 ```
 
 ## Exercícios
@@ -889,7 +909,9 @@ Crie uma variável chamada `des_hab` a taxa de desempregados (`unemploy`) por ha
 
 ```{r}
 economics |> 
-  mutate(des_hab = unemploy/pop)
+  mutate(
+    des_hab = unemploy/pop
+  )
   
 ```
 
@@ -907,33 +929,41 @@ Dica 3: lembre do que aprendemos com a função `filter()`
 
 ```{r}
 economics |> 
-  mutate(date = year(date))  
+  mutate(
+    date = year(date)
+    )  
 ```
 
 ## Resposta - parte 2
 
 ```{r}
 economics |> 
-  mutate(date = year(date),
-         des_hab = unemploy/pop)
+  mutate(
+    date = year(date),
+    des_hab = unemploy/pop
+    )
 ```
 
 ## Resposta - parte 3
 
 ```{r}
 economics |> 
-  mutate(date = year(date),
-         des_hab = unemploy/pop,
-         .keep = "none")
+  mutate(
+    date = year(date),
+    des_hab = unemploy/pop,
+    .keep = "none"
+    )
 ```
 
 ## Resposta - parte 4
 
 ```{r}
 economics |> 
-  mutate(date = year(date),
-         des_hab = unemploy/pop,
-         .keep = "none") |>
+  mutate(
+    date = year(date),
+    des_hab = unemploy/pop,
+    .keep = "none"
+    ) |>
   filter(date == 2008)
 ```
 
@@ -941,9 +971,11 @@ economics |>
 
 ```{r}
 des_hab_2008 <- economics |> 
-  mutate(date = year(date),
-         des_hab = unemploy/pop,
-         .keep = "none") |>
+  mutate(
+    date = year(date),
+    des_hab = unemploy/pop,
+    .keep = "none"
+    ) |>
   filter(date == 2008)
 
 des_hab_2008
@@ -969,15 +1001,23 @@ des_hab_2008
 #| echo: false
 dass_itens <- read_csv("./data/dass_21_itens.csv")
 
-dass_itens |> 
+depressao_itens <- 
+  dass_itens |> 
   pivot_longer(cols = everything()) |> 
   select(value) |>
   slice(c(3,5,10,13,16,17,21)) |>
-  mutate(Item = c(3,5,10,13,16,17,21),
-         .before = 1) |> 
+  mutate(
+    Item = c(3,5,10,13,16,17,21),
+    .before = 1
+    ) |> 
   rename("Assertiva" = value) |> 
-  kbl(align = "cl") |> 
-  kable_classic()
+  gt() |> 
+  cols_align(
+    align = "center",
+    columns = "Item"
+  )
+
+depressao_itens
 ```
 
 ## DASS-21: Ansiedade
@@ -985,17 +1025,23 @@ dass_itens |>
 ```{r}
 #| echo: false
 
-dass_itens |> 
+ansiedade_itens <- 
+  dass_itens |> 
   pivot_longer(cols = everything()) |> 
   select(value) |> 
   slice(c(2,4,7,9,15,19,20)) |> 
-  mutate(Item = c(2,4,7,9,15,19,20),
-         .before = 1) |>
+  mutate(
+    Item = c(2,4,7,9,15,19,20),
+    .before = 1
+    ) |>
   rename("Assertiva" = value) |> 
-  kbl(align = "cl") |>
-  kable_styling(font_size = 32) |> 
-  kable_classic()
-  
+  gt() |> 
+  cols_align(
+    align = "center",
+    columns = "Item"
+  )
+
+ansiedade_itens  
 ```
 
 ## DASS-21: Estresse
@@ -1003,15 +1049,23 @@ dass_itens |>
 ```{r}
 #| echo: false
 
-dass_itens |> 
+estresse_itens <- 
+  dass_itens |> 
   pivot_longer(cols = everything()) |> 
   select(value) |> 
   slice(c(1,6,8,11,12,14,18)) |> 
-  mutate(Item = c(1,6,8,11,12,14,18),
-         .before = 1) |> 
+  mutate(
+    Item = c(1,6,8,11,12,14,18),
+    .before = 1
+    ) |> 
   rename("Assertiva" = value) |> 
-  kbl(align = "cl",) |>
-  kable_classic()
+  gt() |> 
+  cols_align(
+    align = "center",
+    columns = "Item"
+  )
+
+estresse_itens
 ```
 
 ## `dass_simulado`: Importação do banco
@@ -1076,17 +1130,7 @@ glimpse(dass_simulado)
 
 ```{r}
 #| echo: false
-dass_itens <- read_csv("./data/dass_21_itens.csv")
-
-dass_itens |> 
-  pivot_longer(cols = everything()) |> 
-  select(value) |>
-  slice(c(3,5,10,13,16,17,21)) |>
-  mutate(Item = c(3,5,10,13,16,17,21),
-         .before = 1) |> 
-  rename("Assertiva" = value) |> 
-  kbl(align = "cl") |> 
-  kable_classic()
+depressao_itens
 ```
 
 ## Criação da variável `depressao`
@@ -1096,14 +1140,12 @@ dass_itens |>
 #| output-location: slide
 dass_simulado |>
   rowwise() |> 
-  mutate(depressao = sum(c(dass_3,
-                           dass_5,
-                           dass_10,
-                           dass_13,
-                           dass_16,
-                           dass_17,
-                           dass_21)),
-         .keep = "none") |> 
+  mutate(
+    depressao = sum(c(dass_3,dass_5,dass_10,
+                      dass_13,dass_16,dass_17,
+                      dass_21)),
+    .keep = "none"
+    ) |> 
   ungroup()
 ```
 
@@ -1117,6 +1159,7 @@ dass_simulado |>
 
 ```{r}
 df <- tibble(x = 1:2, y = 3:4, z = 5:6)
+
 df
 ```
 
@@ -1127,7 +1170,9 @@ Calculou a média de `x`, `y` e `z` através de todas as linhas
 ```{r}
 
 df %>% 
-  mutate(m = mean(c(x, y, z)))
+  mutate(
+    m = mean(c(x, y, z))
+    )
 
 (1+3+5+2+4+6)/6
 ```
@@ -1139,7 +1184,9 @@ Calculou a média para cada linha
 ```{r}
 df %>% 
   rowwise() %>% 
-  mutate(m = mean(c(x, y, z)))
+  mutate(
+    m = mean(c(x, y, z))
+    )
 
 (1+3+5)/3
 
@@ -1150,17 +1197,7 @@ df %>%
 
 ```{r}
 #| echo: false
-dass_itens <- read_csv("./data/dass_21_itens.csv")
-
-dass_itens |> 
-  pivot_longer(cols = everything()) |> 
-  select(value) |>
-  slice(c(3,5,10,13,16,17,21)) |>
-  mutate(Item = c(3,5,10,13,16,17,21),
-         .before = 1) |> 
-  rename("Assertiva" = value) |> 
-  kbl(align = "cl") |> 
-  kable_classic()
+depressao_itens
 ```
 
 ## Criação da variável `depressao`
@@ -1170,13 +1207,12 @@ dass_itens |>
 #| output-location: slide
 dass_simulado |>
   #rowwise() |> 
-  mutate(depressao = sum(c(dass_3,
-                            dass_5,
-                            dass_10,
-                            dass_13,
-                            dass_16,dass_17,
-                            dass_21)),
-         .keep = "none") |> 
+  mutate(
+    depressao = sum(c(dass_3,dass_5,dass_10,
+                      dass_13,dass_16,dass_17,
+                      dass_21)),
+    .keep = "none"
+    ) |> 
   ungroup()
 ```
 
@@ -1187,13 +1223,12 @@ dass_simulado |>
 #| output-location: slide
 dass_simulado |>
   rowwise() |> 
-  mutate(depressao = sum(c(dass_3,
-                            dass_5,
-                            dass_10,
-                            dass_13,
-                            dass_16,dass_17,
-                            dass_21)),
-         .keep = "none") |> 
+  mutate(
+    depressao = sum(c(dass_3,dass_5,dass_10,
+                      dass_13,dass_16,dass_17,
+                      dass_21)),
+    .keep = "none"
+    ) |> 
   ungroup()
 ```
 
@@ -1203,13 +1238,12 @@ dass_simulado |>
 #| output-location: slide
 dass_simulado <- dass_simulado |> 
   rowwise() |> 
-  mutate(depressao = sum(c(dass_3,
-                            dass_5,
-                            dass_10,
-                            dass_13,
-                            dass_16,dass_17,
-                            dass_21)),
-         .before = 1) |> 
+  mutate(
+    depressao = sum(c(dass_3,dass_5,dass_10,
+                      dass_13,dass_16,dass_17,
+                      dass_21)),
+    .before = 1
+    ) |> 
   ungroup()
 
 dass_simulado
@@ -1224,51 +1258,22 @@ Salve a variável `ansiedade` no banco dass_simulado e faça com que ela seja a 
 ```{r}
 #| echo: false
 
-dass_itens |> 
-  pivot_longer(cols = everything()) |> 
-  select(value) |> 
-  slice(c(2,4,7,9,15,19,20)) |> 
-  mutate(Item = c(2,4,7,9,15,19,20),
-         .before = 1) |>
-  rename("Assertiva" = value) |> 
-  kbl(align = "cl") |>
-  kable_styling(font_size = 32) |> 
-  kable_classic()
-  
+ansiedade_itens
 ```
 
-## Resposta parte 1
-
-```{r}
-#| output-location: slide
-dass_simulado |> 
-  rowwise() |> 
-  mutate(ansiedade = sum(c(dass_2,
-                           dass_4,
-                           dass_7,
-                           dass_9,
-                           dass_15,
-                           dass_19,
-                           dass_20)),
-         .after = depressao) |> 
-  ungroup()
-```
-
-## Resposta parte 2
+## Resposta 
 
 ```{r}
 #| output-location: slide 
 
 dass_simulado <- dass_simulado |> 
   rowwise() |> 
-  mutate(ansiedade = sum(c(dass_2,
-                           dass_4,
-                           dass_7,
-                           dass_9,
-                           dass_15,
-                           dass_19,
-                           dass_20)),
-         .after = depressao) |> 
+  mutate(
+    ansiedade = sum(c(dass_2,dass_4,dass_7,
+                      dass_9,dass_15,dass_19,
+                      dass_20)),
+    .after = depressao
+    ) |> 
   ungroup()
 
 dass_simulado
@@ -1283,15 +1288,7 @@ Salve a variável `estresse` no banco dass_simulado e faça com que ela seja a t
 ```{r}
 #| echo: false
 
-dass_itens |> 
-  pivot_longer(cols = everything()) |> 
-  select(value) |> 
-  slice(c(1,6,8,11,12,14,18)) |> 
-  mutate(Item = c(1,6,8,11,12,14,18),
-         .before = 1) |> 
-  rename("Assertiva" = value) |> 
-  kbl(align = "cl",) |>
-  kable_classic()
+estresse_itens
 ```
 
 ## Resposta
@@ -1300,14 +1297,12 @@ dass_itens |>
 #| output-location: slide
 dass_simulado <- dass_simulado |> 
   rowwise() |> 
-  mutate(estresse = sum(dass_1,
-                        dass_6,
-                        dass_8,
-                        dass_11,
-                        dass_12,
-                        dass_14,
-                        dass_18),
-         .after = ansiedade) |> 
+  mutate(
+    estresse = sum(dass_1,dass_6,dass_8,
+                   dass_11,dass_12,dass_14,
+                   dass_18),
+    .after = ansiedade
+    ) |> 
   ungroup()
 
 dass_simulado
@@ -1393,9 +1388,11 @@ glimpse(flights)
 
 ```{r}
 flights |> 
-  rename(ano = year,
-         mes = month,
-         dia = day)
+  rename(
+    ano = year,
+    mes = month,
+    dia = day
+    )
 ```
 
 ## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
@@ -1410,7 +1407,8 @@ glimpse(flights)
 
 ```{r}
 flights |> 
-  rename_with(~ toupper(.),.cols = 1:3)
+  rename_with(~ toupper(.),
+              .cols = 1:3)
 ```
 
 ## [`rename_with()`](https://dplyr.tidyverse.org/reference/rename.html): renomeia as variáveis (colunas)
@@ -1426,18 +1424,23 @@ Para bancos de dados com muitas inconsistências
 
 ```{r}
 #| include: false
+#| eval: false
 
-inconsistente <- tibble(
+tibble(
   Nome.do.Cliente = c("João", "Maria", "Pedro"),
   ID_Cliente = c(1, 2, 3),
   Endereço_de.Email = c("joao@email.com", "maria@email.com", "pedro@email.com"),
   "Número de Telefone" = c("123456789", "987654321", "555555555")
-)
+) |> 
+  write_csv("./data/inconsistente.csv")
 ```
 
 ```{r}
-glimpse(inconsistente)
+inconsistente <- read_csv("./data/inconsistente.csv")
+
+inconsistente
 ```
+
 
 ```{r}
 #| eval: false
@@ -1512,12 +1515,14 @@ atrasos <- flights |>
          dep_delay,
          arr_delay,
          carrier) |> 
-  rename(ano = year,
-         mes = month,
-         dia = day,
-         atraso_decolagem = dep_delay,
-         atraso_pouso = arr_delay,
-         companhia = carrier) |> 
+  rename(
+    ano = year,
+    mes = month,
+    dia = day,
+    atraso_decolagem = dep_delay,
+    atraso_pouso = arr_delay,
+    companhia = carrier
+    ) |> 
   relocate(companhia)
 
 ```
@@ -1565,15 +1570,18 @@ resume as estatísticas.
 
 ```{r}
 flights |> 
-  summarise(atraso_medio = mean(dep_delay))
+  summarise(
+    atraso_medio = mean(dep_delay)
+    )
 ```
 
 ## Correção das variáveis ausentes (`NA`)
 
 ```{r}
 flights |> 
-  summarise(atraso_med_partida = mean(dep_delay,
-                                na.rm = T))
+  summarise(
+    atraso_med_partida = mean(dep_delay,na.rm = T)
+    )
 ```
 :::
 
@@ -1583,11 +1591,11 @@ Você pode calcular várias estatísticas de uma só vez
 
 ```{r}
 flights |> 
-  summarise(m_atraso_partida = mean(dep_delay,
-                            na.rm = T),
-            sd_atraso_partida = sd(dep_delay,
-                                  na.rm = T),
-            n = n())
+  summarise(
+    m_atraso_partida = mean(dep_delay,na.rm = T),
+    sd_atraso_partida = sd(dep_delay,na.rm = T),
+    n = n()
+    )
 ```
 
 ## [[`summarise()`](https://dplyr.tidyverse.org/reference/summarise.html)]{style="font-size: 36pt"}
@@ -1597,9 +1605,10 @@ Se usado com `group_by()`, mostra uma linha para cada grupo
 ```{r}
 flights |> 
   group_by(month) |> 
-  summarise(atraso_medio = mean(dep_delay,
-                                na.rm = T),
-            n = n())
+  summarise(
+    atraso_medio = mean(dep_delay,na.rm = T),
+    n = n()
+    )
 ```
 
 ## Exercícios
@@ -1611,8 +1620,9 @@ Descubra qual companhia (`carrier`) tem, em média, os menores atrasos na decola
 ```{r}
 flights |> 
   group_by(carrier) |> 
-  summarise(m = mean(dep_delay,
-                     na.rm = T)) |> 
+  summarise(
+    m = mean(dep_delay,na.rm = T)
+    ) |> 
   arrange(m)
 ```
 
@@ -1625,8 +1635,9 @@ Descubra de qual aeroporto partem (`origin`) os voos com maiores atrasos na deco
 ```{r}
 flights |> 
   group_by(origin) |> 
-  summarise(m = mean(dep_delay,
-                 na.rm = T)) |> 
+  summarise(
+    m = mean(dep_delay,na.rm = T)
+    ) |> 
   arrange(desc(m))
 ```
 
@@ -1639,8 +1650,9 @@ Descubra em qual aeroporto chegam (`dest`) os voos com maiores atrasos (`arr_del
 ```{r}
 flights |> 
   group_by(dest) |> 
-  summarise(m = mean(arr_delay,
-                     na.rm = T)) |> 
+  summarise(
+    m = mean(arr_delay,na.rm = T)
+    ) |> 
   arrange(desc(m))
 ```
 
