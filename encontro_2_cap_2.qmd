@@ -75,11 +75,14 @@ penguins |>
              y = after_stat(count/sum(count)),
              fill = species)) +
   geom_bar() +
-  labs(x = "Espécies",
-       y = NULL) +
+  labs(
+    x = "Espécies",
+    y = NULL
+    ) +
   scale_y_continuous(labels = percent) +
-  theme(legend.position = "none")+
-  theme_classic()
+  theme(legend.position = "none") +
+  theme_classic() +
+  scale_color_colorblind()
 
 ```
 
@@ -96,13 +99,16 @@ penguins |>
   ggplot(aes(species,
              body_mass_g,
              color = species)) +
-  geom_boxplot()+
+  geom_boxplot() +
   geom_jitter(aes(species),
               alpha = 0.3,
-              size = 3)+
-  labs(x = "Espécies",
-       y = "Massa corporal (gramas)") +
-  theme(legend.position = "none")
+              size = 3) +
+  labs(
+    x = "Espécies",
+    y = "Massa corporal (gramas)"
+    ) +
+  theme(legend.position = "none") +
+  scale_color_colorblind()
 ```
 
 ##  {#slide4-id data-menu-title="geom_point()" transition="convex" transition-speed="slow"}
@@ -118,12 +124,14 @@ penguins |>
   geom_point(aes(color = species,
                  shape = species)) +
   geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
     x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
-    shape = "Espécie") +
+    y = "Massa corporal (g)",
+    color = "Espécie",
+    shape = "Espécie"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -138,10 +146,14 @@ penguins |>
 
 penguins |> 
   ggplot(aes(body_mass_g)) +
-  geom_histogram(fill = "white",
-                 color = "gray") +
-  labs(x = "Massa corporal (gramas)", 
-       y = NULL) +
+  geom_histogram(
+    fill = "white",
+    color = "gray"
+    ) +
+  labs(
+    x = "Massa corporal (gramas)", 
+    y = NULL
+    ) +
   theme_classic()
 ```
 
@@ -234,7 +246,7 @@ penguins |>
 
 penguins |> 
   ggplot(aes(flipper_length_mm, 
-             body_mass_g))+
+             body_mass_g)) +
   geom_point()
 ```
 :::
@@ -372,13 +384,17 @@ penguins |>
              body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
-       x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
-    shape = "Espécie") +
+  geom_smooth(
+    method = "lm"
+    ) +
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+    y = "Massa corporal (g)",
+    color = "Espécie",
+    shape = "Espécie"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -407,7 +423,8 @@ ggplot(data = penguins)
 #| fig-dpi: 600
 
 ggplot(data = penguins,
-       mapping = aes(x = flipper_length_mm, y = body_mass_g))
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g))
 ```
 
 ## Como representar as informações?
@@ -428,7 +445,8 @@ ggplot(data = penguins,
 #| fig-dpi: 600
 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g)) +
   geom_point()
 ```
 
@@ -448,9 +466,9 @@ ggplot(data = penguins,
 #| code-line-numbers: "|4"
 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g, 
-                color = species)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g, 
+                     color = species)) +
   geom_point()
 ```
 
@@ -466,10 +484,10 @@ ggplot(data = penguins,
 #| fig-dpi: 600
 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g, 
-                color = species,
-                shape = species)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g, 
+                     color = species,
+                     shape = species)) +
   geom_point()
 ```
 
@@ -484,12 +502,14 @@ ggplot(data = penguins,
 #| out-width: 70% 
 #| fig-dpi: 600
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g, 
-                color = species,
-                shape = species)) +
-  geom_point()+
-  geom_smooth(method = "lm")
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g, 
+                     color = species,
+                     shape = species)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm"
+    )
 ```
 
 ##  {#slide8-id data-menu-title="Objetivo Final"}
@@ -507,13 +527,17 @@ penguins |>
              body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+  geom_smooth(
+    method = "lm"
+    ) +
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
     x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
-    shape = "Espécie")+
+    y = "Massa corporal (g)",
+    color = "Espécie",
+    shape = "Espécie"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -528,11 +552,13 @@ penguins |>
 #| out-width: 70%
 #| fig-dpi: 600 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm")
+  geom_smooth(
+    method = "lm"
+    )
 ```
 
 ## Adicionando rótulos (labels)
@@ -546,17 +572,21 @@ ggplot(data = penguins,
 #| out-width: 70%
 #| fig-dpi: 600 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
-       x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
-       shape = "Espécie")
+  geom_smooth(
+    method = "lm"
+    ) +
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+    x = "Comprimento da nadadeira (mm)",
+    y = "Massa corporal (g)",
+    color = "Espécie",
+    shape = "Espécie"
+    )
 ```
 
 # Cores para daltônicos
@@ -571,16 +601,19 @@ ggplot(data = penguins,
 #| fig-dpi: 600
 
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+  geom_smooth(
+    method = "lm"
+    ) +
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
     x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
+    y = "Massa corporal (g)",
+    color = "Espécie",
     shape = "Espécie") +
   scale_color_colorblind()
 ```
@@ -598,17 +631,21 @@ ggplot(data = penguins,
 #| fig-dpi: 600
  
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
-  labs(title = "Massa corporal e comprimento da nadadeira",
-       subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
+  geom_smooth(
+    method = "lm"
+    ) +
+  labs(
+    title = "Massa corporal e comprimento da nadadeira",
+    subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
     x = "Comprimento da nadadeira (mm)",
-       y = "Massa corporal (g)",
-       color = "Espécie",
-    shape = "Espécie") +
+    y = "Massa corporal (g)",
+    color = "Espécie",
+    shape = "Espécie"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -720,8 +757,8 @@ ggplot(data = penguins,
 ```{r}
 #| eval: false
 ggplot(data = penguins,
-  mapping = aes(x = flipper_length_mm, 
-                y = body_mass_g)) +
+       mapping = aes(x = flipper_length_mm,
+                     y = body_mass_g)) +
   geom_point()
 
 ```
@@ -868,9 +905,12 @@ ggplot(penguins,
 #| out-width: "70%"
 #| fig-dpi: 600
 
-ggplot(penguins, aes(body_mass_g)) +
-  geom_histogram(binwidth = 200,
-                 color = "white")
+ggplot(penguins, 
+       aes(body_mass_g)) +
+  geom_histogram(
+    binwidth = 200,
+    color = "white"
+    )
 
 ```
 
@@ -881,8 +921,11 @@ ggplot(penguins, aes(body_mass_g)) +
 #| out-width: "70%"
 #| fig-dpi: 600
 
-ggplot(penguins, aes(x = body_mass_g)) +
-  geom_histogram(binwidth = 200)
+ggplot(penguins, 
+       aes(x = body_mass_g)) +
+  geom_histogram(
+    binwidth = 200
+    )
 
 ```
 
@@ -911,7 +954,9 @@ ggplot(penguins, aes(x = body_mass_g)) +
 #| fig-dpi: 600
 
 ggplot(penguins, aes(body_mass_g)) +
-  geom_histogram(binwidth = 20)
+  geom_histogram(
+    binwidth = 20
+    )
 
 ```
 :::
@@ -941,10 +986,14 @@ Em que os dois gráficos a seguir são diferentes? Qual estética, cor ou preenc
 #| eval: false
 
 ggplot(penguins, aes(species)) +
-  geom_bar(color = "red")
+  geom_bar(
+    color = "red"
+    )
 
 ggplot(penguins, aes(species)) +
-  geom_bar(fill = "red")
+  geom_bar(
+    fill = "red"
+    )
 ```
 
 ## Resposta
@@ -956,7 +1005,9 @@ ggplot(penguins, aes(species)) +
 #| fig-dpi: 600
 
 ggplot(penguins, aes(species)) +
-  geom_bar(fill = "red")
+  geom_bar(
+    fill = "red"
+    )
 ```
 
 ## Exercícios
@@ -1012,119 +1063,154 @@ hist(diamonds$carat)
 box_plot <-
   penguins |> 
   filter(species == "Chinstrap") |>
-  mutate(species = as.numeric(species)) |> 
+  mutate(
+    species = as.numeric(species)
+    ) |> 
   ggplot(aes(species,
              body_mass_g)) +
-  geom_boxplot(color = "gray") +
-  scale_x_continuous(breaks = 2,
-                     labels = "Chinstrap") +
-  theme(axis.ticks = element_blank())
+  geom_boxplot(
+    color = "gray"
+    ) +
+  scale_x_continuous(
+    breaks = 2,
+    labels = "Chinstrap"
+    ) +
+  theme(
+    axis.ticks = element_blank()
+    )
   
 box_plot <-
   box_plot +
-  geom_segment(x = 2.32,
-               y = 3450,
-               xend = 2.32,
-               yend = 4000,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-  geom_segment(x = 2.32,
-               y = 4000,
-               xend = 2.32,
-               yend = 3450,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-  annotate("text",
-           x = 2.32, 
-           y = 3420, 
-           label = "Interquartile range (IQR)",
-           color = "gray",
-           hjust = "center")
+  geom_segment(
+    x = 2.32,
+    y = 3450,
+    xend = 2.32,
+    yend = 4000,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    ) +
+  geom_segment(
+    x = 2.32,
+    y = 4000,
+    xend = 2.32,
+    yend = 3450,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    ) +
+  annotate(
+    "text",
+    x = 2.32, 
+    y = 3420, 
+    label = "Interquartile range (IQR)",
+    color = "gray",
+    hjust = "center"
+    )
 
 box_plot <- 
   box_plot +
-  geom_segment(x = 2.32,
-               y = 4050,
-               xend = 2.32,
-               yend = 4755,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-  geom_segment(x = 2.32,
-               y = 4755,
-               xend = 2.32,
-               yend = 4050,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2)+
-  annotate("text",
-           x = 2.36,
-           y = 4400,
-           label = "1,5 X IQR",
-           color = "gray")
+  geom_segment(
+    x = 2.32,
+    y = 4050,
+    xend = 2.32,
+    yend = 4755,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    ) +
+  geom_segment(
+    x = 2.32,
+    y = 4755,
+    xend = 2.32,
+    yend = 4050,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    )+
+  annotate(
+    "text",
+    x = 2.36,
+    y = 4400,
+    label = "1,5 X IQR",
+    color = "gray")
   
 box_plot <- 
   box_plot +
-  geom_segment(x = 2.05,
-               xend = 2.01,
-               y = 4800,
-               yend = 4800,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray") +
-  annotate("text",
-           x = 2.076,
-           y = 4800,
-           label = "outlier",
-           color = "gray")
+  geom_segment(
+    x = 2.05,
+    xend = 2.01,
+    y = 4800,
+    yend = 4800,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray"
+    ) +
+  annotate(
+    "text",
+    x = 2.076,
+    y = 4800,
+    label = "outlier",
+    color = "gray"
+    )
 
 box_plot <- 
   box_plot +
-   geom_segment(x = 2.1,
-               y = 3197.5,
-               xend = 2.1,
-               yend = 3487.5,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-  annotate("text",
-           x = 2.1,
-           y = 3150,
-           label = "percentil 25",
-           color = "gray") +
-  geom_segment(x = 2.1,
-               y = 4240,
-               xend = 2.1,
-               yend = 3950,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-  annotate("text",
-           x = 2.1,
-           y = 4350,
-           label = "percentil 75",
-           color = "gray") +
-  geom_segment(x = 1.8,
-               y = 3410,
-               xend = 1.8,
-               yend = 3700,
-               arrow = arrow(length = unit(0.2, "cm"), 
-                             type = "closed"),
-               color = "gray",
-               alpha = 0.2) +
-   annotate("text",
-           x = 1.8,
-           y = 3300,
-           label = "percentil 50 (mediana)",
-           color = "gray")
+   geom_segment(
+     x = 2.1,
+     y = 3197.5,
+     xend = 2.1,
+     yend = 3487.5,
+     arrow = arrow(length = unit(0.2, "cm"),
+                   type = "closed"),
+     color = "gray",
+     alpha = 0.2
+     ) +
+  annotate(
+    "text",
+    x = 2.1,
+    y = 3150,
+    label = "percentil 25",
+    color = "gray"
+    ) +
+  geom_segment(
+    x = 2.1,
+    y = 4240,
+    xend = 2.1,
+    yend = 3950,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    ) +
+  annotate(
+    "text",
+    x = 2.1,
+    y = 4350,
+    label = "percentil 75",
+    color = "gray"
+    ) +
+  geom_segment(
+    x = 1.8,
+    y = 3410,
+    xend = 1.8,
+    yend = 3700,
+    arrow = arrow(length = unit(0.2, "cm"),
+                  type = "closed"),
+    color = "gray",
+    alpha = 0.2
+    ) +
+   annotate(
+     "text",
+     x = 1.8,
+     y = 3300,
+     label = "percentil 50 (mediana)",
+     color = "gray"
+     )
 
 box_plot
 ```
@@ -1142,7 +1228,9 @@ box_plot
 point <- 
   penguins |> 
   filter(species == "Chinstrap") |>  
-  mutate(species == as.numeric(species)) |> 
+  mutate(
+    species == as.numeric(species)
+    ) |> 
   ggplot(aes(species,
              body_mass_g)) +
   geom_point()
@@ -1151,19 +1239,29 @@ histog <-
   penguins |> 
   filter(species == "Chinstrap") |>
   ggplot(aes(body_mass_g)) +
-  geom_histogram(bins = 20) +
+  geom_histogram(
+    bins = 20
+    ) +
   coord_flip()
 
 box_plot <-
   penguins |> 
   filter(species == "Chinstrap") |>
-  mutate(species = as.numeric(species)) |> 
+  mutate(
+    species = as.numeric(species)
+    ) |> 
   ggplot(aes(species,
              body_mass_g)) +
-  geom_boxplot(color = "gray") +
-  scale_x_continuous(breaks = 2,
-                     labels = "Chinstrap") +
-  theme(axis.ticks = element_blank())
+  geom_boxplot(
+    color = "gray"
+    ) +
+  scale_x_continuous(
+    breaks = 2,
+    labels = "Chinstrap"
+    ) +
+  theme(
+    axis.ticks = element_blank()
+    )
   
 point + histog + box_plot
 ```
@@ -1178,11 +1276,17 @@ point + histog + box_plot
 ```{r}
 penguins |> 
   group_by(island, species) |> 
-  summarise(n = n()) |>
-  pivot_wider(names_from = species,
-              values_from = n) |>
+  summarise(
+    n = n()
+    ) |>
+  pivot_wider(
+    names_from = species,
+    values_from = n
+    ) |>
   rowwise() |> 
-  mutate(total_island = sum(c_across(Adelie:Chinstrap),na.rm = T)) |> 
+  mutate(
+    total_island = sum(c_across(Adelie:Chinstrap),na.rm = T)
+    ) |> 
   ungroup()
 ```
 
@@ -1215,7 +1319,9 @@ ggplot(penguins,
 ggplot(penguins,
        aes(island,
            fill = species))+
-  geom_bar(position = "fill")
+  geom_bar(
+    position = "fill"
+    )
 ```
 
 ## Grafico de barras
@@ -1231,7 +1337,9 @@ ggplot(penguins,
 ggplot(penguins,
        aes(island,
            fill = species)) +
-  geom_bar(position = "dodge")
+  geom_bar(
+    position = "dodge"
+    )
 ```
 
 ## Duas variáveis numéricas
@@ -1250,7 +1358,9 @@ ggplot(penguins,
        aes(flipper_length_mm, 
            body_mass_g)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(
+    method = "lm"
+    )
 ```
 
 ## Três ou mais variáveis
@@ -1322,8 +1432,10 @@ p <-
             aes(hwy,
                 displ)) +
   geom_point() +
-  geom_smooth(method = "lm",
-              se = F)
+  geom_smooth(
+    method = "lm",
+    se = F
+    )
 
 p
 ```
@@ -1406,7 +1518,7 @@ O que acontece se você mapear a mesma variável para várias estéticas?
 
 ggplot(penguins,
        aes(flipper_length_mm,
-           body_mass_g))+
+           body_mass_g)) +
   geom_point(aes(color = sex,
                  shape = sex))
 ```
@@ -1428,8 +1540,10 @@ ggplot(penguins,
        aes(bill_depth_mm,
            bill_length_mm)) +
   geom_point(aes(color = species)) +
-  geom_smooth(method = "lm",
-              se = F)
+  geom_smooth(
+    method = "lm",
+    se = F
+    )
 ```
 
 ## Resposta
@@ -1445,8 +1559,10 @@ ggplot(penguins,
        aes(bill_depth_mm,
            bill_length_mm)) +
   geom_point() +
-  geom_smooth(method = "lm",
-              se = F) +
+  geom_smooth(
+    method = "lm",
+    se = F
+    ) +
   facet_wrap(~ species)
   
 ```
@@ -1467,8 +1583,10 @@ ggplot(penguins,
 histograma <- 
   ggplot(penguins,
          aes(body_mass_g)) +
-  geom_histogram(color = "gray",
-                 fill = "white")+
+  geom_histogram(
+    color = "gray",
+    fill = "white"
+    )+
   theme_classic()
 
 ggsave(filename = "histograma.png",dpi = 600)
