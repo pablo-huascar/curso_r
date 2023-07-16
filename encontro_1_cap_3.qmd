@@ -565,8 +565,10 @@ penguins |>
              bill_length_mm, 
              color = sex,
              size = body_mass_g)) +
-  geom_point(alpha = 0.5) +
-  facet_wrap(~species) 
+  geom_point(
+    alpha = 0.5
+    ) +
+  facet_wrap(~ species) 
 ```
 :::
 
@@ -592,10 +594,12 @@ penguins |>
          !is.na(sex)) |>
   ggplot(aes(flipper_length_mm, 
              bill_length_mm, 
-             color = sex, size = 
-               body_mass_g)) +
-  geom_point(alpha = 0.5) +
-  facet_wrap(~species)
+             color = sex, 
+             size =body_mass_g)) +
+  geom_point(
+    alpha = 0.5
+    ) +
+  facet_wrap(~ species)
 ```
 
 ## Com explicações para a equipe
@@ -612,11 +616,12 @@ penguins |>
   filter(island == "Biscoe",
          !is.na(sex)) |>
   ggplot(aes(flipper_length_mm, 
-             bill_length_mm, color = 
-               sex, 
+             bill_length_mm, color = sex, 
              size = body_mass_g)) +
-  geom_point(alpha = 0.5) +
-  facet_wrap(~species)
+  geom_point(
+    alpha = 0.5
+    ) +
+  facet_wrap(~ species)
 ```
 
 ## 3.3 O que é um nome?
@@ -656,14 +661,14 @@ Ao pressionar Tab dentro dos parênteses o R irá mostrar os argumentos disponí
 
 ```{r}
 # Crie uma sequência de números de 1 a 10
-seq(from=1, to=10)
+seq(from = 1, to = 10)
 ```
 
 [Terceiro argumento: by]{style="font-size:20pt;"}
 
 ```{r}
 # Agora, o incremento da sequência é por 2
-seq(from=1, to=10, by = 2)
+seq(from = 1, to = 10, by = 2)
 ```
 
 [Se os valores dos argumentos estiverem na ordem da função, é possível omití-los]{style="font-size:20pt;"}
@@ -677,7 +682,7 @@ seq(1,10,2)
 [Ao explicitar os argumentos, eles podem aparecer em qualquer ordem:]{style="font-size:20pt;"}
 
 ```{r}
-seq(by=2,to=10,from=1)
+seq(by = 2, to = 10, from = 1)
 ```
 
 [Porém, não será obitdo o mesmo resultado mudando os valores de lugar sem a explicitação dos argumentos]{style="font-size:20pt;line-height: 50%"}
