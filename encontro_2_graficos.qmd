@@ -117,6 +117,7 @@ penguins |>
 #| label: scatterplot
 #| echo: false
 #| fig-align: center
+#| out-width: 70%
 #| fig-dpi: 600 
 penguins |> 
   ggplot(aes(flipper_length_mm, 
@@ -214,7 +215,7 @@ Para apronfundar o conhecimento sobre gráficos
 ```{r}
 #| echo: false
 #| fig-align: center
-#| out-width: 35%
+#| out-width: 33%
 #| fig-dpi: 600
 library(ggplot2)
 library(palmerpenguins)
@@ -228,7 +229,7 @@ penguins |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| out-width: 35%
+#| out-width: 33%
 #| fig-dpi: 600
 
 penguins |> 
@@ -241,7 +242,7 @@ penguins |>
 ```{r}
 #| echo: false
 #| fig-align: center
-#| out-width: 35%
+#| out-width: 33%
 #| fig-dpi: 600
 
 penguins |> 
@@ -271,6 +272,8 @@ library(tidyverse)
 ```
 
 ```{r}
+#| message: false
+#| eval: false
 install.packages("palmerpenguins")
 library(palmerpenguins)
 install.packages("ggthemes")
@@ -658,6 +661,7 @@ Qual o número de linhas no banco de dados dos `penguins`? Quantas colunas?
 ```{r}
 #| warning: false
 #| message: false
+#| eval: false
 library(tidyverse)
 library(palmerpenguins)
 
