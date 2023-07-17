@@ -768,7 +768,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1003,7 +1003,9 @@ dass_itens <- read_csv("./data/dass_21_itens.csv")
 
 depressao_itens <- 
   dass_itens |> 
-  pivot_longer(cols = everything()) |> 
+  pivot_longer(
+    cols = everything()
+    ) |> 
   select(value) |>
   slice(c(3,5,10,13,16,17,21)) |>
   mutate(
@@ -1027,7 +1029,9 @@ depressao_itens
 
 ansiedade_itens <- 
   dass_itens |> 
-  pivot_longer(cols = everything()) |> 
+  pivot_longer(
+    cols = everything()
+    ) |> 
   select(value) |> 
   slice(c(2,4,7,9,15,19,20)) |> 
   mutate(
@@ -1051,7 +1055,9 @@ ansiedade_itens
 
 estresse_itens <- 
   dass_itens |> 
-  pivot_longer(cols = everything()) |> 
+  pivot_longer(
+    cols = everything()
+    ) |> 
   select(value) |> 
   slice(c(1,6,8,11,12,14,18)) |> 
   mutate(
@@ -1096,9 +1102,12 @@ colnames(simulated_data) <- c(paste0("dass_", 1:21), "sex", "age")
 head(simulated_data)
 
 simulated_data |> 
-  summarise(across(where(is.numeric),
-                   list(min = min,
-                        max = max)))
+  summarise(
+    across(where(is.numeric),
+           list(min = min,
+                max = max))
+    )
+
 write_csv(simulated_data, file = "./data/dass_simulado.csv")
 ```
 
@@ -1261,7 +1270,7 @@ Salve a variável `ansiedade` no banco dass_simulado e faça com que ela seja a 
 ansiedade_itens
 ```
 
-## Resposta 
+## Resposta
 
 ```{r}
 #| output-location: slide 
@@ -1309,6 +1318,119 @@ dass_simulado
 
 
 ```
+
+## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Criação de variáveis compostas
+
+- variáveis no banco em sequência: `c_across()`
+
+```{r}
+#| eval: false
+#| include: false
+
+dass_simulado_seq <- 
+  read_csv("./data/dass_simulado.csv")
+
+dass_simulado_seq <- 
+  dass_simulado_seq |>
+  relocate(dass_3,dass_5,dass_10,dass_13,
+           dass_16,dass_17,dass_21,dass_2,
+           dass_4,dass_7,dass_9,dass_15,
+           dass_19,dass_20,dass_1,dass_6,
+           dass_8,dass_11,dass_12,dass_14,
+           dass_18) |> 
+  rename_with(~ str_c("d",1:7),
+              .cols = dass_3:dass_21) |> 
+  rename_with(~ str_c("a",1:7),
+              .cols = dass_2:dass_20) |> 
+  rename_with(~ str_c("e",1:7),
+              .cols = dass_1:dass_18)
+
+dass_simulado_seq |> 
+  write_csv("./data/dass_simulado_seq.csv")
+  
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+read_csv("./data/dass_simulado_seq.csv")
+```
+
+## `dass_simulado_seq`: Importação do banco
+
+```{r}
+#| include: false
+dass_simulado_seq <- 
+  read_csv("./data/dass_simulado_seq.csv")
+```
+
+```{r}
+
+```
+
+## Criação da variável `depressao`: `c_across()`
+
+```{r}
+dass_simulado_seq <- dass_simulado_seq |>
+  rowwise() |> 
+  mutate(
+    depressao = sum(c_across(d1:d7)),
+    .before = d1
+  ) |> 
+  ungroup()
+```
+
+## Conferindo o resultado
+
+```{r}
+dass_simulado |> 
+  summarise(
+    m = mean(depressao),
+    sd = sd(depressao)
+  )
+```
+
+```{r}
+dass_simulado_seq |> 
+  summarise(
+    m = mean(depressao),
+    sd = sd(depressao)
+  )
+```
+
+## Exerícios
+
+Salve as variáveis depressao, ansiedade e estresse no banco dass_simulado_seq
+
+## Resposta - parte 1: calculando as variáveis
+
+```{r}
+#| include: false
+
+dass_simulado_seq <- 
+  read_csv("./data/dass_simulado_seq.csv")
+```
+
+```{r}
+dass_simulado_seq <- dass_simulado_seq |> 
+  rowwise() |> 
+  mutate(
+    depressao = sum(c_across(d1:d7)),
+    ansiedade = sum(c_across(a1:a7)),
+    estresse = sum(c_across(e1:e7))
+  ) |> 
+  ungroup()
+  
+```
+
+## Respost parte 2: conferindo o resultado
+
+```{r}
+dass_simulado_seq |> 
+  glimpse()
+```
+
 
 ## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
 
@@ -1440,7 +1562,6 @@ inconsistente <- read_csv("./data/inconsistente.csv")
 
 inconsistente
 ```
-
 
 ```{r}
 #| eval: false
