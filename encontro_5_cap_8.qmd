@@ -257,7 +257,7 @@ estudantes
 
 ## `parse_number()`
 
-- Analisa o primeiro número encontrado, descartando todos os caracteres não numéricos antes do primeiro número e todos os caracteres após o primeiro número
+-   Analisa o primeiro número encontrado, descartando todos os caracteres não numéricos antes do primeiro número e todos os caracteres após o primeiro número
 
 ## `if_else()`
 
@@ -323,11 +323,9 @@ demograficos
 demograficos
 ```
 
-
 -   `999` é uma codificação comum para valores ausentes
 
 ## Resposta - parte 2: corrigindo valores ausentes
-
 
 ```{r}
 #| include: false
@@ -402,7 +400,7 @@ demograficos
 
 ## Reposta - parte 5: corrigindo a variável numérica
 
-- `idade`: `trinta e dois`
+-   `idade`: `trinta e dois`
 
 ```{r}
 #| include: false
@@ -608,12 +606,12 @@ read_csv(
 
 ## `n_max =` {.smaller}
 
-- é possível indicar o número máximo de linhas que se quer ler
-- se a primeira linha indica os rótulos, ela não conta no número máximo
+-   é possível indicar o número máximo de linhas que se quer ler
+-   se a primeira linha indica os rótulos, ela não conta no número máximo
 
 ::: panel-tabset
+### `n_max = 3`: errado
 
-### `n_max = 3`:  errado
 ```{r}
 read_csv(
   "a,b,c
@@ -637,7 +635,6 @@ read_csv(
   n_max = 2
 )
 ```
-
 :::
 
 ## 8.5 Exportando um arquivo

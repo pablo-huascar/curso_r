@@ -191,11 +191,15 @@ reg_line
 
 reg_line |> 
   ggplot(aes(x,y)) +
-  geom_smooth(method = "lm",
-              se = F,
-              color = "blue") +
-  geom_point(color = "red",
-             size = 3) +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "blue"
+    ) +
+  geom_point(
+    color = "red",
+    size = 3
+    ) +
   theme_classic()
 
 ```
@@ -267,14 +271,18 @@ df |>
 #| code-fold: show
 
 df |>
-  summarise(across(c(tmcs,org),
-                   list("M" = mean,
-                        "DP" = sd,
-                        "MIN" = min,
-                        "MAX" = max))) |>
-  pivot_longer(cols = everything(),
-               names_to = c("Variável", ".value"),
-               names_sep = "_")
+  summarise(
+    across(c(tmcs,org),
+           list("M" = mean,
+                "DP" = sd,
+                "MIN" = min,
+                "MAX" = max))
+    ) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variável", ".value"),
+    names_sep = "_"
+    )
 ```
 
 ## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
@@ -287,10 +295,14 @@ df |>
 #| output-location: slide
 df |> 
   ggplot(aes(org)) +
-  geom_histogram(fill = "white",
-                 color = "gray") +
-  labs(y = NULL,
-       x = "Organização do Trabalho") +
+  geom_histogram(
+    fill = "white",
+    color = "gray"
+    ) +
+  labs(
+    y = NULL,
+    x = "Organização do Trabalho"
+    ) +
   theme_classic()
 ```
 
@@ -305,11 +317,15 @@ df |>
 
 df |> 
   ggplot(aes(tmcs)) +
-  geom_histogram(fill = "white",
-                 color = "gray",
-                 bins = 20) +
-  labs(y = NULL,
-       x = "TMCs") +
+  geom_histogram(
+    fill = "white",
+    color = "gray",
+    bins = 20
+    ) +
+  labs(
+    y = NULL,
+    x = "TMCs"
+    ) +
   theme_classic()
 
 
@@ -343,11 +359,15 @@ Para aprender a calcular os valores de T e *p* em uma correlação, consulte: <h
 df |> 
   ggplot(aes(org,tmcs)) +
   geom_jitter() +
-  geom_smooth(method = "lm",
-              se = F,
-              color = "red") +
-  labs(x = "Organização do Trabalho",
-       y = "Transtornos Mentais Comuns") +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "red"
+    ) +
+  labs(
+    x = "Organização do Trabalho",
+    y = "Transtornos Mentais Comuns"
+    ) +
   theme_classic()
   
 ```
@@ -403,7 +423,7 @@ fit_cont |>
   tidy() |> 
   mutate(
     across(where(is.double),
-           ~ round(.,2))
+           \(x) round(x,2))
   )
 ```
 
@@ -421,16 +441,18 @@ tabela_de_regressao <-
   tidy() |> 
   mutate(
     across(where(is.double),
-                ~ round(.,2))
+           \(x) round(x,2))
     ) |>
   mutate(
     p.value = case_when(p.value == 0 ~ "< .001")
   ) |> 
-  rename("Preditor" = term,
-         "Estimativas" = estimate,
-         "Erro-padrão" = std.error,
-         "t" = statistic,
-         "p" = p.value)
+  rename(
+    "Preditor" = term,
+    "Estimativas" = estimate,
+    "Erro-padrão" = std.error,
+    "t" = statistic,
+    "p" = p.value
+    )
 ```
 
 ## Interpretando a Tabela de Regressão {.smaller}
@@ -544,14 +566,18 @@ fit_cont |>
 df |> 
   ggplot(aes(org,tmcs)) +
   geom_point() +
-  geom_smooth(method = "lm",
-              se = F,
-              color = "red") +
-  labs(x = "Organização do Trabalho",
-       y = "Transtornos Mentais Comuns") +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "red"
+    ) +
+  labs(
+    x = "Organização do Trabalho",
+    y = "Transtornos Mentais Comuns"
+    ) +
   theme_classic()+
   geom_segment(aes(x = 2.867, y = 4, 
-                   xend = 2.867, yend = 4.598), 
+                   xend = 2.867, yend = 4.598),
                color = "blue")+
   geom_segment(aes(x = 4.07, y = 20,
                    xend = 4.07, yend = 7.59),
@@ -570,11 +596,15 @@ df |>
 fit_cont |> 
   augment() |> 
   select(tmcs:.resid) |>
-  mutate(id = 1:nrow(df),
-         .before = tmcs) |> 
+  mutate(
+    id = 1:nrow(df),
+    .before = tmcs
+    ) |> 
   slice_head(n = 15) |> 
-  mutate(across(.fitted:.resid,
-                ~ round(.,3)))
+  mutate(
+    across(.fitted:.resid,
+           \(x) round(x,3))
+    )
 ```
 
 ::: aside
@@ -616,14 +646,18 @@ df |>
 ```{r}
 #| code-fold: show
 df |>
-  summarise(across(c(tmcs),
-                   list("M" = mean,
-                        "DP" = sd,
-                        "MIN" = min,
-                        "MAX" = max))) |>
-  pivot_longer(cols = everything(),
-               names_to = c("Variável", ".value"),
-               names_sep = "_")
+  summarise(
+    across(c(tmcs),
+           list("M" = mean,
+                "DP" = sd,
+                "MIN" = min,
+                "MAX" = max))
+    ) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variável", ".value"),
+    names_sep = "_"
+    )
 ```
 
 ## Análise de Dados Exploratória: Estatísticas Univariadas {.smaller}
@@ -635,11 +669,15 @@ df |>
 #| output-location: slide
 df |> 
   ggplot(aes(tmcs)) +
-  geom_histogram(fill = "white",
-                 color = "gray",
-                 bins = 20) +
-  labs(y = NULL,
-       x = "TMCs") +
+  geom_histogram(
+    fill = "white",
+    color = "gray",
+    bins = 20
+    ) +
+  labs(
+    y = NULL,
+    x = "TMCs"
+    ) +
   theme_classic()
 ```
 
@@ -668,8 +706,10 @@ df |>
               alpha = 0.1,
               size = 1.5,
               color = "blue") +
-  labs(x = "Grupo de Risco para covid-19",
-       y = "TMCs") +
+  labs(
+    x = "Grupo de Risco para covid-19",
+    y = "TMCs"
+    ) +
   theme_classic()
 ```
 
@@ -680,11 +720,13 @@ df |>
 
 df |> 
   group_by(grupo_de_risco) |> 
-  summarise(M = mean(tmcs),
-            DP = sd(tmcs),
-            MD = median(tmcs),
-            MIN = min(tmcs),
-            MAX = max(tmcs))
+  summarise(
+    M = mean(tmcs),
+    DP = sd(tmcs),
+    MD = median(tmcs),
+    MIN = min(tmcs),
+    MAX = max(tmcs)
+    )
   
 ```
 
@@ -695,7 +737,9 @@ df |>
 
 medias <- df |> 
   group_by(grupo_de_risco) |> 
-  summarise(M = mean(tmcs))
+  summarise(
+    M = mean(tmcs)
+    )
 
 dif <- medias |>
   mutate(
@@ -738,16 +782,18 @@ tabela_de_regressao_cat <-
   tidy() |> 
   mutate(
     across(where(is.double),
-                ~ round(.,2))
+                \(x) round(x,2))
     ) |>
   mutate(
     p.value = case_when(p.value == 0 ~ "< .001")
   ) |> 
-  rename("Preditor" = term,
-         "Estimativas" = estimate,
-         "Erro-padrão" = std.error,
-         "t" = statistic,
-         "p" = p.value)
+  rename(
+    "Preditor" = term,
+    "Estimativas" = estimate,
+    "Erro-padrão" = std.error,
+    "t" = statistic,
+    "p" = p.value
+    )
 ```
 
 ## Interpretando a Tabela de Regressão
