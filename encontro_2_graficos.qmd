@@ -79,8 +79,12 @@ penguins |>
     x = "Espécies",
     y = NULL
     ) +
-  scale_y_continuous(labels = percent) +
-  theme(legend.position = "none") +
+  scale_y_continuous(
+    labels = percent
+    ) +
+  theme(
+    legend.position = "none"
+    ) +
   theme_classic() +
   scale_color_colorblind()
 
@@ -107,7 +111,9 @@ penguins |>
     x = "Espécies",
     y = "Massa corporal (gramas)"
     ) +
-  theme(legend.position = "none") +
+  theme(
+    legend.position = "none"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -124,7 +130,9 @@ penguins |>
              body_mass_g)) +
   geom_point(aes(color = species,
                  shape = species)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(
+    method = "lm"
+    ) +
   labs(
     title = "Massa corporal e comprimento da nadadeira",
     subtitle = "Dimensões para Adelie, Chinstrap e Gentoo",
@@ -343,7 +351,6 @@ penguins
 ```{r}
 
 glimpse(penguins)
-
 ```
 
 ## Variáveis
@@ -617,7 +624,8 @@ ggplot(data = penguins,
     x = "Comprimento da nadadeira (mm)",
     y = "Massa corporal (g)",
     color = "Espécie",
-    shape = "Espécie") +
+    shape = "Espécie"
+    ) +
   scale_color_colorblind()
 ```
 
@@ -856,7 +864,9 @@ ggplot(penguins,
   geom_text(aes(label = percent(after_stat(count/sum(count)))),
             stat = "count",
             nudge_y = 0.03) +
-  scale_y_continuous(labels = percent)
+  scale_y_continuous(
+    labels = percent
+    )
   
   
 ```
@@ -876,8 +886,12 @@ ggplot(penguins,
   geom_text(aes(label = percent(after_stat(count/sum(count)))),
             stat = "count",
             nudge_y = 0.01) +
-  theme(legend.position = "none") +
-  scale_y_continuous(labels = percent)
+  theme(
+    legend.position = "none"
+    ) +
+  scale_y_continuous(
+    labels = percent
+    )
 ```
 :::
 
@@ -946,7 +960,9 @@ ggplot(penguins,
 #| fig-dpi: 600
 
 ggplot(penguins, aes(x = body_mass_g)) +
-  geom_histogram(binwidth = 2000)
+  geom_histogram(
+    binwidth = 2000
+    )
 
 ```
 
@@ -1501,8 +1517,7 @@ p + geom_point(aes(shape = cty))
 #| out-width: 65%
 #| fig-dpi: 600
 
-p + 
-  geom_point(aes(color = cty,
+p + geom_point(aes(color = cty,
                  size = cty,
                  shape = drv))
 ```
