@@ -33,6 +33,7 @@ library(ggthemes)
 library(palmerpenguins)
 library(scales)
 library(patchwork)
+library(gt)
 ```
 
 ## Quem sou eu
@@ -324,6 +325,17 @@ library(ggthemes)
     -   [Variável: atributo de todos os pinguins]{style="font-size:20pt;"}
     -   [Observação: todos os atributos de um único pinguim]{style="font-size:20pt;"}
 :::
+
+## Algumas Definições
+
+```{r}
+#| echo: false
+
+penguins |>
+  slice_head(n = 5) |> 
+  gt()
+```
+
 
 ## Dados Tabulares
 
