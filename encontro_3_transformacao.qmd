@@ -1366,7 +1366,9 @@ dass_simulado_seq <-
 ```
 
 ```{r}
-
+#| eval: false
+dass_simulado_seq <- 
+  read_csv("https://tinyurl.com/dassseqq")
 ```
 
 ## Criação da variável `depressao`: `c_across()`

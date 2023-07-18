@@ -465,8 +465,9 @@ imc
 
 -   O R diferencia MAIÚSCULAS de minúsculas (case sensitive)
 
-```{r eval = F}
+```{r}
 #| code-line-numbers: "|3"
+#| eval: false
 a <- letters
 
 A
@@ -487,8 +488,9 @@ a
 
 -   Cuidado com erros de digitação
 
-```{r message=FALSE, warning=FALSE, eval = F}
+```{r}
 #| code-line-numbers: "|3"
+#| eval: false
 data("cars")
 
 carz
@@ -500,7 +502,7 @@ Error: object 'carz' not found
 
 # Cars
 
-```{r echo=TRUE}
+```{r}
 #| code-line-numbers: "|3"
 data("cars")
 
@@ -523,16 +525,14 @@ pares
 (pares)^2
 ```
 
-## Uso dos comentários: Demarcar seções do no código {.smaller .scrollable}
+## Uso dos comentários: Demarcar seções do no código {.smaller}
 
 ::: panel-tabset
 ### Código
 
 ```{r}
 #| code-line-numbers: "|1|5|"
-#| echo: true
 #| eval: false
-
 
 # Obtenção dos dados
 
@@ -582,7 +582,7 @@ penguins |>
 
 ## Sem explicações para a equipe
 
-```{r fig.height=4}
+```{r}
 #| code-line-numbers: "|1|2|3|4|5|6|7|8|9|10"
 #| fig-align: center
 #| out-width: 70%
@@ -604,12 +604,14 @@ penguins |>
 
 ## Com explicações para a equipe
 
-```{r echo=TRUE, message=FALSE, warning=FALSE,fig.height=4}
+```{r}
 #| code-line-numbers: "|1|2"
 #| output-location: slide
 #| out-width: 70%
 #| fig-align: center
 #| fig-dpi: 600
+#| message: false
+#| warning: false
 # O relatório 3 só precisava dos 
 #dados da ilha Biscoe
 penguins |> 
@@ -649,7 +651,8 @@ penguins |>
 
 O R possui uma grande coleção de funções integradas que são chamadas desta maneira:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 nome_da_funcao(argumento1 = valor1, argumento2 = valor2, ...)
 ```
 
@@ -693,7 +696,9 @@ seq(2,10,1)
 
 ## Como saber os argumentos e a função das funções?
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
+
 ?nome_da_funcao
 
 help(nome_da_funcao)
@@ -703,7 +708,8 @@ args(nome_da_funcao)
 
 ## Help
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 ?seq
 ```
 
@@ -744,8 +750,8 @@ quantile(f)
 ## Exercícios
 
 ::: {style="line-height: 1;font-size:22pt;"}
--   Use a função `rnorm` e crie um objeto chamado `mil` com mil casos com média 30 e desvio padrão 4
--   Calcule as seguintes estatísticas do objeto `mil`:
+-   Use a função `rnorm` e crie um objeto chamado `cem` com cem casos, cuja média seja 30 e o desvio padrão 4
+-   Calcule as seguintes estatísticas do objeto `cem`:
     -   Soma
     -   Média
     -   Desvio padrão
@@ -758,21 +764,30 @@ quantile(f)
 ## Resposta
 
 ```{r}
-mil <- rnorm(n = 100, mean = 30, sd = 4)
+#| fig-align: center
+#| out-width: 70%
+#| fig-dpi: 600
+cem <- rnorm(n = 100, mean = 30, sd = 4)
 
-sum(mil)
+hist(cem)
+```
 
-mean(mil)
+## Resposta
 
-sd(mil)
+```{r}
+sum(cem)
 
-median(mil)
+mean(cem)
 
-min(mil)
+sd(cem)
 
-max(mil)
+median(cem)
 
-quantile(mil)
+min(cem)
+
+max(cem)
+
+quantile(cem)
 ```
 
 ## Compartilhar conhecimento sempre!
