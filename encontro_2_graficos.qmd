@@ -1622,7 +1622,7 @@ ggplot(penguins,
 -   `ggsave()`
 -   Gráficos ficam salvos no diretório de trabalho
     -   `getwd()`
--   É possível especificar `width` (largura) e `height`
+-   É possível especificar `width` (largura) e `height` (altura)
 -   `?ggsave()`
 
 ## Código
