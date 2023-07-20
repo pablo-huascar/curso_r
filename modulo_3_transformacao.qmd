@@ -85,7 +85,6 @@ Livro base para o mini curso
 Estes slides tem como base o conteúdo da segunda edição
 :::
 
-
 # 4 Transformação de dados
 
 ## 4.1 Introdução

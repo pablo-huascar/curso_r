@@ -100,7 +100,6 @@ library(tidyverse)
 library(nycflights13)
 ```
 
-    
 ## Exemplos de repetição de código
 
 ```{r}
