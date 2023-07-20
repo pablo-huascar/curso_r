@@ -768,7 +768,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|-------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1321,7 +1321,7 @@ dass_simulado
 
 ## [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Criação de variáveis compostas
 
-- variáveis no banco em sequência: `c_across()`
+-   variáveis no banco em sequência: `c_across()`
 
 ```{r}
 #| eval: false
@@ -1432,7 +1432,6 @@ dass_simulado_seq <- dass_simulado_seq |>
 dass_simulado_seq |> 
   glimpse()
 ```
-
 
 ## [`select()`](https://dplyr.tidyverse.org/reference/select.html)
 
@@ -1647,7 +1646,6 @@ atrasos <- flights |>
     companhia = carrier
     ) |> 
   relocate(companhia)
-
 ```
 
 ## Resultado
@@ -1751,7 +1749,7 @@ flights |>
 
 ## Exercícios
 
-Descubra de qual aeroporto partem (`origin`) os voos com maiores atrasos na decolagem (`dep_delay`). Dica: use a função [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html) com o argumento `desc()`
+Descubra de qual aeroporto partem (`origin`) os voos com, em média, os maiores atrasos na decolagem (`dep_delay`). Dica: use a função [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html) com o argumento `desc()`
 
 ## Resposta
 
@@ -1784,3 +1782,6 @@ flights |>
 O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
 
 <https://github.com/pablo-huascar/curso_r>
+
+
+

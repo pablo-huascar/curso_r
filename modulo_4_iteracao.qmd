@@ -1,0 +1,177 @@
+---
+title: "R para análise de dados em Psicologia"
+subtitle: "Uma Introdução"
+execute:
+  echo: true
+author: 
+  - name:  "Francisco Pablo Huascar Aragão Pinheiro"
+    orcid: 0000-0001-9289-845X
+institute: <img src="images/ufc_horizontal.png" width="250">
+format: 
+  revealjs:
+      code-link: true
+      code-tools: true
+      code-line-numbers: false
+      theme: simple
+      fig-width: 6
+      fig-asp: 0.618
+      scrollable: true
+progress: true
+slide-number: true
+logo: images/lappsie.png
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Quem sou eu
+
+::: {style="line-height: 1;"}
+::: columns
+::: {.column width="40%"}
+![](images/logo_pos.png) ![](images/lappsie.png)
+:::
+
+::: {.column width="60%"}
+::: incremental
+-   [Psicólogo (UFC)]{style="font-size:25pt;"}
+-   [Mestre em Psicologia (UFC)]{style="font-size:25pt;"}
+-   [Doutor em educação (UFC)]{style="font-size:25pt;"}
+-   [Professor do campus Sobral da UFC]{style="font-size:25pt;"}
+-   [Recentemente, um entusiasta do R]{style="font-size:25pt;"}
+:::
+:::
+:::
+:::
+
+::: aside
+Meu [currículo lattes](http://lattes.cnpq.br/8266089190930601): acesse [aqui](http://lattes.cnpq.br/8266089190930601)
+:::
+
+## R for Data Science
+
+::: columns
+::: {.column width="50%"}
+Livro base para o mini curso
+:::
+
+::: {.column width="50%"}
+[![](images/r_for_d_s.jpg){fig-alt="Capa do livro R for Data Science. Uma coruja se destaca na ilustração" fig-align="right" width="412"}](https://r4ds.had.co.nz/)
+:::
+:::
+
+## R for Data Science
+
+-   Neste [link](https://r4ds.had.co.nz/ "R for Data Science") você pode acessar a primeira edição do livro:
+
+<https://r4ds.had.co.nz/>
+
+-   E [aqui](https://r4ds.hadley.nz/ "R for Data Science") você pode acessar a segunda edição que ainda está sendo finalizada:
+
+<https://r4ds.hadley.nz/>
+
+::: aside
+Estes slides tem como base o conteúdo da segunda edição
+:::
+
+
+# 27 Iteração
+
+## 27.1 Introdução
+
+-   Iteração: executar repetidamente a mesma ação em diferentes objetos
+-   Evitar copiar e colar código mais de 2 vezes
+    -   Erros que se propagam no código
+    
+## Exemplos de repetição de código
+
+```{r}
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+```
+
+```{r}
+df
+```
+
+## Exemplos de repetição de código
+
+```{r}
+df |> summarize(
+  n = n(),
+  a = median(a),
+  b = median(b),
+  c = median(c),
+  d = median(d),
+)
+```
+
+-   Repetir a digitação de `median()` várias vezes ou copiar e colar
+
+## `across()`
+
+-   `.cols = `: especifica quais colunas vão estar na iteração
+-   `.fns =`: diz o que fazer com as colunas
+    -   Qual função aplicar
+    
+```{r}
+df |> 
+  summarise(
+    across(.cols = a:d,.fns = median)
+  )
+```
+
+::: aside
+o nome da função solicitada nunca deve ser seguido por ()
+:::
+
+## `across()`
+
+-   É possível omitir os argumentos `.cols` e `.fns`
+
+```{r}
+df |> 
+  summarise(
+    across(a:d, mean)
+  )
+```
+
+## Exercícios
+
+No banco de dados `economics` calcule a média de todas variávels numéricas (`dbl`) usando a função across
+
+## Resposta - parte 1
+
+
+## Selecionando columas com `.cols`
+
+-   Usa as mesmas especificações que `select()` 
+    -   `starts_with()`
+    -   `ends_with()`
+
+## Selecionando columas com `.cols`
+
+```{r}
+glimpse(dass_simulado_seq)
+```
+
+## Selecionando columas com `.cols`
+
+```{r}
+dass_simulado_seq |> 
+  summarise(
+    across(starts_with("d"), mean)
+  )
+```
+
+## Compartilhar conhecimento sempre!
+
+O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
+
+<https://github.com/pablo-huascar/curso_r>
+
+
