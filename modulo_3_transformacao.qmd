@@ -24,6 +24,17 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| label: setup
+#| echo: false 
+
+library(tidyverse)
+library(nycflights13)
+library(janitor)
+library(gt)
+```
+
+
 ## Quem sou eu
 
 ::: {style="line-height: 1;"}
@@ -74,6 +85,7 @@ Livro base para o mini curso
 Estes slides tem como base o conteúdo da segunda edição
 :::
 
+
 # 4 Transformação de dados
 
 ## 4.1 Introdução
@@ -90,16 +102,14 @@ Estes slides tem como base o conteúdo da segunda edição
 ## Pacotes
 
 ```{r}
-#| label: setup
-#| warning: true
-#| message: false
+#| eval: false
 
 library(tidyverse)
 library(nycflights13)
 library(janitor)
-library(kableExtra)
-library(gt)
 ```
+
+
 
 ## [`nycflights13::flights`](https://rdrr.io/cran/nycflights13/man/flights.html)
 
@@ -768,7 +778,7 @@ glimpse(economics)
 ## Banco para exercícios [`economics`](https://ggplot2.tidyverse.org/reference/economics.html)
 
 | Variável |                                                                                       |
-|--------------------|----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | date     | Mês da coleta de dados (`r min(year(economics$date))`- `r max(year(economics$date))`) |
 | pce      | Gastos de consumo pessoal, em bilhões de dólares                                      |
 | pop      | População total, em milhares                                                          |
@@ -1782,6 +1792,3 @@ flights |>
 O código e as imagens utilizados para a construção desse slide estão disponíveis no [link](https://github.com/pablo-huascar/curso_r) a seguir:
 
 <https://github.com/pablo-huascar/curso_r>
-
-
-

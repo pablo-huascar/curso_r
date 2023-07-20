@@ -24,6 +24,15 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| label: setup
+#| echo: false
+
+library(tidyverse)
+library(nycflights13)
+```
+
+
 ## Quem sou eu
 
 ::: {style="line-height: 1;"}
@@ -74,7 +83,6 @@ Livro base para o mini curso
 Estes slides tem como base o conteúdo da segunda edição
 :::
 
-
 # 27 Iteração
 
 ## 27.1 Introdução
@@ -82,6 +90,16 @@ Estes slides tem como base o conteúdo da segunda edição
 -   Iteração: executar repetidamente a mesma ação em diferentes objetos
 -   Evitar copiar e colar código mais de 2 vezes
     -   Erros que se propagam no código
+    
+## Pacotes
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+library(nycflights13)
+```
+
     
 ## Exemplos de repetição de código
 
@@ -142,22 +160,37 @@ df |>
 
 ## Exercícios
 
-No banco de dados `economics` calcule a média de todas variávels numéricas (`dbl`) usando a função across
+No banco de dados `economics` calcule a média das  variávels `pce`, `pop` e `psavert` usando a função across
 
 ## Resposta - parte 1
 
+```{r}
+glimpse(economics)
+```
+
+## Reposta - parte 2
+
+```{r}
+economics |> 
+  summarise(
+    across(pce:psavert, mean)
+  )
+```
 
 ## Selecionando columas com `.cols`
 
 -   Usa as mesmas especificações que `select()` 
     -   `starts_with()`
     -   `ends_with()`
-
+    -   `contains()`
+    
 ## Selecionando columas com `.cols`
 
 ```{r}
-glimpse(dass_simulado_seq)
+glimpse(flights)
 ```
+
+
 
 ## Selecionando columas com `.cols`
 
