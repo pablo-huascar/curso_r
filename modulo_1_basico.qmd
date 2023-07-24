@@ -761,18 +761,21 @@ quantile(f)
     -   Quartis
 :::
 
-## Resposta
+## Resposta - Parte 1
 
 ```{r}
 #| fig-align: center
 #| out-width: 70%
 #| fig-dpi: 600
+
+set.seed(123)
+
 cem <- rnorm(n = 100, mean = 30, sd = 4)
 
 hist(cem)
 ```
 
-## Resposta
+## Resposta - Parte 2
 
 ```{r}
 sum(cem)
@@ -789,6 +792,71 @@ max(cem)
 
 quantile(cem)
 ```
+
+## Pacotes (packages)
+
+-   O que é um pacote?
+    -   Coleção de funções, objetos e documentação
+    -   Estendem as capacidades do R e adicionam novos recursos
+    -   Criados pela comunidade
+    
+## Como instalar um pacote
+
+```{r}
+#| eval: false
+
+install.packages("tidyverse")
+
+```
+
+-   Só precisa ser feito uma vez
+-   Não coleque a instalação dos pacotes no script
+    -     Se o arquivo for compartilhado, não é legal modificar as configurações de outra pessoa   
+
+## Como carregar o pacote
+
+```{r}
+library(tidyverse)
+```
+
+-   Precisa ser feito em cada novo script
+-   A cada novo uso do script
+-   Colocar todos os pacotes no início do script
+
+## Como obter informações sobre as funções do pacote
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+?tidyverse
+
+```
+
+## Exercícios
+
+Instale os seguintes pacotes: `tidyverse`, `car` e `psych`
+
+## Resposta
+
+```{r}
+#| eval: false
+
+install.packages("tidyverse")
+install.packages("car")
+install.packages("psych")
+```
+
+## Exercícios
+
+Carregue os pacotes que foram instalados anteriormente
+
+```{r}
+library(tidyverse)
+library(car)
+library(psych)
+```
+
 
 ## Compartilhar conhecimento sempre!
 

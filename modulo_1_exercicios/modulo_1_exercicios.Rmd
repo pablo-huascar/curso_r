@@ -1,0 +1,15 @@
+---
+title: "Tutorial"
+output: 
+  learnr::tutorial:
+    progressive: TRUE
+    alow_skip: TRUE
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
