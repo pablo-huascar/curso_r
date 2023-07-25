@@ -413,26 +413,6 @@ z/w
 
 ```
 
-## Exercícios
-
-::: incremental
--   Crie o objeto `peso` com os seguintes valores: 80.2, 56.3, 70.5 e 60.3
--   Crie o objeto `altura` com os seguintes valores: 1.75, 1.60, 1.65 e 1.72
--   Assuma que os valores acima estão, respectivamente, em quilogramas e em metros
--   Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura (em metros) ao quadrado, crie um objeto imc com os valores do IMC de cada caso.
-:::
-
-## Respostas
-
-```{r}
-peso <- c(80.2, 56.3, 70.5,  60.3)
-peso
-altura <- c(1.75, 1.60, 1.65, 1.72)
-altura
-imc <- peso/altura^2
-imc
-```
-
 ## Dica 1
 
 -   O R diferencia MAIÚSCULAS de minúsculas (case sensitive)
@@ -771,7 +751,7 @@ quantile(cem)
     -   Coleção de funções, objetos e documentação
     -   Estendem as capacidades do R e adicionam novos recursos
     -   Criados pela comunidade
-    
+
 ## Como instalar um pacote
 
 ```{r}
@@ -783,7 +763,11 @@ install.packages("tidyverse")
 
 -   Só precisa ser feito uma vez
 -   Não coleque a instalação dos pacotes no script
-    -     Se o arquivo for compartilhado, não é legal modificar as configurações de outra pessoa   
+    -   
+
+        ```         
+        Se o arquivo for compartilhado, não é legal modificar as configurações de outra pessoa   
+        ```
 
 ## Como carregar o pacote
 
@@ -828,7 +812,6 @@ library(tidyverse)
 library(car)
 library(psych)
 ```
-
 
 ## Compartilhar conhecimento sempre!
 

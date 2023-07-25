@@ -47,7 +47,7 @@ quiz(
 
 ### Exercício 2
 
-Determine a área de um círculo com diâmetro de 20 cm e atribua o resultado a um objeto chamado area_circulo. Você pode usar `pi` para que o R retorne o valor de $\pi$. Eis a fórmula para calcular a área do círculo:
+Determine a área de um círculo com diâmetro de `20` cm e atribua o resultado a um objeto chamado area_circulo. Você pode usar `pi` para que o R retorne o valor de $\pi$. Eis a fórmula para calcular a área do círculo:
 
 $$ A = \pi r^2 $$
 
@@ -70,7 +70,7 @@ quiz(
 
 ### Exercício 3
 
-Calcule a raiz cúbica de 14 x 0.51. Arredonde o resultado para 2 casas decimais.
+Calcule a raiz cúbica de `14` x `0.51`. Arredonde o resultado para 2 casas decimais.
 
 ```{r raiz-cubica, exercise=TRUE}
 
@@ -104,7 +104,7 @@ Para encontrar as soluções para uma equação do formato $ax^{2} + bx + c$, us
 
 $x = \frac{-b \pm \sqrt{(b^2-4ac)}}{2a}$.
 
-Quais as duas soluções para $2x^2-x-4=0$? Arredonde o resultado para duas casas decimais
+Ache as duas soluções para $2x^2-x-4=0$. Arredonde o resultado para duas casas decimais
 
 ```{r equacao, exercise=TRUE}
 
@@ -122,4 +122,47 @@ quiz(
   )
 )
 ```
+
+### Exercício 5
+
+Crie um vetor chamado `peso` contendo o peso (em kg) de 4 pessoas: ` 80.2, 56.3, 70.5 e 60.3`. Agora, calcule a média e o desvio padrão do vetor `peso`. Arredonde os resultados para uma casa decimal. 
+
+```{r vetor-um, exercise=TRUE}
+
+```
+
+```{r vetor-um-hint}
+c()
+
+mean()
+
+sd()
+
+round()
+```
+
+```{r vetor-um-quiz}
+quiz(
+  question("Qual os valores encontrados para a média e o desvio padrão, respectivamente?",
+    answer("61.5 e 10.7"),
+    answer("4.6 e 62.5"),
+    answer("73.1 e 5.3",),
+    answer("66.8 e 10.7", correct = T),
+    allow_retry = T,
+    correct = "Muito bom!"
+  )
+)
+
+
+```
+
+### Exercício 6
+
+
+Crie o objeto `altura` com os seguintes valores (em cm): `175, 160, 165 e 172`
+
+
+### Exercício 7
+
+Sabendo que o Índice de Massa Corpórea (IMC) é obtido dividindo o peso (em kg) pela altura (em metros) ao quadrado, crie um objeto imc com os valores do IMC de cada caso.
 
