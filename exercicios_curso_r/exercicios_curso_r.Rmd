@@ -1,0 +1,125 @@
+---
+title: "Exercícios para Introdução ao R"
+output: 
+  learnr::tutorial:
+    allow_skip: TRUE
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = F)
+```
+
+## Básico do R
+
+### Exercício 1
+
+Encontre o log natural, log na base 10, log na base 2 e a raiz quadrada de `12.43`. Some os resultados os resultados encontrados e arredonde o resultado para duas casas decimais.
+
+```{r log-raiz, exercise=TRUE}
+
+```
+
+```{r log-raiz-hint}
+log()
+
+log10()
+
+log2()
+
+sqrt()
+```
+
+```{r log-raiz-quiz}
+quiz(
+  question("Qual o valor da soma dos resultados encontrados",
+    answer("10.87"),
+    answer("11.23"),
+    answer("10.78", correct = T),
+    answer("10.91"),
+    allow_retry = T,
+    correct = "Bom trabalho!"
+  )
+)
+```
+
+### Exercício 2
+
+Determine a área de um círculo com diâmetro de 20 cm e atribua o resultado a um objeto chamado area_circulo. Você pode usar `pi` para que o R retorne o valor de $\pi$. Eis a fórmula para calcular a área do círculo:
+
+$$ A = \pi r^2 $$
+
+```{r area-circulo, exercise=TRUE}
+
+```
+
+```{r area-circulo-quiz}
+quiz(
+  question("Qual o valor encontrado para área do círculo",
+    answer("1256.637"),
+    answer("314.1593", correct = T),
+    answer("3947.842"),
+    answer("214.1593"),
+    allow_retry = T,
+    correct = "Parabéns!"
+  )
+)
+```
+
+### Exercício 3
+
+Calcule a raiz cúbica de 14 x 0.51. Arredonde o resultado para 2 casas decimais.
+
+```{r raiz-cubica, exercise=TRUE}
+
+```
+
+```{r raiz-cubica-hint}
+
+27^(1/3)
+
+3^3
+
+```
+
+```{r raiz-cubica-quiz}
+quiz(
+  question("Qual o valor encontrado?",
+    answer("1.86"),
+    answer("11.19"),
+    answer("363.99"),
+    answer("1.93", correct = T),
+    allow_retry = T,
+    correct = "Muito bom!"
+  )
+)
+
+```
+
+### Exercício 4
+
+Para encontrar as soluções para uma equação do formato $ax^{2} + bx + c$, use a equação quadrática:
+
+$x = \frac{-b \pm \sqrt{(b^2-4ac)}}{2a}$.
+
+Quais as duas soluções para $2x^2-x-4=0$? Arredonde o resultado para duas casas decimais
+
+```{r equacao, exercise=TRUE}
+
+```
+
+```{r equacao-quiz}
+quiz(
+  question("Qual os valores encontrados para a equação?",
+    answer("1.86 e 1.69"),
+    answer("1.19 e -1.69"),
+    answer("1.69 e -1.19", correct = T),
+    answer("1.93 e 1.18"),
+    allow_retry = T,
+    correct = "Ótimo trabalho!"
+  )
+)
+```
+
