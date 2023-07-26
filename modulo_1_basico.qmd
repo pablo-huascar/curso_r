@@ -763,11 +763,7 @@ install.packages("tidyverse")
 
 -   Só precisa ser feito uma vez
 -   Não coleque a instalação dos pacotes no script
-    -   
-
-        ```         
-        Se o arquivo for compartilhado, não é legal modificar as configurações de outra pessoa   
-        ```
+    -   Se o arquivo for compartilhado, não é legal modificar as configurações de outra pessoa
 
 ## Como carregar o pacote
 
