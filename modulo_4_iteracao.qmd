@@ -236,7 +236,7 @@ treinos <- read_csv("./data/treinos.csv")
 treinos <- read_csv("https://tinyurl.com/treinndf")
 ```
 
-## Resposta 
+## Resposta
 
 ```{r}
 glimpse(treinos)
@@ -268,8 +268,8 @@ treinos |>
   )
 ```
 
-
 ## Selecionando columas com `.cols`
+
 -   Opções espefícidas de `across()`
     -   `everything()`: seleciona toda coluna que não seja de agrupamento
     -   `where()`: seleciona colunas baseado seus tipos
@@ -289,6 +289,7 @@ df |>
 ```
 
 ## `where()`
+
 -   where(is.numeric) seleciona todas as colunas numéricas.
 -   where(is.character) seleciona todas as colunas de string.
 -   where(is.Date) seleciona todas as colunas de data.
@@ -310,8 +311,6 @@ economics |>
 
 ## Exercícios
 
-
-
 ## Chamando mais de um função dentro de `.fns`
 
 -   Use a função `list()` para chamar mais de um função
@@ -329,8 +328,6 @@ economics |>
 
 ## Exercícios
 
-
- 
 ## Usando argumentos dentro das funções chamadas em `.fns`
 
 ```{r}
@@ -377,11 +374,7 @@ flights |>
   )
 ```
 
-
-
 ## Exercícios
-
-
 
 ## Compartilhar conhecimento sempre!
 

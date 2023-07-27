@@ -401,11 +401,10 @@ Use o código a seguir para baixar um banco de dados de `vendas_semanais`. Em se
 ```{r}
 #| eval: false
 
-vendas_semanais <- 
-  read_csv("https://tinyurl.com/vendasem")
+vendas_semanais <- read_csv("https://tinyurl.com/vendasem")
 ```
 
-## Exercícios
+## Resposta
 
 ```{r}
 vendas_semanais

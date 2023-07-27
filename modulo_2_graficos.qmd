@@ -83,10 +83,10 @@ penguins |>
   scale_y_continuous(
     labels = percent
     ) +
+  theme_classic() +
   theme(
     legend.position = "none"
     ) +
-  theme_classic() +
   scale_color_colorblind()
 
 ```
@@ -336,7 +336,6 @@ penguins |>
   slice_head(n = 5) |> 
   gt()
 ```
-
 
 ## Dados Tabulares
 
@@ -694,7 +693,6 @@ nrow(penguins)
 ncol(penguins)
 ```
 
-
 ## Exercícios
 
 Faça um gráfico de dispersão de `bill_depth_mm` vs. `bill_length_mm`. Ou seja, faça um gráfico de dispersão com `bill_depth_mm` no eixo y e `bill_length_mm` no eixo x. Descreva a relação entre essas duas variáveis.
@@ -746,7 +744,7 @@ ggplot(data = penguins,
 
 ## Exercícios
 
-Recrie a seguinte visualização. Para qual estética o bill_depth_mm deve ser mapeado? E deve ser mapeado no nível global ou no nível geom?
+Recrie a seguinte visualização. Para qual estética o bill_depth_mm deve ser mapeado? E deve ser mapeado no nível global ou no nível do `geom`?
 
 ```{r}
 #| echo: false
@@ -879,7 +877,6 @@ ggplot(penguins,
              fct_rev())) +
   geom_bar()
 ```
-
 
 ## Gráfico de Barras (`geom_bar()`): proporções
 
