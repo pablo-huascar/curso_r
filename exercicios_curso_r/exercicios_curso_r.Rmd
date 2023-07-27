@@ -33,7 +33,7 @@ A oficina é realizada pelo Laboratório de Práticas e Pesquisas em Psicologia 
 
 Siga com as atividades no seu ritmo, mas é interessante que, a cada módulo, você tente responder o bloco de exercícios correspondente.
 
-Também aproveite a oportunidade para discutir com os seus colegas sobre como foram criadas as soluções para as atividades.
+Também aproveite a oportunidade para discutir com os seus colegas sobre os códigos utilizados.
 
 Esta página está em construção e passando por inúmeras atualizações.
 
@@ -427,37 +427,40 @@ Neste bloco de exercícios você vai utilizar o pacote `ggplot2` para construir 
 -   Gráfico de barras
 -   Histogramas
 
-O banco de dados `starwars` vai ser utilizado para este conjunto de atividades. `starwars` contém características de 87 personagens da franquia criada por George Lucas. Para saber mais sobre esses dados, utilize:
+O banco de dados `starwars` vai ser empregado para este conjunto de atividades. `starwars` contém características de 87 personagens da franquia criada por George Lucas. Para saber mais sobre esses dados, utilize:
 
 ```{r eval=FALSE, echo=TRUE}
 ?starwars
 ```
 
-Para dar uma olhada nas variávies do bando de dados, você pode utilizar o comando a seguir
+Para dar uma olhada nas variávies do bando de dados, você pode utilizar o comando a seguir:
 
 ```{r eval=FALSE, echo=TRUE}
-starwars |> 
-  glimpse()
+glimpse()
 ```
 
-Tente executar a função `glimpse()`
+Tente executar a função `glimpse()` no banco de dados `starwars`
 
 ```{r glimpse, exercise=TRUE}
 
 ```
 
+
+```{r glimpse-solution}
+
+starwars |> 
+  glimpse()
+```
+
 ### Exercício 1
 
-Reproduza o seguinte gráfico a partir do banco de dados `starwars`:
+Reproduza o seguinte gráfico:
 
 ```{r}
 starwars |>
   drop_na(sex) |> 
-  ggplot(aes(fct_infreq(sex), fill = sex)) +
-  geom_bar() +
-  theme(
-    legend.position = "none"
-    ) 
+  ggplot(aes(sex)) +
+  geom_bar()
 ```
 
 ```{r bar, exercise=TRUE}
@@ -469,15 +472,12 @@ starwars |>
 
 drop_na()
 
-fct_infreq()
-
-theme()
 
 ```
 
 ### Exercício 2
 
-Modifique o gráfico da questão anterior, de modo que ele fique como na imagem a seguir:
+Modifique o gráfico do exercício anterior, de modo que ele fique como na imagem a seguir:
 
 ```{r}
 starwars |>
@@ -488,9 +488,11 @@ starwars |>
     x = "Sexo",
     y = "Contagem"
     ) +
+  theme_classic() +
   theme(
     legend.position = "none"
-    ) 
+    )
+  
 ```
 
 ```{r bar-2, exercise=TRUE}
@@ -499,12 +501,46 @@ starwars |>
 ```
 
 ```{r bar-2-hint}
+fct_infreq()
+
+fill =
+
 labs()
+
+theme_
+
 ```
 
 ### Exercício 3
 
-Reproduza o gráfico a seguir utilizando o banco de dados `starwars`:
+Reproduza o gráfico a seguir:
+
+```{r}
+starwars |> 
+  drop_na(sex,gender) |> 
+  ggplot(aes(gender, fill = sex)) +
+  geom_bar(
+    position = "fill"
+    )
+```
+
+```{r bar-stack, exercise=TRUE}
+
+
+```
+
+```{r bar-stack-hint}
+
+drop_na()
+
+fill = 
+
+position =
+```
+
+### Exercício 4
+
+Modifique o gráfico do exercício anterior, de modo que ele fique como na imagem a seguir:
 
 ```{r}
 starwars |> 
@@ -517,14 +553,21 @@ starwars |>
     x = "Gênero",
     y = "Contagem",
     fill = "Sexo"
-  )
+  ) +
+  theme_classic()
 ```
 
+```{r bar-stack-2, exercise=TRUE}
 
 
+```
 
+```{r bar-stack-2-hint}
+labs()
 
+theme_
 
+```
 
 
 
