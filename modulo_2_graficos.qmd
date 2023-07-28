@@ -34,6 +34,7 @@ library(palmerpenguins)
 library(scales)
 library(patchwork)
 library(gt)
+library(gapminder)
 ```
 
 ## Quem sou eu
@@ -1450,7 +1451,28 @@ ggplot(penguins,
   geom_point(aes(color = species,
                  shape = species)) +
   facet_wrap(~ island)
+
+
 ```
+
+## Series temporais
+
+-   `geom_line()`
+-   `geom_point()`
+
+```{r}
+gapminder |>
+  group_by(continent,year) |> 
+  summarise(
+    lifeExpm = mean(lifeExp)
+  ) |> 
+  ggplot(aes(year,lifeExpm,
+             color = continent)) +
+  geom_line() +
+  geom_point() + 
+  scale_color_colorblind()
+```
+
 
 ## Exercícios
 
