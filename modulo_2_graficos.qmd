@@ -379,8 +379,8 @@ view(penguins)
 
 ::: nonincremental
 1.  `species`: uma espécie de pinguim (Adelie, Chinstrap ou Gentoo)
-2.  `flipper_length_mm`:comprimento da nadadeira de um pinguim, em milímetros
-3.  `body_mass_g`:massa corporal de um pinguim, em gramas
+2.  `flipper_length_mm`: comprimento da nadadeira de um pinguim, em milímetros
+3.  `body_mass_g`: massa corporal de um pinguim, em gramas
 :::
 
 Para saber mais sobre o banco de dados:
@@ -441,7 +441,7 @@ ggplot(data = penguins)
 ```{r}
 #| fig-align: center
 #| out-width: 70%
-#| code-line-numbers: "|2"
+#| code-line-numbers: "|2|3|"
 #| fig-dpi: 600
 
 ggplot(data = penguins,
@@ -611,7 +611,7 @@ ggplot(data = penguins,
     )
 ```
 
-# Cores para daltônicos
+## Cores para daltônicos
 
 [ggthemes](https://cran.r-project.org/package=ggthemes)
 

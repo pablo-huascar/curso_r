@@ -13,6 +13,7 @@ editor_options:
 library(learnr)
 library(tidyverse)
 library(gradethis)
+library(gapminder)
 gradethis_setup()
 knitr::opts_chunk$set(echo = F)
 
@@ -390,7 +391,7 @@ replace(a,c(3,5),c(3,5))
 grade_code()
 ```
 
-### Exercícios 13
+### Exercício 13
 
 Extraía o nome das variáveis do banco de dados `mtcars` e salve num objeto chamado `colunas`. Em seguinda, imprima o objeto criado.
 
@@ -426,20 +427,25 @@ Neste bloco de exercícios você vai utilizar o pacote `ggplot2` para construir 
 
 -   Gráfico de barras
 -   Histogramas
+-   Diagrama de caixa (boxplot)
+-   Gráficos de dispersão (scatter plot)
 
-O banco de dados `starwars` vai ser empregado para este conjunto de atividades. `starwars` contém características de 87 personagens da franquia criada por George Lucas. Para saber mais sobre esses dados, utilize:
+Entre os exercícios 1 e 8, o banco de dados `starwars` vai ser empregado. `starwars` contém características de 87 personagens da franquia criada por George Lucas. Para saber mais sobre esses dados, utilize:
 
 ```{r eval=FALSE, echo=TRUE}
 ?starwars
 ```
 
-Para dar uma olhada nas variávies do bando de dados, você pode utilizar o comando a seguir:
+A partir do exercício 9, o banco de dados `gapminder` vai ser utilizado.
+`gapminder` contém informações sobre expectativa de vida, população e PIB per capita de 142 países entre os anos de 1952 e 2007.
+
+Para dar uma olhada nas variávies dos bancos de dados, você pode utilizar o comando a seguir:
 
 ```{r eval=FALSE, echo=TRUE}
 glimpse()
 ```
 
-Tente executar a função `glimpse()` no banco de dados `starwars`
+Tente executar a função `glimpse()` nos bancos de dados `starwars` e `gapminder`
 
 ```{r glimpse, exercise=TRUE}
 
@@ -471,8 +477,6 @@ starwars |>
 ```{r bar-hint}
 
 drop_na()
-
-
 ```
 
 ### Exercício 2
@@ -513,7 +517,7 @@ theme_
 
 ### Exercício 3
 
-Reproduza o gráfico a seguir:
+Refaça o gráfico a seguir:
 
 ```{r}
 starwars |> 
@@ -568,6 +572,165 @@ labs()
 theme_
 
 ```
+
+### Exercício 5
+
+Recrie o gráfico abaixo:
+
+```{r warning=FALSE}
+starwars |> 
+  ggplot(aes(height)) +
+  geom_histogram(bins = 18)
+
+```
+
+```{r histo, exercise=TRUE}
+
+```
+
+```{r histo-hint}
+bins = 18
+
+```
+
+### Exercício 6
+
+Transforme o gráfico anterior para que ele se pareça com a imagem abaixo:
+
+```{r warning=FALSE}
+starwars |> 
+  ggplot(aes(height)) +
+  geom_histogram(
+    bins = 18,
+    color = "black", 
+    fill = "gray"
+    ) +
+  labs(
+    x = "Altura (cm)",
+    y = NULL
+  ) + 
+  theme_light() 
+```
+
+```{r histo-2, exercise=TRUE}
+
+```
+
+```{r histo-2-hint}
+
+color =
+  
+fill = 
+
+labs()
+
+theme_
+
+```
+
+### Exercício 7
+
+Complete o código a seguir para construir o gráfico abaixo:
+
+```{r}
+starwars |>
+  drop_na(species, mass) |>  
+  mutate(
+    species = fct_lump_n(species, n = 3)
+  ) |> 
+  ggplot(aes(species, height)) +
+  geom_boxplot()
+```
+
+```{r box, exercise=TRUE}
+starwars |>
+  mutate(
+    species = fct_lump_n(species, n = 3)
+  )
+```
+
+```{r box-hint}
+
+drop_na()
+
+```
+
+### Exercício 8
+
+Modifique o código do gráfico anterior para que ele fique com essa aparência:
+
+```{r}
+starwars |> 
+  drop_na(species, height) |> 
+  mutate(
+    species = fct_lump_n(species, 3)
+  ) |> 
+  ggplot(aes(fct_reorder(species, height),height)) +
+  geom_boxplot() + 
+  geom_jitter(
+    color = "red",
+    alpha = 0.2
+    ) +
+  labs(
+    x = "Espécies",
+    y = "Altura"
+  ) +
+  theme_light()
+```
+
+```{r box-2, exercise=TRUE}
+
+```
+
+```{r box-2-hint}
+
+fct_reorder()
+
+geom_jitter()
+
+labs()
+
+theme_
+```
+
+### Exercício 9
+
+A partir deste exercício, você vai utilizar o banco de dados `gapminder`.
+
+Reproduza o gráfico a seguir:
+
+```{r}
+gapminder |> 
+  ggplot(aes(gdpPercap, lifeExp)) +
+  geom_point()
+```
+
+```{r scatter, exercise=TRUE}
+
+```
+
+### Exercício 10
+
+Modifique o código do exercício anterior para que o gráfico ganhe as características abaixo:
+
+```{r}
+gapminder |> 
+  ggplot(aes(log(gdpPercap), lifeExp)) +
+  geom_point(aes(color = continent)) +
+  labs(
+    x = "PIB per capita",
+    y = "Expectativa de vida",
+    color = "Continente",
+    title = "Relação entre expectativa de vida e PIB per capita"
+  )
+```
+
+
+
+
+
+
+
 
 
 
